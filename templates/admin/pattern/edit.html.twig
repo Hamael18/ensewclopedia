@@ -1,0 +1,16 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %}Modifier {{ pattern }}{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('bootstrap-select-css') }}
+{% endblock %}
+
+{% block content %}
+    <div class="row"><i class="fas fa-plus-circle fa-3x mr-3"></i><h1>Modifier le pattern : {{ pattern }}</h1></div>
+    {% include 'admin/pattern/_form.html.twig' with {'bouton_label': 'Modifier'} %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('bootstrap-select-js') }}
+{% endblock %}

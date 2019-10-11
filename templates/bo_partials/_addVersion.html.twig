@@ -1,0 +1,27 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %} Ajouter une version {% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('bootstrap-select-css') }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row"><i class="fas fa-plus-circle fa-3x mr-3"></i><h1>Ajouter une version</h1></div>
+    <div class="my-2"><small>Vous ajoutez une version au patron : {{ pattern }}</small></div>
+    <div class="my-3">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-outline-primary btn-lg">Ajouter</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('bootstrap-select-js') }}
+    {{ encore_entry_script_tags('upload') }}
+{% endblock %}

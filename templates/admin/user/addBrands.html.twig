@@ -1,0 +1,19 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('bootstrap-select-css') }}
+{% endblock %}
+
+{% block content %}
+    <h1>Ajouter des marques à cet utilisateur {{ user }}</h1>
+    {{ form_start(form)}}
+    {{ form_row(form.brands) }}
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary btn-lg">Valider {{ user }} en tant que propriétaire de ces marques</button>
+    </div>
+    {{ form_end(form)}}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('bootstrap-select-js') }}
+{% endblock %}

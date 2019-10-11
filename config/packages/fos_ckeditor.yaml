@@ -1,0 +1,19 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+fos_ck_editor:
+    input_sync: true
+    default_config: base_config
+    configs:
+        base_config:
+            toolbar:
+                - { name: "styles", items: ['Bold', 'Italic', 'BulletedList', 'Link'] }
+
+        # La liste des items est dispo sur : https://coveralls.io/builds/16854170/source?filename=src%2FModel%2FToolbarManager.php#L29
+        config_custom:
+            toolbar:
+                - { name: "styles", items: ['Bold', 'Italic', 'Strike', 'RemoveFormat']}
+                - { name: "paragraph", items: ['NumberedList', 'BulletedList', 'Outdent', 'Indent', 'Blockquote']}
+                - { name: "links", items: ['Link', 'Unlink']}

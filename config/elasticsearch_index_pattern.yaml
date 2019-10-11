@@ -1,0 +1,22 @@
+settings:
+  index:
+    # single node, no sharding
+    number_of_shards: 3
+    number_of_replicas: 1
+mappings:
+    dynamic: false # disable dynamic mapping
+    properties:
+      name: &fr_text
+        type: text
+        analyzer: french
+      description: *fr_text
+      brand: *fr_text
+      size: *fr_text
+      collar: *fr_text
+      style: *fr_text
+      language: *fr_text
+      fabric: *fr_text
+      handle: *fr_text
+      gender: *fr_text
+      length: *fr_text
+      level: *fr_text

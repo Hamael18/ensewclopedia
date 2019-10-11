@@ -1,0 +1,10 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %}Modifier la langue des patrons de couture {{ language }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row"><i class="fas fa-plus-circle fa-3x mr-3"></i><h1>Modifier la langue des patron de couture : {{ language }}</h1></div>
+        {% include 'admin/language/_form.html.twig' with {'bouton_label' : 'Modifier'} %}
+    </div>
+{% endblock %}

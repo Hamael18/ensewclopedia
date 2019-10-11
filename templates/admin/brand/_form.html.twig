@@ -1,0 +1,12 @@
+<div class="my-3">
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.url) }}
+    <div class="container teal lighten-4">
+        {{ form_row(form.imageFile) }}
+    </div>
+        <div class="d-flex justify-content-center">
+        <button type="submit" class="btn mb-5">{{ bouton_label }}</button>
+    </div>
+    {{ form_end(form) }}
+</div>

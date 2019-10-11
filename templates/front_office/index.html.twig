@@ -1,0 +1,69 @@
+{% extends 'fo_partials/base.html.twig' %}
+
+{% block title %}Acceuil enSewClopedia{% endblock %}
+
+{% block body %}
+    <form action="{{ path('search') }}" method="get">
+
+        <div class="container">
+            <div class="row my-lg-5">
+                <div class="col s12">
+                    <div class="row">
+                        <div class="form-group input-field col s10">
+                            <i class="material-icons prefix">search</i>
+                            <input type="text"
+                                   id="autocomplete-input"
+                                   name="q"
+                                   class="form-control search-field autocomplete"
+                                   placeholder="marque, patron, 'blouse manche courte col claudine'"
+                            >
+                        </div>
+                        <div class="form-group input-field">
+                            <button type="submit" name="search" class="btn-flat teal lighten-2">
+                                Rechercher
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="row my-lg-5">
+        <div class="container">
+            <div class="row app">
+                <h4 class="teal-text text-darken-4">Nouveautés</h4>
+            </div>
+            <div class="row hs full">
+                {% for pattern in lastPatterns %}
+                    <div class="col s12 m6">
+                        <div class="card medium">
+                            <div class="card-image responsive-img">
+                                <img src="https://placehold.it/320x320">
+                                <span class="card-title">{{ pattern.name }}</span>
+                                <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                            </div>
+                            <div class="card-content">
+                                <p>{{ pattern.description }}</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">This is a link</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row my-lg-5">
+        <div class="container">
+            <div class="row">
+                <h4 class="teal-text text-darken-4">Populaires</h4>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

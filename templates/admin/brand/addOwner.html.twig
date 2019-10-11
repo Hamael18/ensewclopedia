@@ -1,0 +1,14 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('bootstrap-select-css') }}
+{% endblock %}
+
+{% block content %}
+    <h1>Ajouter un propriétaire à la marque {{ brand }}</h1>
+    {{ form(form)}}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('bootstrap-select-js') }}
+{% endblock %}

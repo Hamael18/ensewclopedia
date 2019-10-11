@@ -1,0 +1,14 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        brand_image:
+            uri_prefix: /uploads/brand_images
+            upload_destination: '%kernel.project_dir%/public/uploads/brand_images'
+            delete_on_update: false
+            delete_on_remove: true
+        version_image:
+            uri_prefix: /uploads/version_images
+            upload_destination: '%kernel.project_dir%/public/uploads/version_images'
+            delete_on_update: false
+            delete_on_remove: true

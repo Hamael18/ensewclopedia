@@ -1,0 +1,136 @@
+{% set requete = app.request.pathInfo %}
+<div>
+    <a class="btn w-100" data-toggle="collapse" href="#brand" role="button" aria-expanded="false" aria-controls="brand">
+        <div class="row">
+            <div class="col-3">
+                <i class="fas fa-copyright fa-2x"></i>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-3">
+                Marques
+            </div>
+        </div>
+    </a>
+    <div class="collapse {% if requete starts with '/admin/brand' %}show{% endif %}" id="brand">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4git " href="{{ path('admin_brand') }}"><i class="fas fa-list"></i> Liste</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_brand_new') }}"><i class="fas fa-plus"></i>Ajouter</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div>
+    <a class="btn w-100" data-toggle="collapse" href="#pattern" role="button" aria-expanded="false" aria-controls="pattern">
+        <div class="row">
+            <div class="col-3">
+                <i class="fab fa-patreon fa-2x"></i>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-3">
+                Patrons
+            </div>
+        </div>
+    </a>
+    <div class="collapse {% if requete starts with '/admin/pattern' %}show{% endif %}" id="pattern">
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_pattern') }}"><i class="fas fa-list"></i>Liste</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_pattern_new') }}"><i class="fas fa-plus"></i>Ajouter</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_language') }}"><i class="fas fa-language"></i> Langues</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_gender') }}"><i class="fas fa-venus-mars"></i> Genres</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div>
+    <a class="btn w-100" data-toggle="collapse" href="#version" role="button" aria-expanded="false" aria-controls="version">
+        <div class="row">
+            <div class="col-3">
+                <i class="fas fa-layer-group fa-2x"></i>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-3">
+                Versions
+            </div>
+        </div>
+    </a>
+    <div class="collapse {% if requete starts with '/admin/version' %}show{% endif %}" id="version">
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_level') }}"><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> Difficultés</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_length') }}"><i class="fas fa-ruler-combined"></i> Longueurs</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_size') }}"><i class="fas fa-ruler"></i> Tailles</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_handle') }}"><i class="fas fa-user-tie"></i> Manches</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_collar') }}"><i class="fas fa-tshirt"></i> Cols</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_fabric') }}"><i class="fas fa-toilet-paper"></i> Tissus</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_style') }}"><i class="fas fa-remove-format"></i> Styles</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div>
+    <a class="btn w-100" data-toggle="collapse" href="#user" role="button" aria-expanded="false" aria-controls="user">
+        <div class="row">
+            <div class="col-3">
+                <i class="fas fa-user fa-2x"></i>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-3">
+                Utilisateurs
+            </div>
+        </div>
+    </a>
+    <div class="collapse {% if requete starts with '/admin/user' or requete starts with '/admin/role' %}show{% endif %}" id="user">
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_user') }}"><i class="fas fa-list"></i> Liste</a>
+            </li>
+        </ul>
+        <ul class="nav flex-column bg-light">
+            <li class="nav-item">
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('admin_role') }}"><i class="fas fa-user-shield"></i>Rôles</a>
+            </li>
+        </ul>
+    </div>
+</div>

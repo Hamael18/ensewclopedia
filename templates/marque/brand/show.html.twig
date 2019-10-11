@@ -1,0 +1,24 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %}Page de la marque de couture {{ brand }}{% endblock %}
+
+{% block content %}
+    <div class="container-fluid my-2">
+        <div class="row"><i class="fas fa-eye fa-3x mr-3"></i><h1>Votre marque : {{ brand }}</h1></div>
+        <hr>
+        <div class="card text-center mx-2 p-0">
+            <div class="card-header">
+                <img id="img-brand" src="/uploads/brand_images/{{ brand.image }}" alt="{{ brand }}-image" class="img-fluid" />
+            </div>
+            <div class="card-header">
+                <form action="{{ path('ajax_snippet_image_send', {'id': brand.id })}}" class="dropzone">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="row my-3"><i class="fab fa-patreon fa-2x mr-3"></i><h2>Patrons de couture</h2></div>
+    </div>
+{% endblock %}

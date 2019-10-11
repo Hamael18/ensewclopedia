@@ -1,0 +1,10 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %}Ajouter un type de manches{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row"><i class="fas fa-plus-circle fa-3x mr-3"></i><h1>Ajouter un type de manches</h1></div>
+        {% include 'admin/handle/_form.html.twig' with {'bouton_label' : 'Ajouter'} %}
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block content %}
+
+    <h1>Version {{ version.name }} du patron {{ version.pattern.name }}</h1>
+    <img class="img-thumbnail" src="/uploads/version_images/{{ version.image }}" alt="patron de couture {{ version.pattern.name }}, version {{ version }}">
+    <h2>Niveau du patron:    {{ version.level }}</h2>
+    <h2>Tailles du patron :</h2>
+    {% for size in version.sizes %}
+        {{ size }}
+    {% endfor %}
+
+    <h2>Option de cols disponibles :</h2>
+        {% for collar in version.collars %}
+            {{ collar}}
+        {% endfor %}
+    <h2>Option de longueurs disponibles :</h2>
+        {% for length in version.lengths %}
+            {{ length }}
+        {% endfor %}
+    {% if version.handles | length > 0 %}
+        <h2>Option de manches disponibles :</h2>
+            {% for handle in version.handles %}
+                {{ handle }}
+            {% endfor %}
+    {% endif %}
+
+    <h2>Tissus recommandés pour ce patron :</h2>
+    {% for fabric in version.fabrics %}
+        {{ fabric }} {% if fabric.extensible == 0 %} (stretch){% endif %}
+    {% endfor %}
+
+    <h2>Style pour cette version :</h2>
+    {% for style in version.styles %}
+        {{ style }}
+    {% endfor %}
+
+    {{ dump(version) }}
+
+{% endblock %}

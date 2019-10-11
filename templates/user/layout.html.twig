@@ -1,0 +1,17 @@
+{% extends 'user/base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row my-3 mx-1">
+            <div class="col-md-2">
+{#                {% include 'marque/partials/_sidebar.html.twig' %}#}
+                {% block actions %}{% endblock actions %}
+            </div>
+            <div class="col-md-10">
+                {% block filters %}{% endblock %}
+                {% block content %}{% endblock %}
+                {% block sub_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %}Liste des tailles{% endblock %}
+
+{% block content %}
+    <div class="row"><i class="fas fa-list-alt fa-3x mr-3"></i><h1>Liste des tailles</h1></div>
+    <div class="my-3">
+        <table class="table table-hover table-striped">
+            <thead class="thead-dark h5">
+            <tr>
+                <th class="align-middle col-1">
+                    <a href="{{ path('admin_size_new') }}" class="btn btn-success"><i class="fas fa-plus"></i></a>
+                </th>
+                <th class="align-middle">Nom</th>
+                <th class="align-middle">Version(s) - min</th>
+                <th class="col-2 align-middle"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for size in pagination.data %}
+                <tr>
+                    <td class="align-middle"></td>
+                    <td class="align-middle font-weight-bold h5">{{ size }}</td>
+                    <td class="align-middle">{{ size.versions | length }}</td>
+                    <td class="align-middle">
+                        <a href="{{ path('admin_size_edit', {'id': size.id}) }}" class="btn btn-outline-primary"><i class="fas fa-wrench"></i></a>
+                        {% if size.canBeDeleted %}
+                            <a href="{{ path('admin_size_delete', {'id': size.id }) }}"
+                               onclick="return confirm('Supprimer cette taille ?')"
+                               class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {{ pagination.display }}
+    </div>
+{% endblock %}

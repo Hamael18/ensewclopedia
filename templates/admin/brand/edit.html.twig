@@ -1,0 +1,14 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %}Modifier la marque de patron de couture {{ brand }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row"><i class="fas fa-plus-circle fa-3x mr-3"></i><h1>Modifier la marque de patron de couture : {{ brand }}</h1></div>
+        {% include 'admin/brand/_form.html.twig' with {'bouton_label' : 'Modifier'} %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('upload') }}
+{% endblock %}

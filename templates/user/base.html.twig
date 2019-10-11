@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+        {{ encore_entry_link_tags('materia') }}
+        {{ encore_entry_link_tags('materialize') }}
+        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
+        {{ encore_entry_link_tags('app') }}
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% include 'user/partials/_navbar.html.twig' %}
+        {% block body %}{% endblock %}
+
+        {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('popper') }}
+        {{ encore_entry_script_tags('bootstrap') }}
+        {{ encore_entry_script_tags('materializeJs') }}
+        <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'bo_partials/base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row my-3 mx-1">
+            <div class="col-md-2">
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                    {% include 'admin/partials/_sidebar.html.twig' %}
+                {% else %}
+                    {% include 'marque/partials/_sidebar.html.twig' %}
+                {% endif %}
+                {% block actions %}{% endblock actions %}
+            </div>
+            <div class="col-md-10">
+                {% block filters %}{% endblock %}
+                {% block content %}{% endblock %}
+                {% block sub_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

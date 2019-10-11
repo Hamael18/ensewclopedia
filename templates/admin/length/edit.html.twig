@@ -1,0 +1,10 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %}Modifier le type de longueur {{ length }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row"><i class="fas fa-plus-circle fa-3x mr-3"></i><h1>Modifier le type de longueur : {{ length }}</h1></div>
+        {% include 'admin/length/_form.html.twig' with {'bouton_label' : 'Modifier'} %}
+    </div>
+{% endblock %}

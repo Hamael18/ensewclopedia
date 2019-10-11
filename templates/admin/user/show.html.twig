@@ -1,0 +1,11 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{%  block content %}
+
+    <h1>Liste des marques administrées par {{ user }}</h1>
+    {% for brand in user.brands %}
+    <div class="container">
+        {{ brand.name }}
+    </div>
+    {% endfor %}
+{% endblock %}

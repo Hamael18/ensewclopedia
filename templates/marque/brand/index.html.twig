@@ -1,0 +1,29 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %}Liste de vos marques{% endblock %}
+
+{% block content %}
+    <div class="row"><i class="fas fa-list-alt fa-3x mr-3"></i><h1>Vos marques de couture</h1></div>
+    {% for brand in pagination.data %}
+        <div class="row p-3 text-center text-light bg-primary h4">{{ brand }}</div>
+        <div class="row my-2 mx-auto">
+            <div class="card text-center mx-2 p-0 col-4">
+                <div class="card-header bg-dark"></div>
+                <div class="card-body">
+                    <span class="card-text"><strong>Lien</strong> : <a href="{{ brand.url }}" target="_blank">Votre site</a></span>
+                    <div class="dropdown-divider"></div>
+                    <span class="card-text"><strong>Nombre de patrons</strong> : {{ brand.patterns | length }}</span>
+                    <a href="{{ path('marque_brand_homepage', {'slug' : brand.slug }) }}" class="btn btn-outline-dark btn-block mt-2">Voir</a>
+                    <div class="dropdown-divider"></div>
+                    <span class="card-text">{{ brand.description | raw }}</span>
+                </div>
+            </div>
+            <div class="card text-center mx-2 p-0 col-7">
+                <div class="card-header">
+                    <img src="/uploads/brand_images/{{ brand.image }}" alt="{{ brand }}-image" class="img-fluid" />
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {{ pagination.display }}
+{% endblock %}

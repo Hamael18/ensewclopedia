@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+        {{ encore_entry_link_tags('materia') }}
+        {{ encore_entry_link_tags('materialize') }}
+        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
+        {{ encore_entry_link_tags('app') }}
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+
+
+    <ul id="menuMarques" class="dropdown-content">
+        {{ render(controller(
+            'App\\Controller\\MenuController::brandsList'))}}
+    </ul>
+
+    <nav>
+        <div class="nav-wrapper  teal lighten-2">
+            <a href="#" class="brand-logo center black-text text-darken-4">Logo</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="#" class="black-text">Explorer</a></li>
+                <li><a href="#" class="black-text">Patronthèque</a></li>
+                <li><a href="#"
+                       class="dropdown-trigger black-text"
+                       data-target="menuMarques"
+                    >
+                        Marques<i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>{{ include('bo_partials/_field_global_search.html.twig') }}</li>
+                <li>{% if app.user %}
+                        <a href="#"><i class="fas fa-user fa-2x"></i> Mon compte</a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}"><i class="fas fa-user fa-2x"></i> Connexion</a>
+                    {% endif %}</li>
+            </ul>
+        </div>
+    </nav>
+
+    {% for label,messages in app.flashes %}
+        <div class="container" id="flashes">
+            <div class="alert alert-{{ label }} mt-3">
+                {%  for message in messages %}
+                    <p> {{ message }}</p>
+                {%  endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    {% block body %}{% endblock %}
+
+
+    {{ encore_entry_script_tags('popper') }}
+    {{ encore_entry_script_tags('bootstrap') }}
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
+    {{ encore_entry_script_tags('materializeJs') }}
+    <script>
+        var dropdowns = document.querySelectorAll('.dropdown-trigger');
+        var dropdownOptions = {
+            'constrainWidth' : false,
+            'coverTrigger' : false,
+            'closeOnClick': true,
+            'hover':true,
+
+        };
+        for (var i = 0; i < dropdowns.length; i++){
+            M.Dropdown.init(dropdowns[i], dropdownOptions);
+        }</script>
+    {{ encore_entry_script_tags('app') }}
+    {% block javascripts %}{% endblock %}
+    </body>
+</html>

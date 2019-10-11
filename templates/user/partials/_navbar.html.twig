@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg cyan lighten-4 cyan-text">
+    <a class="navbar-brand" href="{{ path('marque_dashboard') }}">
+        <i class="fas fa-shield-alt text-success fa-2x"></i>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse mx-auto" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link h4" href="#" target="_blank">Aller sur le site</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mr-5">
+        <div class="row">
+            <div>
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}"><i class="fas text-danger fa-sign-out-alt fa-2x"></i></a>
+                {% else %}
+                    <a href="#"><i class="fas fa-sign-in-alt fa-2x"></i></a>
+                {% endif %}
+            </div>
+            <div class="ml-5 text-white h2">Dashboard <small> - connecté en tant que {{ app.user }}</small></div>
+        </div>
+    </div>
+</nav>
+
+{% for label,messages in app.flashes %}
+    <div class="container" id="flashes">
+        <div class="alert alert-{{ label }} mt-3">
+            {%  for message in messages %}
+                <p> {{ message }}</p>
+            {%  endfor %}
+        </div>
+    </div>
+{% endfor %}

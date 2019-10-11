@@ -1,0 +1,83 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %}Liste des patrons de couture{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('bootstrap-select-css') }}
+{% endblock %}
+
+{% block content %}
+    <div class="row"><i class="fas fa-list-alt fa-3x mr-3"></i><h1>Liste des patrons de couture</h1></div>
+
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-3">{{ form_row(form.brand) }}</div>
+        <button type="submit" class="btn btn-outline-primary">Rechercher</button>
+        <a href="{{path('marque_pattern')}}" class="btn btn-outline-primary">Tous les patrons</a>
+    </div>
+    {{ form_end(form) }}
+
+    <div class="row my-3 ml-5">
+        {% for pattern in pagination.data %}
+            <div class="card col-lg-3 m-2 p-0">
+                <div class="card-header bg-dark text-center">
+                    <span class="card-title h5 text-light">{{ pattern }}</span>
+                </div>
+                <div class="card-body text-center">
+                    <span class="card-text"><strong>Marque</strong> : {{ pattern.brand }}</span>
+                    <div class="dropdown-divider"></div>
+                    <span class="card-text"><strong>Prix</strong> : {{ pattern.price }} <i class="fas fa-euro-sign"></i></span><br />
+                    <div class="dropdown-divider"></div>
+                    <span class="card-text"><strong>Lien</strong> :
+                        {% if pattern.lien %}<a href="{{ pattern.lien }}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                        {% else %}<i class="fas fa-unlink"></i>
+                        {% endif %}
+                    </span>
+
+                    <p>
+                    <div class="row mx-1">
+                        {% if pattern.versions | length > 0 %}
+                            <a class="btn btn-primary col-9" data-toggle="collapse" href="#collapse-{{ pattern.id }}" role="button" aria-expanded="false" aria-controls="collapse-{{ pattern.id }}">
+                                Versions : {{ pattern.versions | length }}
+                            </a>
+                            <a href="{{ path('marque_pattern_addVersion', {'id': pattern.id }) }}" title="Ajouter une version au patron {{ pattern }}"
+                               class="btn btn-dark offset-1 col-2"><i class="fas fa-plus"></i></a>
+                        {% else %}
+                            <a class="btn btn-primary col-9" data-toggle="collapse">
+                                Versions : {{ pattern.versions | length }}
+                            </a>
+                            <a href="{{ path('marque_pattern_addVersion', {'id': pattern.id }) }}" title="Ajouter une version au patron {{ pattern }}"
+                               class="btn btn-dark offset-1 col-2"><i class="fas fa-plus"></i></a>
+                        {% endif %}
+                    </div>
+                    </p>
+                    <div class="collapse" id="collapse-{{ pattern.id }}">
+                        <div class="card card-body">
+                            <ul class="list-group">
+                                {% for version in pattern.versions %}
+                                    <li class="list-group-item">
+                                        <a href="{{ path('marque_version_show', {'id': version.id }) }}">{{ version }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row my-2 card-body justify-content-around">
+                        <a href="{{ path('marque_pattern_edit', {'id': pattern.id}) }}" class="btn btn-light col-3" title="Editer le patron {{ pattern }}">
+                            <i class="fas fa-wrench"></i></a>
+                        {% if pattern.canBeDeleted %}
+                            <a href="{{ path('marque_pattern_delete', {'id': pattern.id }) }}"
+                               onclick="return confirm('Supprimer ce pattern ?')" title="Supprimer le patron {{ pattern }}"
+                               class="btn btn-light col-3"><i class="fa fa-trash"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {{ pagination.display }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('bootstrap-select-js') }}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %}Modifier le rôle de l'utilisateur {{ user }}{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('bootstrap-select-css') }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row"><i class="fas fa-plus-circle fa-3x mr-3"></i><h3>Modifier le rôle de l'utilisateur {{ user }}</h3></div>
+        <div class="my-3">
+            {{ form_start(form) }}
+            {{ form_row(form.roles) }}
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary btn-lg">Modifier le rôle</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('bootstrap-select-js') }}
+{% endblock %}
