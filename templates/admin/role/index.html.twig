@@ -3,14 +3,13 @@
 {% block title %}Liste des rôles{% endblock %}
 
 {% block content %}
-    <div class="row"><i class="fas fa-list-alt fa-3x mr-3"></i><h1>Liste des rôles</h1></div>
-
+    <div class="row teal-text darken-4 mb-5"><h3>Liste des rôles</h3></div>
     <div class="my-3">
         <table class="table table-hover table-striped">
-            <thead class="thead-dark h5">
+            <thead class="teal lighten-4 h5">
             <tr>
                 <th class="align-middle col-1">
-                    <a href="{{ path('admin_role_add') }}" class="btn btn-success"><i class="fas fa-plus"></i></a>
+                    <a href="{{ path('admin_role_add') }}" class="btn waves-effect waves-light"><i class="fas fa-plus"></i></a>
                 </th>
                 <th class="align-middle">Rôle</th>
                 <th class="col-4 align-middle"></th>
@@ -22,10 +21,10 @@
                     <td class="align-middle"></td>
                     <td class="align-middle">{{ role }}</td>
                     <td class="align-middle">
-                        <a href="{{ path('admin_role_edit', {'id': role.id}) }}" class="btn btn-outline-primary"><i class="fas fa-wrench"></i></a>
+                        <a href="{{ path('admin_role_edit', {'id': role.id}) }}" class="btn teal lighten-4 teal-text text-darken-2"><i class="fas fa-wrench"></i></a>
                         <a href="{{ path('admin_role_delete', {'id': role.id }) }}"
                            onclick="return confirm('Supprimer ce rôle ?')"
-                           class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+                           class="btn btn-flat grey-text text-lighten-1"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             {% endfor %}

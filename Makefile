@@ -56,6 +56,11 @@ migrate:
 	php bin/console d:m:m
 	php bin/console d:f:l
 
+## Lance les fixtures
+## DANS LA CONSOLE DOCKER
+fixtures:
+	php bin/console d:f:l
+
 ## Lance les tests
 ## DANS LA CONSOLE DOCKER
 test:
