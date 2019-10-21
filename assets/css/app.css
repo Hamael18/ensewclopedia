@@ -1,7 +1,9 @@
 /*.vich-image a {*/
 /*    display: none;*/
 /*}*/
-
+body {
+    background: #F3F6F6;
+}
 .vich-image .form-check {
     display: none;
 }

@@ -21,10 +21,10 @@
     </ul>
 
     <ul id="monCompte" class="dropdown-content">
-        <li>Mon compte</li>
-        <li>Ma patronthèque</li>
-        <li>Ma whishlist</li>
-        <li><i class="fas fa-times"></i></i> Se déconnecter</li>
+        <li><a href="#" class="right "> Mon compte </a></li>
+        <li><a href="#" class="right ">Ma patronthèque</a></li>
+        <li><a href="#" class="right ">Ma whishlist</a></li>
+        <li><a href="{{ path('app_logout') }}" class="right "><i class="fas fa-times"></i></i> Se déconnecter</a></li>
     </ul>
 
     <nav>
@@ -45,9 +45,9 @@
                            class="dropdown-trigger white-text"
                            data-target="monCompte"
                         >
-                            <i class="fas fa-user fa-2x"></i></a>
+                            <i class="fas fa-user fa-2x px-3"></i></a>
                     {% else %}
-                        <a href="{{ path('app_login') }}">Connexion <i class="fas fa-user fa-2x"></i></a>
+                        <a href="{{ path('app_login') }}" class="white-text">Connexion<i class="fas fa-user fa-2x px-3"></i></a>
                     {% endif %}</li>
             </ul>
         </div>
