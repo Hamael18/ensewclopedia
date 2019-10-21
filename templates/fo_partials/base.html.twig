@@ -5,6 +5,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Pacifico&display=swap" rel="stylesheet">
         {{ encore_entry_link_tags('materia') }}
         {{ encore_entry_link_tags('materialize') }}
         <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
@@ -19,24 +20,34 @@
             'App\\Controller\\MenuController::brandsList'))}}
     </ul>
 
+    <ul id="monCompte" class="dropdown-content">
+        <li>Mon compte</li>
+        <li>Ma patronthèque</li>
+        <li>Ma whishlist</li>
+        <li><i class="fas fa-times"></i></i> Se déconnecter</li>
+    </ul>
+
     <nav>
-        <div class="nav-wrapper  teal lighten-2">
-            <a href="#" class="brand-logo center black-text text-darken-4">Logo</a>
+        <div class="nav-wrapper  teal darken-2">
+            <a href="#" class="brand-logo center white-text">enSeWclopedia</a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="#" class="black-text">Explorer</a></li>
-                <li><a href="#" class="black-text">Patronthèque</a></li>
+                <li><a href="#" class="white-text">Explorer</a></li>
+                <li><a href="#" class="white-text">Rechercher</a></li>
                 <li><a href="#"
-                       class="dropdown-trigger black-text"
+                       class="dropdown-trigger white-text"
                        data-target="menuMarques"
                     >
                         Marques<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li>{{ include('bo_partials/_field_global_search.html.twig') }}</li>
                 <li>{% if app.user %}
-                        <a href="#"><i class="fas fa-user fa-2x"></i> Mon compte</a>
+                        <a href="#"
+                           class="dropdown-trigger white-text"
+                           data-target="monCompte"
+                        >
+                            <i class="fas fa-user fa-2x"></i></a>
                     {% else %}
-                        <a href="{{ path('app_login') }}"><i class="fas fa-user fa-2x"></i> Connexion</a>
+                        <a href="{{ path('app_login') }}">Connexion <i class="fas fa-user fa-2x"></i></a>
                     {% endif %}</li>
             </ul>
         </div>
