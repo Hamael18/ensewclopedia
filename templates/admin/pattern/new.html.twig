@@ -7,10 +7,13 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row"><i class="fas fa-plus-circle fa-3x mr-3"></i><h1>Créer un pattern</h1></div>
-    {% include 'admin/pattern/_form.html.twig' with {'bouton_label': 'Créer'} %}
+    <div class="row teal-text darken-4 mb-5"><h3>Ajouter un patron de couture</h3></div>
+    <div class="container teal lighten-5">
+        {% include 'admin/pattern/_form.html.twig' with {'bouton_label': 'Créer'} %}
+    </div>
 {% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('bootstrap-select-js') }}
+    {{ encore_entry_script_tags('upload') }}
 {% endblock %}

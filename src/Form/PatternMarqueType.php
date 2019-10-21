@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class PatternMarqueType extends AbstractType
 {
@@ -79,6 +80,11 @@ class PatternMarqueType extends AbstractType
                     'multiple' => true,
                     'data-none-selected-text' => 'Choisir un ou plusieurs genre(s)'
                 ]
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'required'=>false,
+                'label' => false,
+                'attr' => ['placeholder' => 'Sélectionnez une image']
             ])
         ;
     }
