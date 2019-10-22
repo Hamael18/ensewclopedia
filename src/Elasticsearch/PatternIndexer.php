@@ -35,6 +35,7 @@ class PatternIndexer
         return new Document(
             $pattern->getId(), // Manually defined ID
             [
+                'entity' => 'pattern',
                 'name' => $pattern->getName(),
                 'description' => $pattern->getDescription(),
                 'brand'=> $brand,

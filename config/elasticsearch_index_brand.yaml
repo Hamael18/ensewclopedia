@@ -10,4 +10,5 @@ mappings:
       type: text
       analyzer: french
     description: *fr_text
-    pattern: *fr_text
+    patterns:
+      type: text
