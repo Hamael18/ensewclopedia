@@ -12,3 +12,8 @@ vich_uploader:
             upload_destination: '%kernel.project_dir%/public/uploads/version_images'
             delete_on_update: false
             delete_on_remove: true
+        pattern_image:
+            uri_prefix: /uploads/pattern_images
+            upload_destination: '%kernel.project_dir%/public/uploads/pattern_images'
+            delete_on_update: false
+            delete_on_remove: true

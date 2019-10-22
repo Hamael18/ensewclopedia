@@ -32,32 +32,6 @@ class AdminVersionController extends BaseAdminController
     }
 
     /**
-     * @Route("/admin/version/new", name="admin_version_new")
-     *
-     * @param Request $request
-     *
-     * @return RedirectResponse|Response
-     */
-    public function newVersion(Request $request)
-    {
-        $version = new Version();
-        $form = $this->createForm(VersionType::class, $version);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->manager->persist($version);
-            $this->manager->flush();
-            $this->addFlash('success', 'Version ajoutée avec succès !');
-
-            return $this->redirectToRoute('admin_version');
-        }
-
-        return $this->render('admin/version/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/admin/version/show/{id}", name="admin_version_show")
      *
      * @param Version $version

@@ -7,18 +7,18 @@
 {% endblock %}
 
 {% block content %}
-
-    <div class="row"><i class="fas fa-plus-circle fa-3x mr-3"></i><h1>Ajouter une version</h1></div>
-    <div class="my-2"><small>Vous ajoutez une version au patron : {{ pattern }}</small></div>
-    <div class="my-3">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-outline-primary btn-lg">Ajouter</button>
+    <div class="row teal-text darken-4"><h3>Ajouter une version de patron</h3></div>
+    {% if pattern %}<small>Le patron sélectionné est : {{ pattern }}</small>{% endif %}
+    <div class="container teal lighten-5">
+        <div class="my-3">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn mb-5">Ajouter une version</button>
+            </div>
+            {{ form_end(form) }}
         </div>
-        {{ form_end(form) }}
     </div>
-
 {% endblock %}
 
 {% block javascripts %}

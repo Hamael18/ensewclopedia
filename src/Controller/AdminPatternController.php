@@ -137,7 +137,7 @@ class AdminPatternController extends BaseAdminController
     }
 
     /**
-     * @Route("/admin/pattern/show/{id}", name="admin_pattern_show")
+     * @Route("/admin/pattern/show/{slug}", name="admin_pattern_show")
      *
      * @param Pattern $pattern
      *

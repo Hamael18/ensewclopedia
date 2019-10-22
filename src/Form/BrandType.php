@@ -26,7 +26,9 @@ class BrandType extends AbstractType
             ->add('imageFile', VichImageType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Logo de la marque'],
+                'attr' => ['placeholder' => 'Logo de la marque', 'class' => 'img-fluid'],
+                'download_label' => false,
+                'image_uri' => true,
             ])
         ;
     }

@@ -3,20 +3,20 @@
 {% block title %}Liste des utilisateurs{% endblock %}
 
 {% block content %}
-    <div class="row"><i class="fas fa-list-alt fa-3x mr-3"></i><h1>Liste des utilisateurs</h1></div>
+    <div class="row teal-text darken-4 mb-5"><h3>Liste des utilisateurs</h3></div>
 
     {{ form_start(form) }}
     <div class="row">
         <div class="col-3">{{ form_row(form.roles) }}</div>
         <div class="col-3">{{ form_row(form.email) }}</div>
-        <button type="submit" class="btn btn-outline-primary">Rechercher</button>
-        <a href="{{path('admin_user')}}" class="btn btn-outline-primary">Tous les utilisateurs</a>
+        <button type="submit" class="btn waves-effect waves-light">Rechercher</button>
+        <a href="{{path('admin_user')}}" class="btn waves-effect waves-light">Tous les utilisateurs</a>
     </div>
     {{ form_end(form) }}
 
     <div class="my-3">
         <table class="table table-hover table-striped">
-            <thead class="thead-dark h5">
+            <thead class="teal lighten-4 h5">
             <tr>
                 <th class="align-middle">Email</th>
                 <th class="align-middle">Marque(s)</th>
@@ -38,12 +38,12 @@
                     </td>
                     <td class="align-middle">
                         <a href="{{ path('admin_user_addBrands', {'id': user.id}) }}"
-                           class="btn btn-dark"><i class="fas fa-copyright"></i></a>
+                           class="btn teal lighten-4 teal-text text-darken-2"><i class="fas fa-copyright"></i></a>
                         <a href="{{ path('admin_user_editRole', {'id': user.id}) }}"
-                           class="btn btn-secondary"><i class="fa fa-edit"></i></a>
+                           class="btn teal lighten-4 teal-text text-darken-2"><i class="fa fa-edit"></i></a>
                         <a href="{{ path('admin_size_delete', {'id': user.id }) }}"
                            onclick="return confirm('Supprimer cet utilisateur ?')"
-                           class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+                           class="btn btn-flat grey-text text-lighten-1"><i class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             {% endfor %}

@@ -232,12 +232,14 @@ class AppFixtures extends Fixture
             $nbPatrons = $faker->randomElement([2, 3, 5]);
             for ($pa = 1; $pa <= $nbPatrons; ++$pa) {
                 $patron = new Pattern();
+                $image_pattern = $faker->image('/var/www/html/public/uploads/pattern_images', 1000, 400, 'nightlife', false);
                 $patron->setName($faker->company.' '.$faker->numberBetween(2000, 8000))
                     ->setDescription($faker->text(150))
                     ->setPrice($faker->randomFloat(2, 10, 50))
                     ->setLien($faker->url)
                     ->setCreatedAt($faker->dateTimeBetween('-6months', 'now'))
-                    ->setBrand($marque);
+                    ->setBrand($marque)
+                    ->setImage($image_pattern);
 
                 // Ajout d'un nombre aléatoire de genres (max : nombre de genres dans $genres)
                 $nbGenres = count($genres);
