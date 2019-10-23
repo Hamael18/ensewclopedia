@@ -1,6 +1,13 @@
 <div class="my-3 text-dark">
     {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.price) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.lien) }}
+    {{ form_row(form.brand) }}
+    {{ form_row(form.languages) }}
+    {{ form_row(form.genres) }}
+    {{ form_row(form.imageFile) }}
     <div class="d-flex justify-content-center">
         <button type="submit" class="btn mb-5">{{ bouton_label }}</button>
     </div>

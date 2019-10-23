@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Fabric;
+use App\Entity\Type;
+use App\Repository\TypeRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -27,6 +30,22 @@ class FabricType extends AbstractType
                     'data-on' => 'Oui',
                     'data-off' => 'Non',
                     'data-width' => "100"
+                ]
+            ])
+            ->add('types', EntityType::class, [
+                'label' => false,
+                'class' => Type::class,
+                'query_builder' => function (TypeRepository $repo) {
+                    return $repo->createQueryBuilder('t')
+                        ->andWhere('t.bool_fabric = 1')
+                        ;
+                },
+                'required' => false,
+                'multiple' => true,
+                'attr' => [
+                    'class' => 'selectpicker',
+                    'data-none-selected-text' => 'Associer un ou plusieurs types',
+                    'multiple' => true,
                 ]
             ])
         ;

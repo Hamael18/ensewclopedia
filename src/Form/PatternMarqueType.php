@@ -34,7 +34,10 @@ class PatternMarqueType extends AbstractType
                 'attr' => ['placeholder' => 'Nom du patron']
             ])
             ->add('price', MoneyType::class, [
-                'label' => false
+                'label' => false,
+                'attr' => ['placeholder' => 'Prix (€)'],
+                'currency' => false,
+                'invalid_message' => "Le prix doit être un nombre !",
             ])
             ->add('description', CKEditorType::class, [
                 'label' => false,

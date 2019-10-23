@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Pattern;
 use App\Entity\Version;
 use App\Form\PatternType;
+use App\Form\TypeVersionType;
 use App\Form\VersionType;
 use App\Service\Pagination;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -107,17 +108,17 @@ class AdminPatternController extends BaseAdminController
     }
 
     /**
-     * @Route("/admin/pattern/add_version/{id}", name="admin_pattern_addVersion")
+     * @Route("/admin/pattern/add_type_version/{id}", name="admin_pattern_addVersion")
      *
      * @param Request $request
      * @param Pattern $pattern
      *
      * @return RedirectResponse|Response
      */
-    public function addVersionToPattern(Request $request, Pattern $pattern)
+    public function addType(Request $request, Pattern $pattern)
     {
         $version = new Version();
-        $form = $this->createForm(VersionType::class, $version);
+        $form = $this->createForm(TypeVersionType::class, $version);
         $form->remove('pattern');
         $version->setPattern($pattern);
         $form->handleRequest($request);
@@ -125,14 +126,42 @@ class AdminPatternController extends BaseAdminController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->manager->persist($version);
             $this->manager->flush();
-            $this->addFlash('success', 'Version ajoutée avec succès !');
+            $this->addFlash('success', "Version créée avec succès !");
+            return $this->redirectToRoute('admin_pattern_addVersion_attributs', [
+                'id' => $version->getId(),
+            ]);
+        }
 
-            return $this->redirectToRoute('admin_version');
+        return $this->render('bo_partials/_addTypeVersion.html.twig', [
+            'form' => $form->createView(),
+            'pattern' => $pattern,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/pattern/add_attributs_version/{id}", name="admin_pattern_addVersion_attributs")
+     *
+     * @param Request $request
+     * @param Version $version
+     *
+     * @return RedirectResponse|Response
+     */
+    public function addVersionToPattern(Request $request, Version $version)
+    {
+        $form = $this->createForm(VersionType::class, $version);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->manager->persist($version);
+            $this->manager->flush();
+            $this->addFlash('success', 'Version complétée avec succès !');
+
+            return $this->redirectToRoute('admin_pattern');
         }
 
         return $this->render('bo_partials/_addVersion.html.twig', [
             'form' => $form->createView(),
-            'pattern' => $pattern,
+            'version' => $version,
         ]);
     }
 
