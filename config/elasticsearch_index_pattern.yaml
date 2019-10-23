@@ -3,20 +3,34 @@ settings:
     # single node, no sharding
     number_of_shards: 3
     number_of_replicas: 1
+  analysis:
+    analyzer:
+      my_analyzer:
+        type: custom
+        tokenizer: standard
+        filter:
+          - lowercase
+          - asciifolding
+          - my_stemmer
+    filter:
+      my_stemmer:
+        type: stemmer
+        name: light_french
 mappings:
     dynamic: false # disable dynamic mapping
     properties:
       name: &fr_text
         type: text
         analyzer: french
+        boost: 2
       description: *fr_text
       brand: *fr_text
-      size: *fr_text
-      collar: *fr_text
-      style: *fr_text
-      language: *fr_text
+      sizes: *fr_text
+      collars: *fr_text
+      styles: *fr_text
+      languages: *fr_text
       fabric: *fr_text
-      handle: *fr_text
+      handles: *fr_text
       gender: *fr_text
       length: *fr_text
       level: *fr_text

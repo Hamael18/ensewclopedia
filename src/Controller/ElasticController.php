@@ -18,20 +18,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class ElasticController extends AbstractController
 {
     /**
-     * @route("/searchTest", name="searchTest")
+     * @Route("/search", name="searchTest")
+     * @param Request        $request
+     * @param ElasticaClient $client
+     *
+     * @return Response
      */
-    public function elasticaSearchTest(Request $request, Client $client) : Response
+    public function elasticaSearch(Request $request, Client $client) : Response
     {
-        if (!$request->isXmlHttpRequest()) {
-            return $this->render('elastic/search.html.twig');
-        }
 
         $query = $request->query->get('q', '');
-        $limit = $request->query->get('l', 10);
+        $limit = $request->query->get('l', 100);
 
         $match = new MultiMatch();
         $match->setQuery($query);
-        $match->setFields(["name", "description", "patterns"]);
+        $match->setFields(["name", "description", "patterns", "sizes", "collars", "brand", "handles", "styles"]);
+        $match->setFuzziness('AUTO');
+        $match->setType('most_fields');
+        $match->setOperator();
 
         $bool = new BoolQuery();
         $bool->addShould($match);
@@ -39,21 +43,24 @@ class ElasticController extends AbstractController
         $elasticaQuery = new Query($bool);
         $elasticaQuery->setSize($limit);
 
-        $foundPosts = $client->getIndex('brand')->search($elasticaQuery);
+        $foundPatterns = $client->getIndex('pattern')->search($elasticaQuery);
         $results = [];
-        foreach ($foundPosts as $post) {
-            $results[] = $post->getSource();
+        foreach ($foundPatterns as $pattern) {
+            $results[] = $pattern->getSource();
         }
-        return $this->json($results);
-    }
 
-    /**
-     * @Route("/search", name="search")
-     */
-    public function search() : Response
-    {
-        return $this->render('elastic/index.html.twig', [
-            'controller_name' => 'ElasticController',
+        $foundBrands = $client->getIndex('brand')->search($elasticaQuery);
+
+        foreach ($foundBrands as $brand) {
+            $results[] = $brand->getSource();
+        }
+
+        $count = count($results);
+        dump($results);
+
+        return $this->render('elastic/search.html.twig', [
+            'results' => $results,
+            'count' => $count
         ]);
     }
 }

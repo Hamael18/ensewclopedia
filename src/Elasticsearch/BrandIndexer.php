@@ -31,20 +31,26 @@ class BrandIndexer
 
     public function buildDocument(Brand $brand)
     {
-        $owner = ($brand->getOwner()) ?  $brand->getOwner()->getUsername() : "";
         $patterns = $brand->getPatterns();
+        $patternsName = [];
+        foreach( $patterns as $pattern)
+        {
+            $patternsName[] = $pattern->getName();
+        }
+
         $image = $brand->getImage();
 
         return new Document(
             $brand->getId(), // Manually defined ID
             [
+                'entity' => 'brand',
                 'name' => $brand->getName(),
                 'description' => $brand->getDescription(),
-                'patterns'=> $patterns,
+                'patterns'=> $patternsName,
 
                 // Not indexed but needed for display
-                'owner' => $owner,
-                'image' => $image
+                'image' => $image,
+                'slug' => $brand->getSlug()
             ]
         );
     }

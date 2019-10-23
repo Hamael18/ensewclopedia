@@ -16,7 +16,7 @@ class IndexBuilder
 
     public function createBrand()
     {
-        // We name our index "blog"
+        // We name our index "brand"
         $index = $this->client->getIndex('brand');
 
         $settings = Yaml::parse(
@@ -32,7 +32,7 @@ class IndexBuilder
     }
     public function createPattern()
     {
-        // We name our index "blog"
+        // We name our index "pattern"
         $index = $this->client->getIndex('pattern');
 
         $settings = Yaml::parse(
