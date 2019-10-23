@@ -1,0 +1,10 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %}Modifier le type {{ type }}{% endblock %}
+
+{% block content %}
+    <div class="row teal-text darken-4 mb-5"><h3>Modifier le type {{ type }}</h3></div>
+    <div class="container teal lighten-5">
+        {% include 'admin/type/_form.html.twig' with {'bouton_label' : 'Modifier'} %}
+    </div>
+{% endblock %}

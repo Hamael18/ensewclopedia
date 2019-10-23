@@ -50,7 +50,6 @@ class Version
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Level", inversedBy="versions")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $level;
 
@@ -92,6 +91,12 @@ class Version
      * @ORM\ManyToMany(targetEntity="App\Entity\Size", inversedBy="versions")
      */
     private $sizes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="versions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
 
     public function __construct()
     {
@@ -332,6 +337,18 @@ class Version
         if ($this->styles->contains($style)) {
             $this->styles->removeElement($style);
         }
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

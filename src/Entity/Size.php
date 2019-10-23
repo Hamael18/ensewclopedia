@@ -28,9 +28,15 @@ class Size
      */
     private $versions;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Type", inversedBy="sizes")
+     */
+    private $types;
+
     public function __construct()
     {
         $this->versions = new ArrayCollection();
+        $this->types = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,6 +93,32 @@ class Size
         if ($this->versions->contains($version)) {
             $this->versions->removeElement($version);
             $version->removeSize($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Type[]
+     */
+    public function getTypes(): Collection
+    {
+        return $this->types;
+    }
+
+    public function addType(Type $type): self
+    {
+        if (!$this->types->contains($type)) {
+            $this->types[] = $type;
+        }
+
+        return $this;
+    }
+
+    public function removeType(Type $type): self
+    {
+        if ($this->types->contains($type)) {
+            $this->types->removeElement($type);
         }
 
         return $this;

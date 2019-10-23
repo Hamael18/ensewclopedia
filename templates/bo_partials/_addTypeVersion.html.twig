@@ -1,0 +1,27 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %}Ajouter une version - Type{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('bootstrap-select-css') }}
+{% endblock %}
+
+{% block content %}
+    <div class="row teal-text darken-4"><h3>Ajouter une version de patron</h3></div>
+    {% if pattern %}<small>Le patron sélectionné est : {{ pattern }}</small>{% endif %}
+    <div class="container teal lighten-5">
+        <div class="my-3">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn mb-5">Ajouter cette version</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('bootstrap-select-js') }}
+    {{ encore_entry_script_tags('upload') }}
+{% endblock %}

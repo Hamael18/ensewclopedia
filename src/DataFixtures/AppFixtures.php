@@ -14,6 +14,7 @@ use App\Entity\Pattern;
 use App\Entity\Role;
 use App\Entity\Size;
 use App\Entity\Style;
+use App\Entity\Type;
 use App\Entity\User;
 use App\Entity\Version;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -70,6 +71,52 @@ class AppFixtures extends Fixture
 
         foreach ($userMarques as $user) {
             $manager->persist($user);
+        }
+
+        // Types
+        $types = [];
+        $pantalon = new Type();
+        $pantalon->setLibelle('Pantalon')
+            ->setBoolCollar(0)
+            ->setBoolFabric(1)
+            ->setBoolHandle(0)
+            ->setBoolLength(1)
+            ->setBoolLevel(1)
+            ->setBoolSize(0)
+            ->setBoolStyle(0);
+        $types[] = $pantalon;
+        $gilet = new Type();
+        $gilet->setLibelle('Gilet')
+            ->setBoolCollar(1)
+            ->setBoolFabric(1)
+            ->setBoolHandle(1)
+            ->setBoolLength(0)
+            ->setBoolLevel(1)
+            ->setBoolSize(0)
+            ->setBoolStyle(1);
+        $types[] = $gilet;
+        $allAttributType = new Type();
+        $allAttributType->setLibelle('All attribut')
+            ->setBoolCollar(1)
+            ->setBoolFabric(1)
+            ->setBoolHandle(1)
+            ->setBoolLength(1)
+            ->setBoolLevel(1)
+            ->setBoolSize(1)
+            ->setBoolStyle(1);
+        $types[] = $allAttributType;
+        $randomType = new Type();
+        $randomType->setLibelle('Random Type')
+            ->setBoolCollar($faker->boolean)
+            ->setBoolFabric($faker->boolean)
+            ->setBoolHandle($faker->boolean)
+            ->setBoolLength($faker->boolean)
+            ->setBoolLevel($faker->boolean)
+            ->setBoolSize($faker->boolean)
+            ->setBoolStyle($faker->boolean);
+        $types[] = $randomType;
+        foreach ($types as $type) {
+            $manager->persist($type);
         }
 
         // ---> Attributs marque
@@ -260,6 +307,7 @@ class AppFixtures extends Fixture
                     $version->setName($faker->randomElement($versionsNameProvider))
                         ->setLevel($faker->randomElement($difficultes))
                         ->setPattern($patron)
+                        ->setType($faker->randomElement($types))
                         ->setImage($faker->imageUrl(300, 200));
                     // Ajout des attributs
 

@@ -38,6 +38,9 @@ class Pattern
      * @var float $price
      *
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive(
+     *     message="Cette valeur doit être positive !"
+     * )
      */
     private $price;
 

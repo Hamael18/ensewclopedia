@@ -1,0 +1,65 @@
+{% extends 'bo_partials/layout.html.twig' %}
+
+{% block title %}Liste des types de patrons{% endblock %}
+
+{% block content %}
+    <div class="row teal-text darken-4 mb-5"><h3>Types disponibles</h3></div>
+    <div class="my-3">
+        <table class="table table-hover table-striped">
+            <thead class="teal lighten-4 h5">
+            <tr>
+                <th class="align-middle col-1">
+                    <a href="{{ path('admin_type_add') }}" class="btn waves-effect waves-light"><i class="fas fa-plus"></i></a>
+                </th>
+                <th class="align-middle">Libellé</th>
+                <th class="align-middle">Difficultés</th>
+                <th class="align-middle">Longueurs</th>
+                <th class="align-middle">Tailles</th>
+                <th class="align-middle">Manches</th>
+                <th class="align-middle">Cols</th>
+                <th class="align-middle">Tissus</th>
+                <th class="align-middle">Styles</th>
+                <th class="col-2 align-middle"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for type in types %}
+                <tr>
+                    <td class="align-middle"></td>
+                    <td class="align-middle font-weight-bold h5">{{ type.libelle }}</td>
+                    <td class="align-middle">
+                        {% if type.boolLevel == 1 %}<i class="fas fa-check-circle fa-2x text-success"></i>{% else %}<i class="far fa-times-circle fa-2x text-danger"></i>{% endif %}
+                    </td>
+                    <td class="align-middle">
+                        {% if type.boolLength == 1 %}<i class="fas fa-check-circle fa-2x text-success"></i>{% else %}<i class="far fa-times-circle fa-2x text-danger"></i>{% endif %}
+                    </td>
+                    <td class="align-middle">
+                        {% if type.boolSize == 1 %}<i class="fas fa-check-circle fa-2x text-success"></i>{% else %}<i class="far fa-times-circle fa-2x text-danger"></i>{% endif %}
+                    </td>
+                    <td class="align-middle">
+                        {% if type.boolHandle == 1 %}<i class="fas fa-check-circle fa-2x text-success"></i>{% else %}<i class="far fa-times-circle fa-2x text-danger"></i>{% endif %}
+                    </td>
+                    <td class="align-middle">
+                        {% if type.boolCollar == 1 %}<i class="fas fa-check-circle fa-2x text-success"></i>{% else %}<i class="far fa-times-circle fa-2x text-danger"></i>{% endif %}
+                    </td>
+                    <td class="align-middle">
+                        {% if type.boolFabric == 1 %}<i class="fas fa-check-circle fa-2x text-success"></i>{% else %}<i class="far fa-times-circle fa-2x text-danger"></i>{% endif %}
+                    </td>
+                    <td class="align-middle">
+                        {% if type.boolStyle == 1 %}<i class="fas fa-check-circle fa-2x text-success"></i>{% else %}<i class="far fa-times-circle fa-2x text-danger"></i>{% endif %}
+                    </td>
+                    <td class="align-middle">
+                        <a href="{{ path('admin_type_edit', {'id': type.id}) }}" class="btn teal lighten-4 teal-text text-darken-2"><i class="fas fa-wrench"></i></a>
+                        <a href="{{ path('admin_type_editAttributs', {'id': type.id}) }}" class="btn teal lighten-5 teal-text text-darken-2"><i class="fas fa-cog"></i></a>
+                        {% if type.canBeDeleted %}
+                            <a href="{{ path('admin_type_delete', {'id': type.id }) }}"
+                               onclick="return confirm('Supprimer ce type de patron ?')"
+                               class="btn btn-flat grey-text text-lighten-1"><i class="fa fa-trash"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

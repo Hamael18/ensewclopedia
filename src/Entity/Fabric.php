@@ -33,9 +33,15 @@ class Fabric
      */
     private $versions;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Type", inversedBy="fabrics")
+     */
+    private $types;
+
     public function __construct()
     {
         $this->versions = new ArrayCollection();
+        $this->types = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -103,6 +109,32 @@ class Fabric
             if ($version->getFabric() === $this) {
                 $version->setFabric(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Type[]
+     */
+    public function getTypes(): Collection
+    {
+        return $this->types;
+    }
+
+    public function addType(Type $type): self
+    {
+        if (!$this->types->contains($type)) {
+            $this->types[] = $type;
+        }
+
+        return $this;
+    }
+
+    public function removeType(Type $type): self
+    {
+        if ($this->types->contains($type)) {
+            $this->types->removeElement($type);
         }
 
         return $this;
