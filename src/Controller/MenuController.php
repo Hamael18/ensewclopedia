@@ -18,7 +18,7 @@ class MenuController extends AbstractController
      */
     public function brandsList(BrandRepository $brandRepository)
     {
-        return $this->render('front_office/menu.html.twig', [
+        return $this->render('fo_partials/menu.html.twig', [
             'brands' => $brandRepository->findAll(),
         ]);
     }

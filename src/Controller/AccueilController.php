@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccueilController extends AbstractController
 {
     /**
-     * @Route("/", name="accueil")
+     * @Route("/", name="homepage")
      * @param PatternRepository $patternRepo
      *
      * @return Response

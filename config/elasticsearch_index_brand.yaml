@@ -3,12 +3,25 @@ settings:
     # single node, no sharding
     number_of_shards: 2
     number_of_replicas: 1
+    analysis:
+      analyzer:
+        my_analyzer:
+          type: custom
+          tokenizer: standard
+          filter:
+            - lowercase
+            - asciifolding
+            - my_stemmer
+      filter:
+        my_stemmer:
+          type: stemmer
+          name: light_french
 mappings:
   dynamic: false # disable dynamic mapping
   properties:
     name: &fr_text
       type: text
       analyzer: french
+      boost: 2
     description: *fr_text
-    patterns:
-      type: text
+    patterns: *fr_text

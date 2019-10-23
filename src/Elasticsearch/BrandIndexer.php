@@ -49,7 +49,8 @@ class BrandIndexer
                 'patterns'=> $patternsName,
 
                 // Not indexed but needed for display
-                'image' => $image
+                'image' => $image,
+                'slug' => $brand->getSlug()
             ]
         );
     }

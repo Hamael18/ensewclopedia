@@ -28,11 +28,14 @@ class ElasticController extends AbstractController
     {
 
         $query = $request->query->get('q', '');
-        $limit = $request->query->get('l', 10);
+        $limit = $request->query->get('l', 100);
 
         $match = new MultiMatch();
         $match->setQuery($query);
-        $match->setFields(["name", "description", "patterns"]);
+        $match->setFields(["name", "description", "patterns", "sizes", "collars", "brand", "handles", "styles"]);
+        $match->setFuzziness('AUTO');
+        $match->setType('most_fields');
+        $match->setOperator();
 
         $bool = new BoolQuery();
         $bool->addShould($match);
@@ -40,20 +43,24 @@ class ElasticController extends AbstractController
         $elasticaQuery = new Query($bool);
         $elasticaQuery->setSize($limit);
 
-        $foundBrands = $client->getIndex('brand')->search($elasticaQuery);
-        $results = [];
-        foreach ($foundBrands as $brand) {
-            $results[] = $brand->getSource();
-        }
         $foundPatterns = $client->getIndex('pattern')->search($elasticaQuery);
+        $results = [];
         foreach ($foundPatterns as $pattern) {
             $results[] = $pattern->getSource();
         }
 
+        $foundBrands = $client->getIndex('brand')->search($elasticaQuery);
+
+        foreach ($foundBrands as $brand) {
+            $results[] = $brand->getSource();
+        }
+
+        $count = count($results);
         dump($results);
 
         return $this->render('elastic/search.html.twig', [
             'results' => $results,
+            'count' => $count
         ]);
     }
 }
