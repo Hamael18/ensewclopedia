@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class AddTypeType extends AbstractType
 {
@@ -94,6 +95,11 @@ class AddTypeType extends AbstractType
                     'data-off' => 'Non',
                     'data-width' => "100"
                 ]
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'required'=>true,
+                'label' => false,
+                'attr' => ['placeholder' => 'Sélectionnez une image']
             ])
         ;
     }

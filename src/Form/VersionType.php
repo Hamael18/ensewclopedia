@@ -37,11 +37,12 @@ class VersionType extends AbstractType
                 ->add('collars', EntityType::class, [
                     'label' => false,
                     'class' => Type::class,
-//                    'query_builder' => function (TypeRepository $repository) {
-//                        return $repository->createQueryBuilder('type')
-//                            ->andWhere('type.collars = :type')
-//                            ->andWhere('type', $this->type);
-//                    },
+                    'query_builder' => function (LengthRepository $repository) {
+                        return $repository->createQueryBuilder('item')
+                            ->join('item.types', 't')
+                            ->andWhere('t.id = :type')
+                            ->setParameter('type', $this->type);
+                    },
                     'multiple' => true,
                     'required'=>false,
                     'attr' => [
