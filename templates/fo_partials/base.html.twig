@@ -24,7 +24,7 @@
         <li><a href="#" class="right "> Mon compte </a></li>
         <li><a href="#" class="right ">Ma patronthèque</a></li>
         <li><a href="#" class="right ">Ma whishlist</a></li>
-        <li><a href="{{ path('app_logout') }}" class="right "><i class="fas fa-times"></i></i> Se déconnecter</a></li>
+        <li><a href="{{ path('app_logout') }}" class="right "><i class="fas fa-times"></i> Se déconnecter</a></li>
     </ul>
 
     <nav>
@@ -32,7 +32,7 @@
             <a  href="{{ path('homepage') }}" class="brand-logo center white-text">enSeWclopedia</a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li><a href="{{ path('homepage') }}" class="white-text">Explorer</a></li>
-                <li><a href="#" class="white-text">Rechercher</a></li>
+                <li><a href="{{ path('front_search') }}" class="white-text">Rechercher</a></li>
                 <li><a href="#"
                        class="dropdown-trigger white-text"
                        data-target="menuMarques"
