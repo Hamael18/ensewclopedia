@@ -1,58 +1,56 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-        {{ encore_entry_link_tags('materia') }}
-        {{ encore_entry_link_tags('materialize') }}
-        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
-        {{ encore_entry_link_tags('app') }}
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-    <nav class="navbar navbar-expand-lg teal darken-3">
-        <a class="navbar-brand text-white" href="{{ path('admin_dashboard') }}">
-            Dashboard
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Pacifico&display=swap" rel="stylesheet">
+    {{ encore_entry_link_tags('materia') }}
+    {{ encore_entry_link_tags('materialize') }}
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css"
+          rel="stylesheet">
+    {{ encore_entry_link_tags('app') }}
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
 
-        <div class="collapse navbar-collapse mx-auto" id="navbarColor01">
-            <ul class="navbar-brand mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link h4 text-white" href="#" target="_blank">Aller sur le site</a>
-                </li>
-            </ul>
+<nav>
+    <div class="nav-wrapper  teal darken-2">
+        <a href="{{ path('homepage') }}" class="brand-logo center white-text">enSeWclopedia</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="{% if 'ROLE_MARQUE' in app.user.roles %}{{ path('marque_dashboard') }}
+    {% elseif 'ROLE_ADMIN' in app.user.roles %}
+{{ path('admin_dashboard') }}
+    {% endif %}" class="white-text">Dashboard</a></li>
+        </ul>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li>{% if app.user %}
+                    <a href="{{ path('app_logout') }}" class="right white-text"><i class="fas fa-times font mr-3"></i>Se
+                        déconnecter</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="white-text">Connexion<i class="fas fa-user fa-2x px-3"></i></a>
+                {% endif %}</li>
+        </ul>
+    </div>
+</nav>
+
+{% for label,messages in app.flashes %}
+    <div class="container" id="flashes">
+        <div class="alert alert-{{ label }} mt-3">
+            {% for message in messages %}
+                <p> {{ message }}</p>
+            {% endfor %}
         </div>
+    </div>
+{% endfor %}
+{% block body %}{% endblock %}
 
-        <div class="row mr-5">
-            {% if app.user %}
-                <a href="{{ path('app_logout') }}" class="text-white"><i class="fas fa-sign-out-alt fa-2x"></i> Déconnexion</a>
-            {% else %}
-                <a href="#"><i class="fas fa-sign-in-alt fa-2x"></i> Connexion</a>
-            {% endif %}
-        </div>
-    </nav>
-
-    {% for label,messages in app.flashes %}
-        <div class="container" id="flashes">
-            <div class="alert alert-{{ label }} mt-3">
-                {%  for message in messages %}
-                    <p> {{ message }}</p>
-                {%  endfor %}
-            </div>
-        </div>
-    {% endfor %}
-    {% block body %}{% endblock %}
-
-    {{ encore_entry_script_tags('app') }}
-    {{ encore_entry_script_tags('popper') }}
-    {{ encore_entry_script_tags('materializeJs') }}
-    {{ encore_entry_script_tags('bootstrap') }}
-    {{ encore_entry_script_tags('dropzone') }}
-    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
-    {% block javascripts %}{% endblock %}
-    </body>
+{{ encore_entry_script_tags('app') }}
+{{ encore_entry_script_tags('popper') }}
+{{ encore_entry_script_tags('materializeJs') }}
+{{ encore_entry_script_tags('bootstrap') }}
+{{ encore_entry_script_tags('dropzone') }}
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
+{% block javascripts %}{% endblock %}
+</body>
 </html>

@@ -49,7 +49,7 @@ class TypeVersionType extends AbstractType
                     'class' => 'selectpicker',
                     'multiple' => false,
                     'data-live-search' => false,
-                    'data-none-selected-text' => 'Choisir un type',
+                    'title' => 'Choisir un type',
                 ]
             ])
         ;
