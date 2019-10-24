@@ -1,6 +1,6 @@
 {% set requete = app.request.pathInfo %}
 <div>
-    <a class="btn btn-secondary w-100" data-toggle="collapse" href="#brand" role="button" aria-expanded="false" aria-controls="brand">
+    <a class="btn w-100" data-toggle="collapse" href="#brand" role="button" aria-expanded="false" aria-controls="brand">
         <div class="row">
             <div class="col-3">
                 <i class="fas fa-copyright fa-2x"></i>
@@ -12,16 +12,16 @@
         </div>
     </a>
     <div class="collapse {% if requete starts with '/marque/brand' %}show{% endif %}" id="brand">
-        <ul class="nav flex-column bg-light">
+        <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link text-center btn btn-outline-primary" href="{{ path('marque_brand') }}"><i class="fas fa-list"></i></a>
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('marque_brand') }}"><i class="fas fa-list"></i></a>
             </li>
         </ul>
     </div>
 </div>
 
 <div>
-    <a class="btn btn-secondary w-100" data-toggle="collapse" href="#pattern" role="button" aria-expanded="false" aria-controls="pattern">
+    <a class="btn w-100" data-toggle="collapse" href="#pattern" role="button" aria-expanded="false" aria-controls="pattern">
         <div class="row">
             <div class="col-3">
                 <i class="fab fa-patreon fa-2x"></i>
@@ -35,12 +35,12 @@
     <div class="collapse {% if requete starts with '/marque/pattern' %}show{% endif %}" id="pattern">
         <ul class="nav flex-column bg-light">
             <li class="nav-item">
-                <a class="nav-link text-center btn btn-outline-primary" href="{{ path('marque_pattern') }}"><i class="fas fa-list"></i></a>
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('marque_pattern') }}"><i class="fas fa-list"></i></a>
             </li>
         </ul>
         <ul class="nav flex-column bg-light">
             <li class="nav-item">
-                <a class="nav-link text-center btn btn-outline-success" href="{{ path('marque_pattern_new') }}"><i class="fas fa-plus"></i></a>
+                <a class="nav-link text-center btn teal lighten-4 w-100 teal-text text-darken-4" href="{{ path('marque_pattern_new') }}"><i class="fas fa-plus"></i></a>
             </li>
         </ul>
     </div>
