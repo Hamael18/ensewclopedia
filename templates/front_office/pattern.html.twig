@@ -1,0 +1,31 @@
+{% extends 'fo_partials/base.html.twig' %}
+
+{% block title %}Acceuil enSewClopedia{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row my-5 ">
+            <div class="col-md-8 teal lighten-5 text-center rounded">
+                <h4 class="teal-text text-darken-4 font-weight-bold"> <a href="{{ pattern.lien }}"> {{ pattern.name }}</a></h4>
+                <h5 class="teal-text text-darken-3 font-weight-light">{{ pattern.brand }}</h5>
+                <div>
+                    {% for language in pattern.languages %}
+                        {{ language.name }},
+                    {% endfor %}
+                </div>
+                <div class="align-text-top h4 my-5"> {{ pattern.price }} €</div>
+                <div class="my-5">{{ pattern.description }}</div>
+            </div>
+            <div class="col-md-4">
+            <div>
+                <p><img src="/uploads/pattern_images/{{ pattern.image }}" alt="{{ pattern.name }}" class="responsive-img rounded"></p>
+            </div>
+                <div class="row">
+                    {% for version in pattern.versions %}
+                            <img class="w-50" src="{{ version.image }}" alt="images pour le pattron {{ pattern.name }}">
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
