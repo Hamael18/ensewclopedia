@@ -11,7 +11,6 @@ use App\Entity\Length;
 use App\Entity\Size;
 use App\Entity\Style;
 use App\Entity\Type;
-use App\Repository\CollarRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,6 +30,8 @@ class EditTypeAttributsType extends AbstractType
                     'label' => false,
                     'multiple' => true,
                     'class' => Collar::class,
+                    'required' => false,
+                    'by_reference' => false,
                     'attr' => [
                         'class' => 'selectpicker test-control-search',
                         'multiple' => true,
@@ -47,6 +48,8 @@ class EditTypeAttributsType extends AbstractType
                     'label' => false,
                     'multiple' => true,
                     'class' => Fabric::class,
+                    'required' => false,
+                    'by_reference' => false,
                     'attr' => [
                         'class' => 'selectpicker test-control-search',
                         'multiple' => true,
@@ -63,6 +66,8 @@ class EditTypeAttributsType extends AbstractType
                     'label' => false,
                     'multiple' => true,
                     'class' => Handle::class,
+                    'required' => false,
+                    'by_reference' => false,
                     'attr' => [
                         'class' => 'selectpicker test-control-search',
                         'multiple' => true,
@@ -79,6 +84,8 @@ class EditTypeAttributsType extends AbstractType
                     'label' => false,
                     'multiple' => true,
                     'class' => Length::class,
+                    'required' => false,
+                    'by_reference' => false,
                     'attr' => [
                         'class' => 'selectpicker test-control-search',
                         'multiple' => true,
@@ -95,6 +102,8 @@ class EditTypeAttributsType extends AbstractType
                     'label' => false,
                     'multiple' => true,
                     'class' => Size::class,
+                    'required' => false,
+                    'by_reference' => false,
                     'attr' => [
                         'class' => 'selectpicker test-control-search',
                         'multiple' => true,
@@ -107,10 +116,11 @@ class EditTypeAttributsType extends AbstractType
 
         if ($type->getBoolStyle() == 1) {
             $builder
-                ->add('sizes', EntityType::class, [
+                ->add('styles', EntityType::class, [
                     'label' => false,
                     'multiple' => true,
                     'class' => Style::class,
+                    'required' => false,
                     'attr' => [
                         'class' => 'selectpicker test-control-search',
                         'multiple' => true,
