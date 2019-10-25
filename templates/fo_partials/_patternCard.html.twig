@@ -3,7 +3,9 @@
         <div class="card-image">
             <img src="/uploads/pattern_images/{{ pattern.image }}" alt="{{ pattern.name }}">
             <a href=""
-               class="btn-floating halfway-fab waves-effect waves-light teal"><i class="fas fa-heart"></i></a>
+               class="btn-floating halfway-fab waves-effect waves-light teal">{% if app.user %}<i class="fas fa-heart"></i>
+                {% else %}<i class="far fa-heart"></i>
+                {% endif %}</a>
         </div>
         <div class="card-content">
             <span class="card-title center"><a href="{{ path('front_pattern' , {'slug' : pattern.slug}) }}" class="teal-text text-darken-4">{{ pattern.name }}</a></span>

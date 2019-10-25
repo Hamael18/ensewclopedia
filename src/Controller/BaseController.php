@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\BrandLikeRepository;
 use App\Repository\BrandRepository;
 use App\Repository\PatternRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -16,16 +17,20 @@ class BaseController extends AbstractController
 
     protected $brandRepository;
 
+    protected $brandLikeRepository;
+
     public function __construct(
         ObjectManager $manager,
         SessionInterface $session,
         PatternRepository $patternRepository,
-        BrandRepository $brandRepository
+        BrandRepository $brandRepository,
+        BrandLikeRepository $brandLikeRepository
     )
     {
         $this->manager = $manager;
         $this->session = $session;
         $this->patternRepository = $patternRepository;
         $this->brandRepository = $brandRepository;
+        $this->brandLikeRepository = $brandLikeRepository;
     }
 }

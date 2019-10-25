@@ -62,8 +62,9 @@
             </div>
         </div>
     {% endfor %}
+    <main>
     {% block body %}{% endblock %}
-
+    </main>
 {% include ('fo_partials/_footer.html.twig') %}
     {{ encore_entry_script_tags('popper') }}
     {{ encore_entry_script_tags('bootstrap') }}

@@ -4,7 +4,9 @@
             <img src="/uploads/brand_images/{{ brand.image }}" alt="{{ brand.name }}">
             <a href="#" title="ajouter aux favoris"
                class="btn-floating halfway-fab waves-effect waves-light teal">
-                <i class="fas fa-heart"></i>
+                {% if app.user and brand.isLikedByUser(app.user) %}<i class="fas fa-heart"></i>
+                {% else %}<i class="far fa-heart"></i>
+                {% endif %}
             </a>
         </div>
         <div class="card-content">
