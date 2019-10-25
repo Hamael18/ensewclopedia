@@ -1,13 +1,13 @@
 {% extends 'fo_partials/base.html.twig' %}
 
-{% block title %}Acceuil enSewClopedia{% endblock %}
+{% block title %}Patron {{ pattern.name }}{% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="row my-5 ">
             <div class="col-md-8 teal lighten-5 text-center rounded">
                 <h4 class="teal-text text-darken-4 font-weight-bold"> <a href="{{ pattern.lien }}"> {{ pattern.name }}</a></h4>
-                <h5 class="teal-text text-darken-3 font-weight-light">{{ pattern.brand }}</h5>
+                <h5 class="teal-text text-darken-3 font-weight-light"><a href="{{ path('front_brand', { 'slug' : pattern.brand.slug}) }}"> {{ pattern.brand }}</a></h5>
                 <div>
                     {% for language in pattern.languages %}
                         {{ language.name }},

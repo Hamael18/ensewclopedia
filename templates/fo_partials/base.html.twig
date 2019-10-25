@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>EnSeWclopedia {% block title %}Welcome!{% endblock %}</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Pacifico&display=swap" rel="stylesheet">
@@ -28,11 +28,11 @@
     </ul>
 
     <nav>
-        <div class="nav-wrapper  teal darken-2">
+        <div class="nav-wrapper teal darken-2">
             <a  href="{{ path('homepage') }}" class="brand-logo center white-text">enSeWclopedia</a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li><a href="{{ path('homepage') }}" class="white-text">Explorer</a></li>
-                <li><a href="#" class="white-text">Rechercher</a></li>
+                <li><a href="{{ path('search') }}" class="white-text">Rechercher</a></li>
                 <li><a href="#"
                        class="dropdown-trigger white-text"
                        data-target="menuMarques"
@@ -64,7 +64,7 @@
     {% endfor %}
     {% block body %}{% endblock %}
 
-
+{% include ('fo_partials/_footer.html.twig') %}
     {{ encore_entry_script_tags('popper') }}
     {{ encore_entry_script_tags('bootstrap') }}
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>

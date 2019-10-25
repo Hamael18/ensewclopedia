@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ElasticController extends AbstractController
 {
     /**
-     * @Route("/search", name="searchTest")
+     * @Route("/search", name="search")
      * @param Request        $request
      * @param ElasticaClient $client
      *
@@ -58,7 +58,7 @@ class ElasticController extends AbstractController
         $count = count($results);
         dump($results);
 
-        return $this->render('elastic/search.html.twig', [
+        return $this->render('front_office/search.html.twig', [
             'results' => $results,
             'count' => $count
         ]);
