@@ -7,15 +7,12 @@ use Elastica\Client as ElasticaClient;
 use Elastica\Query;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\MultiMatch;
-use Elasticsearch\ClientBuilder;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class ElasticController extends AbstractController
+class ElasticController extends BaseController
 {
     /**
      * @Route("/search", name="search")
@@ -44,23 +41,27 @@ class ElasticController extends AbstractController
         $elasticaQuery->setSize($limit);
 
         $foundPatterns = $client->getIndex('pattern')->search($elasticaQuery);
-        $results = [];
+        $patterns = [];
         foreach ($foundPatterns as $pattern) {
-            $results[] = $pattern->getSource();
+            $patternResult = $this->patternRepository->findOneBy(['id' => $pattern->getId()]);
+            $patterns[] = $patternResult;
         }
 
         $foundBrands = $client->getIndex('brand')->search($elasticaQuery);
-
+        $brands = [];
         foreach ($foundBrands as $brand) {
-            $results[] = $brand->getSource();
-        }
+            $brandResult = $this->brandRepository->findOneBy(['id' => $brand->getId()]);
+            $brands[] = $brandResult;
 
-        $count = count($results);
-        dump($results);
+        }
+        $countBrands = count($brands);
+        $countPatterns = count($patterns);
 
         return $this->render('front_office/search.html.twig', [
-            'results' => $results,
-            'count' => $count
+            'patterns' => $patterns,
+            'brands' => $brands,
+            'countPatterns' => $countPatterns,
+            'countBrands' => $countBrands
         ]);
     }
 }

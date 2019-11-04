@@ -44,6 +44,13 @@
                 }else{
                     icone.classList.replace('far', 'fas');
                 }
+            }).catch(function (error) {
+                if(error.response.status === 403) {
+                    window.alert('Vous devez être connecté"')
+                } else {
+                    window.alert('Une erreur s\'est produite')
+                }
+                
             })
         }
         document.querySelectorAll('a.js-like').forEach(
