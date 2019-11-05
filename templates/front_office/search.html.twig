@@ -6,13 +6,17 @@
     <div class="container">
         <ul>
             <div class="row my-3">
-                {% for pattern in patterns %}
-                    {% include 'fo_partials/_patternCard.html.twig' %}
-                {% endfor %}
+                {% if patterns %}
+                    {% for pattern in patterns %}
+                        {% include 'fo_partials/_patternCard.html.twig' %}
+                    {% endfor %}
+                {% endif %}
 
-                {% for brand in brands %}
-                    {% include 'fo_partials/_brandCard.html.twig' %}
-                {% endfor %}
+                {% if brands %}
+                    {% for brand in brands %}
+                        {% include 'fo_partials/_brandCard.html.twig' %}
+                    {% endfor %}
+                {% endif %}
             </div>
         </ul>
     </div>
@@ -21,21 +25,20 @@
 {% block javascripts %}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        function onclickBtnLike(event){
+        function onclickBtnLike(event) {
             event.preventDefault();
             const url = this.href;
 
             const icone = this.querySelector('i');
-            axios.get(url).then(function(response)
-            {
+            axios.get(url).then(function (response) {
                 console.log(response);
-                if(icone.classList.contains('fas')) {
+                if (icone.classList.contains('fas')) {
                     icone.classList.replace('fas', 'far');
-                }else{
+                } else {
                     icone.classList.replace('far', 'fas');
                 }
             }).catch(function (error) {
-                if(error.response.status === 403) {
+                if (error.response.status === 403) {
                     window.alert('Vous devez être connecté"')
                 } else {
                     window.alert('Une erreur s\'est produite')
@@ -43,6 +46,7 @@
 
             })
         }
+
         document.querySelectorAll('a.js-like').forEach(
             function (link) {
                 link.addEventListener('click', onclickBtnLike);

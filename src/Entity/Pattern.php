@@ -129,11 +129,17 @@ class Pattern
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PatternPatrontheque", mappedBy="patrontheque")
+     */
+    private $patrontheques;
+
     public function __construct()
     {
         $this->languages = new ArrayCollection();
         $this->genres = new ArrayCollection();
         $this->versions = new ArrayCollection();
+        $this->patrontheques = new ArrayCollection();
     }
 
     /**
@@ -456,5 +462,52 @@ class Pattern
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * @return Collection|PatternPatrontheque[]
+     */
+    public function getPatrontheques(): Collection
+    {
+        return $this->patrontheques;
+    }
+
+    public function addPatrontheque(PatternPatrontheque $patrontheque): self
+    {
+        if (!$this->patrontheques->contains($patrontheque)) {
+            $this->patrontheques[] = $patrontheque;
+            $patrontheque->setPatrontheque($this);
+        }
+
+        return $this;
+    }
+
+    public function removePatrontheque(PatternPatrontheque $patrontheque): self
+    {
+        if ($this->patrontheques->contains($patrontheque)) {
+            $this->patrontheques->removeElement($patrontheque);
+            // set the owning side to null (unless already changed)
+            if ($patrontheque->getPatrontheque() === $this) {
+                $patrontheque->setPatrontheque(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function inPatronthequeByUser(User $user): bool
+    {
+        foreach ($this->patrontheques as $patrontheque) {
+            if($patrontheque->getPatternPatrontheques() === $user)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

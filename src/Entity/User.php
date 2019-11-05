@@ -46,10 +46,16 @@ class User implements UserInterface
      */
     private $brandLikes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PatternPatrontheque", mappedBy="patternPatrontheques")
+     */
+    private $patternPatrontheques;
+
     public function __construct()
     {
         $this->brands = new ArrayCollection();
         $this->brandLikes = new ArrayCollection();
+        $this->patternPatrontheques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -217,6 +223,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($brandLike->getUser() === $this) {
                 $brandLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PatternPatrontheque[]
+     */
+    public function getPatternPatrontheques(): Collection
+    {
+        return $this->patternPatrontheques;
+    }
+
+    public function addPatternPatrontheque(PatternPatrontheque $patternPatrontheque): self
+    {
+        if (!$this->patternPatrontheques->contains($patternPatrontheque)) {
+            $this->patternPatrontheques[] = $patternPatrontheque;
+            $patternPatrontheque->setPatternPatrontheques($this);
+        }
+
+        return $this;
+    }
+
+    public function removePatternPatrontheque(PatternPatrontheque $patternPatrontheque): self
+    {
+        if ($this->patternPatrontheques->contains($patternPatrontheque)) {
+            $this->patternPatrontheques->removeElement($patternPatrontheque);
+            // set the owning side to null (unless already changed)
+            if ($patternPatrontheque->getPatternPatrontheques() === $this) {
+                $patternPatrontheque->setPatternPatrontheques(null);
             }
         }
 

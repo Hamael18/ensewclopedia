@@ -12,6 +12,7 @@ use App\Entity\Language;
 use App\Entity\Length;
 use App\Entity\Level;
 use App\Entity\Pattern;
+use App\Entity\PatternPatrontheque;
 use App\Entity\Role;
 use App\Entity\Size;
 use App\Entity\Style;
@@ -362,6 +363,14 @@ class AppFixtures extends Fixture
                     $manager->persist($version);
                 }
                 $manager->persist($patron);
+
+                for ($j = 0; $j < mt_rand(0, 10); $j++) {
+                    $patrontheque = new PatternPatrontheque();
+                    $patrontheque->setPatrontheque($patron)
+                        ->setPatternPatrontheques($faker->randomElement($users))
+                        ->setCreatedAt($faker->dateTimeBetween('-6months', 'now'));
+                    $manager->persist($patrontheque);
+                }
             }
         }
 

@@ -11,7 +11,7 @@
                          class="responsive-img rounded mt-3">
                 </div>
                 <h4 class="teal-text text-darken-4 font-weight-bold"> {{ brand.name }}
-                    <a href="{{ path('brand_like', { 'slug' : brand.slug}) }}" class="btn-floating waves-effect waves-light teal js-like">
+                        <a href="{{ path('brand_like', { 'slug' : brand.slug}) }}" class="btn-floating waves-effect waves-light teal js-like">
                         {% if app.user and brand.isLikedByUser(app.user) %}<i class="fas fa-heart"></i>
                         {% else %}<i class="far fa-heart"></i>
                         {% endif %}
