@@ -77,9 +77,16 @@ class FrontPatternController extends BaseController
      */
     public function patronthequeByUser()
     {
+
         $user = $this->getUser();
+        $patrontheque = $this->patternPatronthequeRepository->findBy(['patternPatrontheques' => $user]);
+
+        foreach ($patrontheque as $pattern)
+        {
+            $patterns[] = $pattern->getPatrontheque();
+        }
         return $this->render('front_office/patrontheque.html.twig', [
-            'patterns' => $this->patternPatronthequeRepository->findBy(['patternPatrontheques' => $user]),
+            'patterns' => $patterns,
         ]);
 
     }

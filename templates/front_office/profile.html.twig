@@ -7,6 +7,22 @@
 
         <p>Mon compte utilisateur : {{ user.email }} </p>
         <p>Changer mon mot de passe <i class="fas fa-edit"></i></p>
-    {{ dump(user) }}
+
+        <ul>
+            <div class="row my-3">
+                {% for brand in brands %}
+                    {% include 'fo_partials/_brandCard.html.twig' %}
+
+                {% endfor %}
+            </div>
+        </ul>
+        <ul>
+            <div class="row my-3">
+                {% for pattern in news %}
+                    {% include 'fo_partials/_patternCard.html.twig' %}
+
+                {% endfor %}
+            </div>
+        </ul>
     </div>
 {% endblock %}
