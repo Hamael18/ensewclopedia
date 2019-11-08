@@ -70,6 +70,7 @@
     {{ encore_entry_script_tags('bootstrap') }}
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
     {{ encore_entry_script_tags('materializeJs') }}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         var dropdowns = document.querySelectorAll('.dropdown-trigger');
         var dropdownOptions = {
@@ -83,6 +84,7 @@
             M.Dropdown.init(dropdowns[i], dropdownOptions);
         }</script>
     {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('like') }}
     {% block javascripts %}{% endblock %}
     </body>
 </html>
