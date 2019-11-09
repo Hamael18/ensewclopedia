@@ -96,10 +96,10 @@ class AddTypeType extends AbstractType
                     'data-width' => "100"
                 ]
             ])
-            ->add('imageFile', VichImageType::class, [
-                'required'=>true,
+            ->add('logo', TextType::class, [
+                'required' => true,
                 'label' => false,
-                'attr' => ['placeholder' => 'Sélectionnez une image']
+                'attr' => ['placeholder' => 'Lien HTML de icons8']
             ])
         ;
     }

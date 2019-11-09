@@ -1,0 +1,32 @@
+{% extends 'fo_partials/base.html.twig' %}
+
+{% block title %}Recherche avancée sur enSeWclopedia{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('bootstrap-select-css') }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-2 teal blue lighten-3 d-flex flex-column">
+            {% for type in types %}
+                <a href="{{ path('search_by_type', {'slug': type.slug }) }}" class="btn btn-large justify-content-center">
+                    <img src="{{ type.logo }}" alt="{{ type.libelle }}"/><br>
+                    <span class="white-text">{{ type.libelle }}</span>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="col s10 teal blue lighten-3 pt-4">
+            {% if attributs is defined %}
+                {% include 'front_office/search/form_attributs.html.twig' with form %}
+            {% endif %}
+            {% if patrons is defined %}
+                {% include 'front_office/search/resultats.html.twig' with patrons %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('bootstrap-select-js') }}
+{% endblock %}

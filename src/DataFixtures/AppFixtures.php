@@ -83,7 +83,8 @@ class AppFixtures extends Fixture
             ->setBoolLength(1)
             ->setBoolLevel(1)
             ->setBoolSize(0)
-            ->setBoolStyle(0);
+            ->setBoolStyle(0)
+            ->setLogo('https://img.icons8.com/ios-filled/50/000000/trousers.png');
         $types[] = $pantalon;
         $gilet = new Type();
         $gilet->setLibelle('Gilet')
@@ -93,7 +94,8 @@ class AppFixtures extends Fixture
             ->setBoolLength(0)
             ->setBoolLevel(1)
             ->setBoolSize(0)
-            ->setBoolStyle(1);
+            ->setBoolStyle(1)
+            ->setLogo('https://img.icons8.com/ios-glyphs/50/000000/vest.png');
         $types[] = $gilet;
         $allAttributType = new Type();
         $allAttributType->setLibelle('All attribut')
@@ -103,7 +105,8 @@ class AppFixtures extends Fixture
             ->setBoolLength(1)
             ->setBoolLevel(1)
             ->setBoolSize(1)
-            ->setBoolStyle(1);
+            ->setBoolStyle(1)
+            ->setLogo('https://img.icons8.com/material-sharp/48/000000/creative-commons.png');
         $types[] = $allAttributType;
         $randomType = new Type();
         $randomType->setLibelle('Random Type')
@@ -113,7 +116,8 @@ class AppFixtures extends Fixture
             ->setBoolLength($faker->boolean)
             ->setBoolLevel($faker->boolean)
             ->setBoolSize($faker->boolean)
-            ->setBoolStyle($faker->boolean);
+            ->setBoolStyle($faker->boolean)
+            ->setLogo('https://img.icons8.com/pastel-glyph/64/000000/empty-box.png');
         $types[] = $randomType;
         foreach ($types as $type) {
             $manager->persist($type);

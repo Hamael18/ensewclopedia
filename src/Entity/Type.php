@@ -5,13 +5,10 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TypeRepository")
- * @Vich\Uploadable()
+ * @ORM\HasLifecycleCallbacks()
  */
 class Type
 {
@@ -98,28 +95,14 @@ class Type
     private $styles;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string
+     * @ORM\Column(type="string", length=255)
      */
-    private $image;
+    private $logo;
 
     /**
-     * @Vich\UploadableField(mapping="type_logo", fileNameProperty="image")
-     * @var File
-     * @Assert\File(
-     *     maxSize="1M",
-     *     maxSizeMessage="La taille du fichier doit être inférieure à 1Mo !",
-     *     mimeTypes={"image/png", "image/jpeg", "image/jpg"},
-     *     mimeTypesMessage="Le fichier doit être un .png ou un .jpg/jpeg !"
-     * )
+     * @ORM\Column(type="string", length=255)
      */
-    private $imageFile;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @var \DateTime
-     */
-    private $updatedAt;
+    private $slug;
 
     public function __construct()
     {
@@ -444,26 +427,32 @@ class Type
         return $this;
     }
 
-    public function setImageFile(File $image = null)
+    public function getLogo(): ?string
     {
-        $this->imageFile = $image;
-        if ($image) {
-            $this->updatedAt = new \DateTime('now');
+        return $this->logo;
+    }
+
+    public function setLogo(string $logo): self
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initializeSlug()
+    {
+        if (empty($this->slug)) {
+            $slug = strtolower(str_replace('.', '', str_replace(' ', '_', trim($this->getLibelle()))));
+            $this->slug = $slug;
         }
     }
 
-    public function getImageFile()
+    public function getSlug()
     {
-        return $this->imageFile;
-    }
-
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
-
-    public function getImage()
-    {
-        return $this->image;
+        return $this->slug;
     }
 }

@@ -1,0 +1,35 @@
+<div class="row my-3">
+    {% for pattern in patrons %}
+        <div class="col-4">
+            <div class="card teal darken-3">
+                <div class="card-image">
+                    <img src="/uploads/pattern_images/{{ pattern.image }}" alt="{{ pattern }}">
+                </div>
+                <div class="card-content white-text">
+                    <span class="card-title"><a href="{{ path('admin_pattern_show', {'slug': pattern.slug }) }}" class="text-white">{{ pattern }}</a></span>
+                    {% if pattern.versions | length > 0 %}
+                        <a class="btn teal darken-1 col-9 mt-2 ml-5" data-toggle="collapse" href="#collapse-{{ pattern.id }}" role="button" aria-expanded="false" aria-controls="collapse-{{ pattern.id }}">
+                            {{ pattern.versions | length }} version(s)
+                        </a>
+                    {% else %}
+                        <a class="btn btn-primary col-9 mt-2 ml-5" data-toggle="collapse">
+                            Aucune version
+                        </a>
+                    {% endif %}
+                </div>
+
+                <div class="collapse" id="collapse-{{ pattern.id }}">
+                    <div class="card card-body">
+                        <ul class="list-group">
+                            {% for version in pattern.versions %}
+                                <li class="list-group-item teal">
+                                    <a class="white-text" href="{{ path('admin_version_show', {'id': version.id }) }}">{{ version }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

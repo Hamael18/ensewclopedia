@@ -1,0 +1,28 @@
+{{ form_start(form) }}
+<div class="row">
+    {% if form.levels is defined %}
+        {{ form_widget(form.levels) }}
+    {% endif %}
+    {% if form.lengths is defined %}
+        {{ form_row(form.lengths) }}
+    {% endif %}
+    {% if form.handles is defined %}
+        {{ form_row(form.handles) }}
+    {% endif %}
+    {% if form.sizes is defined %}
+        {{ form_row(form.sizes) }}
+    {% endif %}
+    {% if form.collars is defined %}
+        {{ form_row(form.collars) }}
+    {% endif %}
+    {% if form.fabrics is defined %}
+        {{ form_row(form.fabrics) }}
+    {% endif %}
+    {% if form.styles is defined %}
+        {{ form_row(form.styles) }}
+    {% endif %}
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn mb-5">Filtrer</button>
+    </div>
+</div>
+{{ form_end(form) }}
