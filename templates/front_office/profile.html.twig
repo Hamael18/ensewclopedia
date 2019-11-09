@@ -9,6 +9,7 @@
         <p>Changer mon mot de passe <i class="fas fa-edit"></i></p>
 
         <ul>
+            <h3> Marques préférées</h3>
             <div class="row my-3">
                 {% for brand in brands %}
                     {% include 'fo_partials/_brandCard.html.twig' %}
@@ -17,6 +18,7 @@
             </div>
         </ul>
         <ul>
+            <h3> Derniers patrons</h3>
             <div class="row my-3">
                 {% for pattern in news %}
                     {% include 'fo_partials/_patternCard.html.twig' %}
