@@ -3,14 +3,17 @@
         <div class="card-image">
             <img src="/uploads/pattern_images/{{ pattern.image }}" alt="{{ pattern.name }}">
             <a href="{{ path('pattern_patrontheque', { 'slug' : pattern.slug}) }}"
-               class="btn-floating halfway-fab teal lighten-3 js-like">
-                {% if app.user and pattern.inPatronthequeByUser(app.user) %}<i class="fas fa-bookmark"></i>
-                {% else %}<i class="far fa-bookmark"></i>
+               class="btn-floating halfway-fab teal lighten-3 js-like"
+               {% if app.user and pattern.inPatronthequeByUser(app.user) %}title="Retirer de ma patronthèque"><i
+                        class="fas fa-bookmark"></i>
+                {% else %}title="Ajouter à ma patronthèque"><i class="far fa-bookmark"></i>
                 {% endif %}</a>
 
-            <a href="" class="btn-floating halfway-fab teal lighten-3 mr-5">
-                {% if app.user %}<i class="fas fa-heart"></i>
-                {% else %}<i class="far fa-heart"></i>
+            <a href="{{ path('pattern_wishlist', {'slug' : pattern.slug}) }}"
+               class="btn-floating halfway-fab teal lighten-3 mr-5 js-like"
+               {% if app.user and pattern.inWhishListByUser(app.user) %}title="Retirer de ma wishlist"><i
+                        class="fas fa-heart"></i>
+                {% else %}title="Ajouter à ma wishlist"><i class="far fa-heart"></i>
                 {% endif %}</a>
 
 
@@ -18,8 +21,7 @@
         <div class="card-content">
             <span class="card-title center">
                 <a href="{{ path('front_pattern' , {'slug' : pattern.slug}) }}"
-                   class="teal-text text-darken-4">{{ pattern.name }}</a>
-            </span>
+                   class="teal-text text-darken-4">{{ pattern.name }}</a></span>
             <p class="teal-text text-darken-2">{{ pattern.description }}</p>
         </div>
     </div>

@@ -51,11 +51,17 @@ class User implements UserInterface
      */
     private $patternPatrontheques;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\WishlistPattern", mappedBy="user")
+     */
+    private $patternWish;
+
     public function __construct()
     {
         $this->brands = new ArrayCollection();
         $this->brandLikes = new ArrayCollection();
         $this->patternPatrontheques = new ArrayCollection();
+        $this->patternWish = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -254,6 +260,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($patternPatrontheque->getPatternPatrontheques() === $this) {
                 $patternPatrontheque->setPatternPatrontheques(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|WishlistPattern[]
+     */
+    public function getPatternWish(): Collection
+    {
+        return $this->patternWish;
+    }
+
+    public function addPatternWish(WishlistPattern $patternWish): self
+    {
+        if (!$this->patternWish->contains($patternWish)) {
+            $this->patternWish[] = $patternWish;
+            $patternWish->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePatternWish(WishlistPattern $patternWish): self
+    {
+        if ($this->patternWish->contains($patternWish)) {
+            $this->patternWish->removeElement($patternWish);
+            // set the owning side to null (unless already changed)
+            if ($patternWish->getUser() === $this) {
+                $patternWish->setUser(null);
             }
         }
 

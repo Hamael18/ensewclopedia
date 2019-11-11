@@ -82,7 +82,13 @@
         };
         for (var i = 0; i < dropdowns.length; i++){
             M.Dropdown.init(dropdowns[i], dropdownOptions);
-        }</script>
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.tooltipped');
+            var instances = M.Tooltip.init(elems, options);
+        });
+    </script>
     {{ encore_entry_script_tags('app') }}
     {{ encore_entry_script_tags('like') }}
     {% block javascripts %}{% endblock %}

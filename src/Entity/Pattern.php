@@ -134,12 +134,18 @@ class Pattern
      */
     private $patrontheques;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\WishlistPattern", mappedBy="pattern")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->languages = new ArrayCollection();
         $this->genres = new ArrayCollection();
         $this->versions = new ArrayCollection();
         $this->patrontheques = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
     /**
@@ -504,6 +510,52 @@ class Pattern
     {
         foreach ($this->patrontheques as $patrontheque) {
             if($patrontheque->getPatternPatrontheques() === $user)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @return Collection|WishlistPattern[]
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
+    }
+
+    public function addUser(WishlistPattern $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+            $user->setPattern($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(WishlistPattern $user): self
+    {
+        if ($this->user->contains($user)) {
+            $this->user->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getPattern() === $this) {
+                $user->setPattern(null);
+            }
+        }
+
+        return $this;
+    }
+    /**
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function inWhishListByUser(User $user): bool
+    {
+        foreach ($this->user as $whishlist) {
+            if($whishlist->getPattern() === $user)
             {
                 return true;
             }
