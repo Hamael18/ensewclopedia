@@ -19,6 +19,7 @@
 
     <div class="row my-3 ml-5">
         {% for pattern in pagination.data %}
+            {{ include('fo_') }}
             <div class="card col-lg-3 m-2 p-0">
                 <div class="card-header bg-dark text-center">
                     <span class="card-title h5 text-light">{{ pattern }}</span>

@@ -36,7 +36,7 @@ class EditTypeAttributsType extends AbstractType
                         'class' => 'selectpicker test-control-search',
                         'multiple' => true,
                         'data-actions-box' => true,
-                        'data-none-selected-text' => 'Associer un ou plusieurs cols à ce type'
+                        'title' => 'Associer un ou plusieurs cols à ce type'
                     ]
                 ])
             ;
@@ -54,7 +54,7 @@ class EditTypeAttributsType extends AbstractType
                         'class' => 'selectpicker test-control-search',
                         'multiple' => true,
                         'data-actions-box' => true,
-                        'data-none-selected-text' => 'Associer un ou plusieurs types de tissus à ce type'
+                        'title' => 'Associer un ou plusieurs types de tissus à ce type'
                     ]
                 ])
             ;
@@ -72,7 +72,7 @@ class EditTypeAttributsType extends AbstractType
                         'class' => 'selectpicker test-control-search',
                         'multiple' => true,
                         'data-actions-box' => true,
-                        'data-none-selected-text' => 'Associer un ou plusieurs types de manches à ce type'
+                        'title' => 'Associer un ou plusieurs types de manches à ce type'
                     ]
                 ])
             ;
@@ -90,7 +90,7 @@ class EditTypeAttributsType extends AbstractType
                         'class' => 'selectpicker test-control-search',
                         'multiple' => true,
                         'data-actions-box' => true,
-                        'data-none-selected-text' => 'Associer une ou plusieurs longueurs à ce type'
+                        'title' => 'Associer une ou plusieurs longueurs à ce type'
                     ]
                 ])
             ;
@@ -108,7 +108,7 @@ class EditTypeAttributsType extends AbstractType
                         'class' => 'selectpicker test-control-search',
                         'multiple' => true,
                         'data-actions-box' => true,
-                        'data-none-selected-text' => 'Associer une ou plusieurs tailles à ce type'
+                        'title' => 'Associer une ou plusieurs tailles à ce type'
                     ]
                 ])
             ;
@@ -126,7 +126,7 @@ class EditTypeAttributsType extends AbstractType
                         'class' => 'selectpicker test-control-search',
                         'multiple' => true,
                         'data-actions-box' => true,
-                        'data-none-selected-text' => 'Associer un ou plusieurs types de style à ce type'
+                        'title' => 'Associer un ou plusieurs types de style à ce type'
                     ]
                 ])
             ;
