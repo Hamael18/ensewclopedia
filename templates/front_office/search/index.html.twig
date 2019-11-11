@@ -8,15 +8,16 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-2 teal blue lighten-3 d-flex flex-column">
+        <div class="col-2 teal lighten-4 d-flex flex-column pt-4 pr-2 align-items-center">
             {% for type in types %}
-                <a href="{{ path('search_by_type', {'slug': type.slug }) }}" class="btn btn-large justify-content-center">
-                    <img src="{{ type.logo }}" alt="{{ type.libelle }}"/>
-                    <span class="white-text">{{ type.libelle }}</span>
+                <a href="{{ path('search_by_type', {'slug': type.slug }) }}" role="button" title="{{ type.libelle }}"
+                class="border border-black w-50 my-3 p-4 z-depth-2">
+                    <img src="{{ type.logo }}" alt="{{ type.libelle }}" class="img-fluid"><br>
+                    <p class="h4 teal-text text-darken-3">{{ type.libelle }}</p>
                 </a>
             {% endfor %}
         </div>
-        <div class="col s10 teal blue lighten-3 pt-4">
+        <div class="col s10">
             {% if attributs is defined %}
                 {% include 'front_office/search/form_attributs.html.twig' with form %}
             {% endif %}

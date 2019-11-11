@@ -40,9 +40,9 @@ class FiltresTypesType extends AbstractType
                     'multiple' => true,
                     'required' => false,
                     'attr' => [
-                        'class' => 'selectpicker col-1',
+                        'class' => 'selectpicker',
                         'multiple' => true,
-                        'data-none-selected-text' => 'Choix',
+                        'data-none-selected-text' => 'Difficulté(s)',
                     ]
                 ]);
         }
@@ -60,9 +60,9 @@ class FiltresTypesType extends AbstractType
                     'multiple' => true,
                     'required' => false,
                     'attr' => [
-                        'class' => 'selectpicker col-2',
+                        'class' => 'selectpicker',
                         'multiple' => true,
-                        'data-none-selected-text' => 'Choix',
+                        'data-none-selected-text' => 'Longueur(s)',
                     ]
                 ]);
         }
@@ -79,9 +79,9 @@ class FiltresTypesType extends AbstractType
                     'multiple' => true,
                     'required' => false,
                     'attr' => [
-                        'class' => 'selectpicker col-2',
+                        'class' => 'selectpicker',
                         'multiple' => true,
-                        'data-none-selected-text' => 'Choix',
+                        'data-none-selected-text' => 'Manche(s)',
                     ]
                 ]);
         }
@@ -98,9 +98,9 @@ class FiltresTypesType extends AbstractType
                     'multiple' => true,
                     'required' => false,
                     'attr' => [
-                        'class' => 'selectpicker col-2',
+                        'class' => 'selectpicker',
                         'multiple' => true,
-                        'data-none-selected-text' => 'Choix',
+                        'data-none-selected-text' => 'Taille(s)',
                     ]
                 ]);
         }
@@ -117,9 +117,9 @@ class FiltresTypesType extends AbstractType
                     'multiple' => true,
                     'required' => false,
                     'attr' => [
-                        'class' => 'selectpicker col-2',
+                        'class' => 'selectpicker',
                         'multiple' => true,
-                        'data-none-selected-text' => 'Choix',
+                        'data-none-selected-text' => 'Col(s)',
                     ]
                 ]);
         }
@@ -136,9 +136,9 @@ class FiltresTypesType extends AbstractType
                     'multiple' => true,
                     'required' => false,
                     'attr' => [
-                        'class' => 'selectpicker col-1',
+                        'class' => 'selectpicker',
                         'multiple' => true,
-                        'data-none-selected-text' => 'Choix',
+                        'data-none-selected-text' => 'Tissu(s)',
                     ]
                 ]);
         }
@@ -155,9 +155,9 @@ class FiltresTypesType extends AbstractType
                     'multiple' => true,
                     'required' => false,
                     'attr' => [
-                        'class' => 'selectpicker col-2',
+                        'class' => 'selectpicker',
                         'multiple' => true,
-                        'data-none-selected-text' => 'Choix',
+                        'data-none-selected-text' => 'Style(s)',
                     ]
                 ]);
         }
