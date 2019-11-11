@@ -2,7 +2,7 @@
     <div class="card teal darken-3">
         <div class="card-image">
             <img src="/uploads/brand_images/{{ brand.image }}" alt="{{ brand.name }}">
-            <a href="{{ path('brand_like', { 'slug' : brand.slug}) }}" title="ajouter aux favoris"
+            <a href="{{ path('brand_like', { 'slug' : brand.slug}) }}" title="Ajouter à mes marques favorites"
                class="btn-floating halfway-fab waves-effect waves-light teal js-like">
                 {% if app.user and brand.isLikedByUser(app.user) %}<i class="fas fa-heart"></i>
                 {% else %}<i class="far fa-heart"></i>

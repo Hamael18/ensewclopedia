@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Pattern;
 use App\Entity\PatternPatrontheque;
+use App\Entity\WishlistPattern;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -88,6 +89,55 @@ class FrontPatternController extends BaseController
         return $this->render('front_office/patrontheque.html.twig', [
             'patterns' => $patterns,
         ]);
+
+    }
+
+
+    /**
+     * @Route("/pattern/{slug}/wishlist", name="pattern_wishlist")
+     * @param Pattern $pattern
+     *
+     * @return Response
+     * @throws Exception
+     */
+    public function isInWishList(Pattern $pattern) : Response
+    {
+        $user = $this->getUser();
+
+        if (!$user)
+        {
+            return $this->json(['code' => 403, 'message' => 'unauthorized'], 403);
+        }
+        if ($pattern->inWhishListByUser($user))
+        {
+            $pattern = $this->wishlistPatternRepository->findOneBy([
+                'patternWish'=> $pattern,
+                'userWish' => $user
+            ]);
+
+            $this->manager->remove($pattern);
+            $this->manager->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => 'Le patron a été supprimé de la wishlist',
+                'wishlist' => $this->wishlistPatternRepository->count(['pattern' => $pattern])
+            ], 200);
+        }
+
+        $wishlist = new WishlistPattern();
+        $wishlist->setPattern($pattern)
+            ->setUser($user)
+            ->setCreatedAt(new \DateTime('now'));
+
+        $this->manager->persist($wishlist);
+        $this->manager->flush();
+
+        return $this->json([
+            'code' => 200,
+            'message'=> 'Le patron a été ajouté à la wishlist',
+            'wishlist' => $this->wishlistPatternRepository->count(['pattern' => $pattern])
+        ], 200);
 
     }
 }

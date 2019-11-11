@@ -6,26 +6,90 @@
     <div class="container">
         <div class="row my-5 ">
             <div class="col-md-8 teal lighten-5 text-center rounded">
-                <h4 class="teal-text text-darken-4 font-weight-bold"> <a href="{{ pattern.lien }}"> {{ pattern.name }}</a></h4>
-                <h5 class="teal-text text-darken-3 font-weight-light"><a href="{{ path('front_brand', { 'slug' : pattern.brand.slug}) }}"> {{ pattern.brand }}</a></h5>
+                <h4 class="teal-text text-darken-4 font-weight-bold"><a
+                            href="{{ pattern.lien }}"> {{ pattern.name }}</a>
+                    <a href="{{ path('pattern_patrontheque', { 'slug' : pattern.slug}) }}"
+                       class="btn-floating halfway-fab teal lighten-3 js-like"
+                       {% if app.user and pattern.inPatronthequeByUser(app.user) %}title="Retirer de ma patronthèque"><i
+                                class="fas fa-bookmark"></i>
+                        {% else %}title="Ajouter à ma patronthèque"><i class="far fa-bookmark"></i>
+                        {% endif %}</a>
+
+                    <a href="{{ path('pattern_wishlist', {'slug' : pattern.slug}) }}"
+                       class="btn-floating halfway-fab teal lighten-3 mr-5 js-like"
+                       {% if app.user and pattern.inWhishListByUser(app.user) %}title="Retirer de ma wishlist"><i
+                                class="fas fa-heart"></i>
+                        {% else %}title="Ajouter à ma wishlist"><i class="far fa-heart"></i>
+                        {% endif %}</a></h4>
+                <h5 class="teal-text text-darken-3 font-weight-light"><a
+                            href="{{ path('front_brand', { 'slug' : pattern.brand.slug}) }}"> {{ pattern.brand }}</a>
+                </h5>
                 <div>
                     {% for language in pattern.languages %}
-                        {{ language.name }},
+                        {{ language.name }}
+                        {% if loop.last %}
+                        {% else %},
+                        {% endif %}
                     {% endfor %}
                 </div>
                 <div class="align-text-top h4 my-5"> {{ pattern.price }} €</div>
                 <div class="my-5">{{ pattern.description }}</div>
             </div>
             <div class="col-md-4">
-            <div>
-                <p><img src="/uploads/pattern_images/{{ pattern.image }}" alt="{{ pattern.name }}" class="responsive-img rounded"></p>
-            </div>
+                <div>
+                    <p><img src="/uploads/pattern_images/{{ pattern.image }}" alt="{{ pattern.name }}"
+                            class="responsive-img rounded"></p>
+                </div>
                 <div class="row">
                     {% for version in pattern.versions %}
-                            <img class="w-50" src="{{ version.image }}" alt="images pour le pattron {{ pattern.name }}">
+                        <img class="w-50" src="{{ version.image }}" alt="images pour le pattron {{ pattern.name }}">
                     {% endfor %}
                 </div>
             </div>
+        </div>
+        <div class="row">
+            {% for version in pattern.versions %}
+                <div class="col-4">
+                    <div class="card teal lighten-4">
+                        <div class="card-image">
+                            <img src="{{ version.image }}" alt="{{ version.name }}">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title center"> {{ version.name }}</span>
+                            <p class="teal-text text-darken-2"> Niveau : {{ version.level }}</p>
+                            {% if version.collars %}
+                                <p class="teal-text text-darken-2"> Type de col :
+                                    {% for collar in version.collars %}
+                                        {{ collar }}
+                                        {% include 'fo_partials/_looplast.html.twig' %}
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+                            {% if version.handles %}
+                                <p class="teal-text text-darken-2"> Type de manches :
+                                    {% for handle in version.handles %}
+                                        {{ handle }}
+                                        {% include 'fo_partials/_looplast.html.twig' %}
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+                            <p class="teal-text text-darken-2"> Style de la version :
+                                {% for style in version.styles %}
+                                    {{ style }}
+                                    {% include 'fo_partials/_looplast.html.twig' %}
+                                {% endfor %}
+                            </p>
+                            <p class="teal-text text-darken-2"> Tissus recommandés :
+                                {% for fabric in version.fabrics %}
+                                    {{ fabric }}
+                                    {% include 'fo_partials/_looplast.html.twig' %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {{ dump(version) }}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

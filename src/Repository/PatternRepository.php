@@ -43,4 +43,16 @@ class PatternRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function popularestPatterns($limit)
+    {
+        return$this->createQueryBuilder('p')
+            ->select('p as pattern, COUNT(pl.patrontheque) as mostAdded')
+            ->join('p.patrontheques', "pl")
+            ->groupBy('pl.patrontheque')
+            ->orderBy('mostAdded', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

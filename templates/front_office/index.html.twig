@@ -23,6 +23,12 @@
             <div class="row">
                 <h4 class="teal-text text-darken-4">Populaires</h4>
             </div>
+            <div class="row my-3">
+                {% for patternInfo in popularestPatterns %}
+                    {% set pattern = patternInfo.pattern %}
+                    {% include'fo_partials/_patternCard.html.twig' %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 

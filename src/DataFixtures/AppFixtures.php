@@ -151,6 +151,12 @@ class AppFixtures extends Fixture
         $genre3 = new Gender();
         $genre3->setName('Enfant');
         $genres[] = $genre3;
+        $genre4 = new Gender();
+        $genre4->setName('Maison');
+        $genres[] = $genre4;
+        $genre5 = new Gender();
+        $genre5->setName('Animaux');
+        $genres[] = $genre5;
 
         foreach ($genres as $genre) {
             $manager->persist($genre);
@@ -171,6 +177,24 @@ class AppFixtures extends Fixture
         $col4 = new Collar();
         $col4->setName('Col rond');
         $cols[] = $col4;
+        $col5 = new Collar();
+        $col5->setName('Encolure bateau');
+        $cols[] = $col5;
+        $col6 = new Collar();
+        $col6->setName('Col officier');
+        $cols[] = $col6;
+        $col7 = new Collar();
+        $col7->setName('Col drapé');
+        $cols[] = $col7;
+        $col8 = new Collar();
+        $col8->setName('Col à jabot');
+        $cols[] = $col8;
+        $col9 = new Collar();
+        $col9->setName('Encolure cache-coeur');
+        $cols[] = $col9;
+        $col10 = new Collar();
+        $col10->setName('Encolure carrée');
+        $cols[] = $col10;
 
         foreach ($cols as $col) {
             $manager->persist($col);
@@ -179,13 +203,19 @@ class AppFixtures extends Fixture
         // Difficultés
         $difficultes = [];
         $facile = new Level();
-        $facile->setName('Facile');
+        $facile->setName('Débutant');
         $difficultes[] = $facile;
+        $fauxDeb = new Level();
+        $fauxDeb->setName('Faux débutant');
+        $difficultes[] = $fauxDeb;
         $inter = new Level();
         $inter->setName('Intermédiaire');
         $difficultes[] = $inter;
+        $avance = new Level();
+        $avance->setName('Avancé');
+        $difficultes[] = $avance;
         $diff = new Level();
-        $diff->setName('Difficile');
+        $diff->setName('Expérimenté');
         $difficultes[] = $diff;
 
         foreach ($difficultes as $difficulte) {

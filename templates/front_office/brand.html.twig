@@ -21,6 +21,11 @@
             </div>
         </div>
         <div class="row">
+            {% if brand.patterns is empty %}
+                <div>
+                    <h5> Cette marque n'a pas encore créé de patrons</h5>
+                </div>
+            {% endif %}
             {% for pattern in brand.patterns %}
                 {% include 'fo_partials/_patternCard.html.twig' %}
             {% endfor %}
