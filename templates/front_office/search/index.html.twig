@@ -11,7 +11,7 @@
         <div class="col-2 teal blue lighten-3 d-flex flex-column">
             {% for type in types %}
                 <a href="{{ path('search_by_type', {'slug': type.slug }) }}" class="btn btn-large justify-content-center">
-                    <img src="{{ type.logo }}" alt="{{ type.libelle }}"/><br>
+                    <img src="{{ type.logo }}" alt="{{ type.libelle }}"/>
                     <span class="white-text">{{ type.libelle }}</span>
                 </a>
             {% endfor %}
