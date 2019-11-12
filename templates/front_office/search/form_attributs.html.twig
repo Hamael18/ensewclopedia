@@ -23,6 +23,7 @@
     {% endif %}
     <div class="d-flex justify-content-center">
         <button type="submit" class="btn mb-5">Filtrer</button>
+        <a href="{{ path('search_by_type', {'slug': type.slug }) }}" class="btn grey lighten-1"><i class="material-icons">autorenew</i></a>
     </div>
 </div>
 {{ form_end(form) }}
