@@ -11,6 +11,7 @@ Encore
     .addEntry('bootstrap-select-js', './assets/js/bootstrap-select.js')
     .addEntry('upload', './assets/js/upload.js')
     .addEntry('dropzone', './assets/js/dropzone.js')
+    .addEntry('like', './assets/js/like.js')
 
     .addStyleEntry('materia', './assets/css/materia.min.css')
     .addStyleEntry('materialize', './assets/css/materialize.css')

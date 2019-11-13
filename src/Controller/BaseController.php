@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Repository\BrandLikeRepository;
 use App\Repository\BrandRepository;
+use App\Repository\PatternPatronthequeRepository;
 use App\Repository\PatternRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,16 +18,24 @@ class BaseController extends AbstractController
 
     protected $brandRepository;
 
+    protected $brandLikeRepository;
+
+    protected $patternPatronthequeRepository;
+
     public function __construct(
         ObjectManager $manager,
         SessionInterface $session,
         PatternRepository $patternRepository,
-        BrandRepository $brandRepository
+        BrandRepository $brandRepository,
+        BrandLikeRepository $brandLikeRepository,
+        PatternPatronthequeRepository $patternPatronthequeRepository
     )
     {
         $this->manager = $manager;
         $this->session = $session;
         $this->patternRepository = $patternRepository;
         $this->brandRepository = $brandRepository;
+        $this->brandLikeRepository = $brandLikeRepository;
+        $this->patternPatronthequeRepository = $patternPatronthequeRepository;
     }
 }
