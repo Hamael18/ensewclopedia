@@ -308,7 +308,7 @@ class AppFixtures extends Fixture
                         ->setLevel($faker->randomElement($difficultes))
                         ->setPattern($patron)
                         ->setType($faker->randomElement($types))
-                        ->setImage($faker->imageUrl(300, 200));
+                        ->setImage($faker->image('/var/www/html/public/uploads/version_images', 1000, 400, 'technics', false));
                     // Ajout des attributs
 
                     $nbCol = count($cols);
