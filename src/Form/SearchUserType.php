@@ -8,7 +8,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SearchUserType extends AbstractType
 {
@@ -19,7 +18,7 @@ class SearchUserType extends AbstractType
                 'label' => false,
                 'required' => false,
                 'multiple' => true,
-                'choices' => ['Admin' => 'ROLE_ADMIN', 'Marque' => 'ROLE_MARQUE', 'User' => 'ROLE_USER'],
+                'choices' => ['Admin' => 'ROLE_ADMIN', 'Marque' => 'ROLE_MARQUE', 'User' => ''],
             ])
             ->add('email', TextType::class, [
                 'label' => false,
