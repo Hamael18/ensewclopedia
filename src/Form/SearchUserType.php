@@ -18,7 +18,7 @@ class SearchUserType extends AbstractType
                 'label' => false,
                 'required' => false,
                 'multiple' => true,
-                'choices' => ['Admin' => 'ROLE_ADMIN', 'Marque' => 'ROLE_MARQUE', 'User' => ''],
+                'choices' => ['Admin' => 'ROLE_ADMIN', 'Marque' => 'ROLE_MARQUE', 'User' => null],
             ])
             ->add('email', TextType::class, [
                 'label' => false,
