@@ -1,0 +1,23 @@
+{% extends 'fo_partials/base.html.twig' %}
+
+{% block body %}
+    {% include 'fo_partials/search.html.twig' %}
+
+    <div class="container">
+        <ul>
+            <div class="row my-3">
+                {% if patterns %}
+                    {% for pattern in patterns %}
+                        {% include 'fo_partials/_patternCard.html.twig' %}
+                    {% endfor %}
+                {% endif %}
+
+                {% if brands %}
+                    {% for brand in brands %}
+                        {% include 'fo_partials/_brandCard.html.twig' %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </ul>
+    </div>
+{% endblock %}

@@ -37,13 +37,25 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $roles;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\BrandLike", mappedBy="user")
+     */
+    private $brandLikes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PatternPatrontheque", mappedBy="patternPatrontheques")
+     */
+    private $patternPatrontheques;
 
     public function __construct()
     {
         $this->brands = new ArrayCollection();
+        $this->brandLikes = new ArrayCollection();
+        $this->patternPatrontheques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,7 +185,7 @@ class User implements UserInterface
     public function getRoles(): array
     {
         if (!$this->roles) {
-            return $this->roles;
+            return ['ROLE_USER'];
         } else {
             return ['ROLE_USER', $this->roles->getLibelle()];
         }
@@ -182,6 +194,68 @@ class User implements UserInterface
     public function setRoles(?Role $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BrandLike[]
+     */
+    public function getBrandLikes(): Collection
+    {
+        return $this->brandLikes;
+    }
+
+    public function addBrandLike(BrandLike $brandLike): self
+    {
+        if (!$this->brandLikes->contains($brandLike)) {
+            $this->brandLikes[] = $brandLike;
+            $brandLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBrandLike(BrandLike $brandLike): self
+    {
+        if ($this->brandLikes->contains($brandLike)) {
+            $this->brandLikes->removeElement($brandLike);
+            // set the owning side to null (unless already changed)
+            if ($brandLike->getUser() === $this) {
+                $brandLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PatternPatrontheque[]
+     */
+    public function getPatternPatrontheques(): Collection
+    {
+        return $this->patternPatrontheques;
+    }
+
+    public function addPatternPatrontheque(PatternPatrontheque $patternPatrontheque): self
+    {
+        if (!$this->patternPatrontheques->contains($patternPatrontheque)) {
+            $this->patternPatrontheques[] = $patternPatrontheque;
+            $patternPatrontheque->setPatternPatrontheques($this);
+        }
+
+        return $this;
+    }
+
+    public function removePatternPatrontheque(PatternPatrontheque $patternPatrontheque): self
+    {
+        if ($this->patternPatrontheques->contains($patternPatrontheque)) {
+            $this->patternPatrontheques->removeElement($patternPatrontheque);
+            // set the owning side to null (unless already changed)
+            if ($patternPatrontheque->getPatternPatrontheques() === $this) {
+                $patternPatrontheque->setPatternPatrontheques(null);
+            }
+        }
 
         return $this;
     }

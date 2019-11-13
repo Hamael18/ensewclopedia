@@ -2,18 +2,17 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>EnSeWclopedia {% block title %}Welcome!{% endblock %}</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Pacifico&display=swap" rel="stylesheet">
         {{ encore_entry_link_tags('materia') }}
         {{ encore_entry_link_tags('materialize') }}
-        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
         {{ encore_entry_link_tags('app') }}
+        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-
 
     <ul id="menuMarques" class="dropdown-content">
         {{ render(controller(
@@ -21,18 +20,18 @@
     </ul>
 
     <ul id="monCompte" class="dropdown-content">
-        <li><a href="#" class="right "> Mon compte </a></li>
-        <li><a href="#" class="right ">Ma patronthèque</a></li>
+        <li><a href={{ path('profile') }}#" class="right "> Mon compte </a></li>
+        <li><a href="{{ path('user_patrontheque') }}" class="right ">Ma patronthèque</a></li>
         <li><a href="#" class="right ">Ma whishlist</a></li>
         <li><a href="{{ path('app_logout') }}" class="right "><i class="fas fa-times"></i> Se déconnecter</a></li>
     </ul>
 
     <nav>
-        <div class="nav-wrapper  teal darken-2">
+        <div class="nav-wrapper teal darken-2">
             <a  href="{{ path('homepage') }}" class="brand-logo center white-text">enSeWclopedia</a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li><a href="{{ path('homepage') }}" class="white-text">Explorer</a></li>
-                <li><a href="#" class="white-text">Rechercher</a></li>
+                <li><a href="{{ path('front_search') }}" class="white-text">Rechercher</a></li>
                 <li><a href="#"
                        class="dropdown-trigger white-text"
                        data-target="menuMarques"
@@ -62,13 +61,16 @@
             </div>
         </div>
     {% endfor %}
+
+    <main>
     {% block body %}{% endblock %}
-
-
+    </main>
+{% include ('fo_partials/_footer.html.twig') %}
     {{ encore_entry_script_tags('popper') }}
     {{ encore_entry_script_tags('bootstrap') }}
-    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
     {{ encore_entry_script_tags('materializeJs') }}
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         var dropdowns = document.querySelectorAll('.dropdown-trigger');
         var dropdownOptions = {
@@ -82,6 +84,7 @@
             M.Dropdown.init(dropdowns[i], dropdownOptions);
         }</script>
     {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('like') }}
     {% block javascripts %}{% endblock %}
     </body>
 </html>

@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TypeRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Type
 {
@@ -92,6 +93,16 @@ class Type
      * @ORM\ManyToMany(targetEntity="App\Entity\Style", mappedBy="types")
      */
     private $styles;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $logo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -414,5 +425,34 @@ class Type
         }
 
         return $this;
+    }
+
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(string $logo): self
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initializeSlug()
+    {
+        if (empty($this->slug)) {
+            $slug = strtolower(str_replace('.', '', str_replace(' ', '_', trim($this->getLibelle()))));
+            $this->slug = $slug;
+        }
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

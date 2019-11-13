@@ -1,0 +1,29 @@
+{% extends 'fo_partials/base.html.twig' %}
+
+{% block title %} {{ brand.name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="my-5">
+            <div class="teal lighten-5 text-center rounded">
+                <div>
+                    <img src="/uploads/brand_images/{{ brand.image }}" alt="{{ brand }}"
+                         class="responsive-img rounded mt-3">
+                </div>
+                <h4 class="teal-text text-darken-4 font-weight-bold"> {{ brand.name }}
+                        <a href="{{ path('brand_like', { 'slug' : brand.slug}) }}" class="btn-floating waves-effect waves-light teal js-like">
+                        {% if app.user and brand.isLikedByUser(app.user) %}<i class="fas fa-heart"></i>
+                        {% else %}<i class="far fa-heart"></i>
+                        {% endif %}
+                    </a>
+                </h4>
+                <div class="my-5">{{ brand.description }}</div>
+            </div>
+        </div>
+        <div class="row">
+            {% for pattern in brand.patterns %}
+                {% include 'fo_partials/_patternCard.html.twig' %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

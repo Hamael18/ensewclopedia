@@ -25,7 +25,9 @@
             <tbody>
             {% for type in types %}
                 <tr>
-                    <td class="align-middle"></td>
+                    <td class="align-middle">
+                        <img src="{{ type.logo }}" alt="{{ type.libelle }}">
+                    </td>
                     <td class="align-middle font-weight-bold h5">{{ type.libelle }}</td>
                     <td class="align-middle">
                         {% if type.boolLevel == 1 %}<i class="fas fa-check-circle fa-2x text-success"></i>{% else %}<i class="far fa-times-circle fa-2x text-danger"></i>{% endif %}

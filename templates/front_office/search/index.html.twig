@@ -1,0 +1,35 @@
+{% extends 'fo_partials/base.html.twig' %}
+
+{% block title %}Recherche avancée sur enSeWclopedia{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('bootstrap-select-css') }}
+{% endblock %}
+
+{% block body %}
+    {% set requete = app.request.pathInfo | replace({'/advanced_search/': ''}) %}
+    {% dump(requete) %}
+    <div class="row">
+        <div class="col-2 teal lighten-4 d-flex flex-column pt-4 pr-2 align-items-center">
+            {% for type in types %}
+                <a href="{{ path('search_by_type', {'slug': type.slug }) }}" role="button" title="{{ type.libelle }}"
+                   class="border border-black w-50 my-3 p-2 {% if requete == type.slug %}z-depth-3{% else %}z-depth-1{% endif %}">
+                    <img src="{{ type.logo }}" alt="{{ type.libelle }}" class="center-block">
+                    <p class="h5 teal-text text-darken-3 text-center">{{ type.libelle }}</p>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="col s10">
+            {% if attributs is defined %}
+                {% include 'front_office/search/form_attributs.html.twig' with { 'form': form, 'type': attributs } %}
+            {% endif %}
+            {% if patrons is defined %}
+                {% include 'front_office/search/resultats.html.twig' with patrons %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('bootstrap-select-js') }}
+{% endblock %}
