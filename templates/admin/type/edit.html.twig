@@ -8,3 +8,7 @@
         {% include 'admin/type/_form.html.twig' with {'bouton_label' : 'Modifier'} %}
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('upload') }}
+{% endblock %}

@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Collar;
 use App\Entity\Fabric;
 use App\Entity\Handle;
 use App\Entity\Length;
@@ -11,13 +10,11 @@ use App\Entity\Size;
 use App\Entity\Style;
 use App\Entity\Type;
 use App\Entity\Version;
-use App\Repository\CollarRepository;
 use App\Repository\FabricRepository;
 use App\Repository\HandleRepository;
 use App\Repository\LengthRepository;
 use App\Repository\SizeRepository;
 use App\Repository\StyleRepository;
-use App\Repository\TypeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,11 +34,12 @@ class VersionType extends AbstractType
                 ->add('collars', EntityType::class, [
                     'label' => false,
                     'class' => Type::class,
-//                    'query_builder' => function (TypeRepository $repository) {
-//                        return $repository->createQueryBuilder('type')
-//                            ->andWhere('type.collars = :type')
-//                            ->andWhere('type', $this->type);
-//                    },
+                    'query_builder' => function (LengthRepository $repository) {
+                        return $repository->createQueryBuilder('item')
+                            ->join('item.types', 't')
+                            ->andWhere('t.id = :type')
+                            ->setParameter('type', $this->type);
+                    },
                     'multiple' => true,
                     'required'=>false,
                     'attr' => [

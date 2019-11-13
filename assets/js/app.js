@@ -1,9 +1,11 @@
 require('../css/app.css');
 require('../css/animated_css.css');
 require('jquery/dist/jquery');
+
+global.$ = global.jQuery = global.jquery = $;
+
 require ('axios/dist/axios.min');
 
-global.$ = global.jQuery = $;
 global.axios = axios;
 
 const element =  document.querySelector('#flashes');

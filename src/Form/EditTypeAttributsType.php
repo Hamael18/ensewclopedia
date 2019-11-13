@@ -121,6 +121,7 @@ class EditTypeAttributsType extends AbstractType
                     'multiple' => true,
                     'class' => Style::class,
                     'required' => false,
+                    'by_reference' => false,
                     'attr' => [
                         'class' => 'selectpicker test-control-search',
                         'multiple' => true,
