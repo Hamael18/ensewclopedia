@@ -78,9 +78,15 @@ class Brand
      */
     private $slug;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\BrandLike", mappedBy="brand")
+     */
+    private $likes;
+
     public function __construct()
     {
         $this->patterns = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -243,5 +249,52 @@ class Brand
         $this->id = $id;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|BrandLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(BrandLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setBrand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(BrandLike $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getBrand() === $this) {
+                $like->setBrand(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function isLikedByUser(User $user): bool
+    {
+        foreach ($this->likes as $like) {
+            if($like->getUser() === $user)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

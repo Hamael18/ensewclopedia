@@ -3,8 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Pattern;
-use App\Entity\Type;
-use App\Service\setFilterCriteres;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -24,7 +22,8 @@ class PatternRepository extends ServiceEntityRepository
     /**
      * @return mixed
      */
-    public function countPatterns() {
+    public function countPatterns()
+    {
         return $this->createQueryBuilder('p')
             ->select('COUNT(p) as count')
             ->getQuery()
@@ -109,5 +108,17 @@ class PatternRepository extends ServiceEntityRepository
         return $query
             ->getQuery()
             ->execute();
+    }
+
+    public function newestPatterns(User $user)
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.brand',"b")
+            ->join('b.likes', 'bl')
+            ->andWhere('bl.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 }

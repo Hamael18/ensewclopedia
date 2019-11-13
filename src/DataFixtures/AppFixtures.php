@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Brand;
+use App\Entity\BrandLike;
 use App\Entity\Collar;
 use App\Entity\Fabric;
 use App\Entity\Gender;
@@ -11,6 +12,7 @@ use App\Entity\Language;
 use App\Entity\Length;
 use App\Entity\Level;
 use App\Entity\Pattern;
+use App\Entity\PatternPatrontheque;
 use App\Entity\Role;
 use App\Entity\Size;
 use App\Entity\Style;
@@ -71,6 +73,15 @@ class AppFixtures extends Fixture
 
         foreach ($userMarques as $user) {
             $manager->persist($user);
+        }
+
+        $users = [];
+        for ($i = 0; $i < 20; $i++) {
+            $user = new User();
+            $user->setEmail($faker->email)
+                ->setPassword($this->encoder->encodePassword($user, 'password'));
+            $manager->persist($user);
+            $users[] = $user;
         }
 
         // Types
@@ -259,6 +270,14 @@ class AppFixtures extends Fixture
                     ->setImage($image);
                 $marques[] = $marque;
                 $manager->persist($marque);
+
+                for ($j = 0; $j < mt_rand(0, 10); $j++) {
+                    $like = new BrandLike();
+                    $like->setBrand($marque)
+                        ->setUser($faker->randomElement($users))
+                        ->setCreatedAt($faker->dateTimeBetween('-6months', 'now'));
+                    $manager->persist($like);
+                }
             }
         }
 
@@ -284,7 +303,7 @@ class AppFixtures extends Fixture
             for ($pa = 1; $pa <= $nbPatrons; ++$pa) {
                 $patron = new Pattern();
                 $image_pattern = $faker->image('/var/www/html/public/uploads/pattern_images', 1000, 400, 'nightlife', false);
-                $patron->setName($faker->company.' '.$faker->numberBetween(2000, 8000))
+                $patron->setName($faker->company . ' ' . $faker->numberBetween(2000, 8000))
                     ->setDescription($faker->text(150))
                     ->setPrice($faker->randomFloat(2, 10, 50))
                     ->setLien($faker->url)
@@ -312,7 +331,7 @@ class AppFixtures extends Fixture
                         ->setLevel($faker->randomElement($difficultes))
                         ->setPattern($patron)
                         ->setType($faker->randomElement($types))
-                        ->setImage($faker->imageUrl(300, 200));
+                        ->setImage($faker->image('/var/www/html/public/uploads/version_images', 1000, 400, 'technics', false));
                     // Ajout des attributs
 
                     $nbCol = count($cols);
@@ -348,6 +367,14 @@ class AppFixtures extends Fixture
                     $manager->persist($version);
                 }
                 $manager->persist($patron);
+
+                for ($j = 0; $j < mt_rand(0, 10); $j++) {
+                    $patrontheque = new PatternPatrontheque();
+                    $patrontheque->setPatrontheque($patron)
+                        ->setPatternPatrontheques($faker->randomElement($users))
+                        ->setCreatedAt($faker->dateTimeBetween('-6months', 'now'));
+                    $manager->persist($patrontheque);
+                }
             }
         }
 
