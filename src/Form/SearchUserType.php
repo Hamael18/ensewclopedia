@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Repository\RoleRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -11,6 +12,13 @@ use Symfony\Component\Validator\Constraints\Length;
 
 class SearchUserType extends AbstractType
 {
+    private $repo;
+
+    public function __construct(RoleRepository $repository)
+    {
+        $this->repo = $repository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -18,7 +26,11 @@ class SearchUserType extends AbstractType
                 'label' => false,
                 'required' => false,
                 'multiple' => true,
-                'choices' => ['Admin' => 'ROLE_ADMIN', 'Marque' => 'ROLE_MARQUE', 'User' => null],
+                'choices' => [
+                    'Admin' => $this->repo->findOneBy(['libelle' => 'ROLE_ADMIN'])->getId(),
+                    'Marque' => $this->repo->findOneBy(['libelle' => 'ROLE_MARQUE'])->getId(),
+                    'User' => null
+                ],
             ])
             ->add('email', TextType::class, [
                 'label' => false,
