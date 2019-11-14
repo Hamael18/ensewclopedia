@@ -108,6 +108,8 @@ class Pagination
 
         if (in_array('ROLE_MARQUE', $this->user->getRoles())) {
             return $this->getPagesByBrand($this->filter);
+        } elseif ($this->dataFromRepo) {
+            return $this->countPages($this->dataFromRepo);
         } else {
             return $this->getPagesFindAll();
         }
