@@ -27,9 +27,19 @@ class UserRepository extends ServiceEntityRepository
                 ->setParameter('email', '%'.$filterData['email'].'%');
         }
         if ($filterData['roles']) {
-            $query->join('u.roles', 'r')
-                ->andWhere('r.libelle IN (:role)')
-                ->setParameter('role', $filterData['roles']);
+            if (count($filterData['roles']) > 1 and in_array(null, $filterData['roles'])) {
+                $roles = $filterData['roles'];
+                unset($roles[array_search(null, $roles)]);
+                $query
+                    ->andWhere('u.roles IS NULL OR u.roles IN (:role)')
+                    ->setParameter('role', $roles);
+            } elseif (in_array(null, $filterData['roles'])) {
+                $query->andWhere('u.roles IS NULL');
+            } else {
+                $query
+                    ->andWhere('u.roles IN (:role)')
+                    ->setParameter('role', $filterData['roles']);
+            }
         }
 
         return $query->getQuery()
