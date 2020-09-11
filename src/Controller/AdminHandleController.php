@@ -5,14 +5,23 @@ namespace App\Controller;
 use App\Entity\Handle;
 use App\Form\HandleType;
 use App\Service\Pagination;
+use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminHandleController extends BaseAdminController
+class AdminHandleController extends AbstractController
 {
+    protected $manager;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @Route("/admin/version/handle/{page<\d+>?1}", name="admin_handle")
      *

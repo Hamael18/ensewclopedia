@@ -5,14 +5,23 @@ namespace App\Controller;
 use App\Entity\Gender;
 use App\Form\NewGenderType;
 use App\Service\Pagination;
+use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminGenderController extends BaseAdminController
+class AdminGenderController extends AbstractController
 {
+    protected $manager;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @Route("/admin/pattern/gender/{page<\d+>?1}", name="admin_gender")
      *

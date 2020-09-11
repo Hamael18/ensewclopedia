@@ -4,15 +4,23 @@ namespace App\Controller;
 
 use App\Entity\Level;
 use App\Form\NewLevelType;
-use App\Repository\LevelRepository;
 use App\Service\Pagination;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminLevelController extends BaseAdminController
+class AdminLevelController extends AbstractController
 {
+    protected $manager;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @Route("/admin/version/level/{page<\d+>?1}", name="admin_level")
      *

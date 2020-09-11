@@ -6,13 +6,22 @@ use App\Entity\Size;
 use App\Form\SizeType;
 use App\Repository\SizeRepository;
 use App\Service\Pagination;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminSizeController extends BaseAdminController
+class AdminSizeController extends AbstractController
 {
+    protected $manager;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @Route("/admin/version/size/{page<\d+>?1}", name="admin_size")
      *
