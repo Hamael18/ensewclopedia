@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Pattern;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -110,6 +111,13 @@ class PatternRepository extends ServiceEntityRepository
             ->execute();
     }
 
+    /**
+     * Get
+     *
+     * @param User $user
+     *
+     * @return mixed
+     */
     public function newestPatterns(User $user)
     {
         return $this->createQueryBuilder('p')

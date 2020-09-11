@@ -80,6 +80,7 @@ class FrontPatternController extends BaseController
 
         $user = $this->getUser();
         $patrontheque = $this->patternPatronthequeRepository->findBy(['patternPatrontheques' => $user]);
+        $patterns = [];
 
         foreach ($patrontheque as $pattern)
         {

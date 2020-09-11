@@ -15,7 +15,7 @@ class ProfileController extends BaseController
         $user = $this->getUser();
         $favoriteBrands = $this->brandLikeRepository->findBy(['user' => $user]);
         $news = $this->patternRepository->newestPatterns($user);
-dump($news);
+        $brands = [];
         foreach ($favoriteBrands as $brand)
         {
             $brands[] = $brand->getBrand();

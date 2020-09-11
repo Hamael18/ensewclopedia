@@ -16,8 +16,10 @@
 
         </div>
         <div class="card-content">
-            <span class="card-title center"><a href="{{ path('front_pattern' , {'slug' : pattern.slug}) }}"
-                                               class="teal-text text-darken-4">{{ pattern.name }}</a></span>
+            <span class="card-title center">
+                <a href="{{ path('front_pattern' , {'slug' : pattern.slug}) }}"
+                   class="teal-text text-darken-4">{{ pattern.name }}</a>
+            </span>
             <p class="teal-text text-darken-2">{{ pattern.description }}</p>
         </div>
     </div>
