@@ -5,13 +5,22 @@ namespace App\Controller;
 use App\Entity\Collar;
 use App\Form\CollarType;
 use App\Service\Pagination;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminCollarController extends BaseAdminController
+class AdminCollarController extends AbstractController
 {
+    protected $manager;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @Route("/admin/version/collar/{page<\d+>?1}", name="admin_collar")
      *

@@ -2,18 +2,36 @@
 
 namespace App\Controller;
 
+use App\Repository\BrandRepository;
+use App\Repository\PatternRepository;
 use Elastica\Client;
 use Elastica\Client as ElasticaClient;
 use Elastica\Query;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\MultiMatch;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class ElasticController extends BaseController
+class ElasticController extends AbstractController
 {
+    /**
+     * @var PatternRepository
+     */
+    private $patternRepository;
+    /**
+     * @var BrandRepository
+     */
+    private $brandRepository;
+
+    public function __construct(PatternRepository $patternRepository, BrandRepository $brandRepository)
+    {
+        $this->patternRepository = $patternRepository;
+        $this->brandRepository = $brandRepository;
+    }
+
     /**
      * @Route("/search", name="search")
      * @param Request        $request

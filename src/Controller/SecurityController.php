@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\PasswordUpdate;
 use App\Entity\User;
+use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
+use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,8 +17,15 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends BaseController
+class SecurityController extends AbstractController
 {
+    protected $manager;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @Route("/login", name="app_login")
      *
@@ -68,5 +79,26 @@ class SecurityController extends BaseController
         return $this->render('security/registration.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/profil/update-password", name="update_password")
+     *
+     * @return Response
+     */
+    public function updatePassword(Request $request)
+    {
+        $passwordUpdate = new PasswordUpdate();
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
+
+        $form->handleRequest($request);
+
+        return $this->render('security/updatepassword.html.twig', [
+            'form' => $form->createView()
+        ]);
+
     }
 }

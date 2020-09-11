@@ -4,31 +4,20 @@ namespace App\Controller;
 
 use App\Entity\Version;
 use App\Form\VersionType;
-use App\Service\Pagination;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminVersionController extends BaseAdminController
+class AdminVersionController extends AbstractController
 {
-    /**
-     * @Route("/admin/version/{page<\d+>?1}", name="admin_version")
-     *
-     * @param Pagination $pagination
-     * @param            $page
-     *
-     * @return Response
-     */
-    public function listVersions(Pagination $pagination, $page)
-    {
-        $pagination->setEntityClass(Version::class)
-            ->setRoute('admin_brand')
-            ->setPage($page);
+    protected $manager;
 
-        return $this->render('admin/version/index.html.twig', [
-            'pagination' => $pagination,
-        ]);
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
     }
 
     /**
@@ -62,7 +51,7 @@ class AdminVersionController extends BaseAdminController
             $this->manager->flush();
             $this->addFlash('success', 'Version modifiée avec succès !');
 
-            return $this->redirectToRoute('admin_version');
+            return $this->redirectToRoute('admin_dashboard');
         }
 
         return $this->render('admin/version/edit.html.twig', [
@@ -85,6 +74,6 @@ class AdminVersionController extends BaseAdminController
         $this->manager->flush();
         $this->addFlash('success', 'Version supprimée avec succès !');
 
-        return $this->redirectToRoute('admin_version');
+        return $this->redirectToRoute('admin_dashboard');
     }
 }

@@ -4,15 +4,23 @@ namespace App\Controller;
 
 use App\Entity\Length;
 use App\Form\LengthType;
-use App\Repository\LengthRepository;
 use App\Service\Pagination;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminLengthController extends BaseAdminController
+class AdminLengthController extends AbstractController
 {
+    protected $manager;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @Route("/admin/version/length/{page<\d+>?1}", name="admin_length")
      *

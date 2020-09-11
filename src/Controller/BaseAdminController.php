@@ -2,17 +2,26 @@
 
 namespace App\Controller;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Repository\BrandRepository;
+use App\Repository\PatternRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class BaseAdminController extends BaseController
+class BaseAdminController extends AbstractController
 {
-    protected $manager;
-    protected $session;
+    protected $patternRepository;
 
+    protected $brandRepository;
+
+    public function __construct(
+        PatternRepository $patternRepository,
+        BrandRepository $brandRepository
+    )
+    {
+        $this->patternRepository = $patternRepository;
+        $this->brandRepository = $brandRepository;
+    }
     /**
      * @Route("/admin", name="admin_dashboard")
      */

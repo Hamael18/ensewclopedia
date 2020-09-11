@@ -2,7 +2,11 @@
 
 {% block body %}
 
-    <div class="container">
+    <div class="row my-lg-5">
+    <div class="container-fluid">
+        <div class="row app">
+            <h4 class="teal-text text-darken-4">Les patrons dans ma patronthèque</h4>
+        </div>
         <ul>
             <div class="row my-3">
                 {% for pattern in patterns %}
@@ -10,6 +14,7 @@
                 {% endfor %}
             </div>
         </ul>
+    </div>
     </div>
 
 

@@ -16,16 +16,28 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Adresse e-mail',
+                ]
+            ])
             ->add('password', RepeatedType::class, [
-                'type'=> PasswordType::class,
-                'invalid_message'=> 'Les mots de passe doivent être identiques',
-                'required'=>true,
-                    'first_options'=>['label'=> 'Mot de passe'],
-                    'second_options'=>['label'=> 'COnfirmation du mot de passe']
-                ])
-            ->add('inscription', SubmitType::class)
-        ;
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les mots de passe doivent être identiques',
+                'required' => true,
+                'first_options' => ['label' => false , 'attr' => [
+                    'placeholder' => 'Mot de passe']
+                ],
+                'second_options' => ['label' => false, 'attr' => [
+                    'placeholder' => 'Confirmation du mot de passe']
+                ]
+            ])
+            ->add('inscription', SubmitType::class, [
+                'attr' => [
+                    'class' => 'nav-link text-center btn teal lighten-4 teal-text text-darken-4',
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

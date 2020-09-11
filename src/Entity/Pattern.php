@@ -552,10 +552,10 @@ class Pattern
      *
      * @return bool
      */
-    public function inWhishListByUser(User $user): bool
+    public function inwishListByUser(User $user): bool
     {
-        foreach ($this->user as $whishlist) {
-            if($whishlist->getPattern() === $user)
+        foreach ($this->user as $wishlist) {
+            if($wishlist->getPattern() === $user)
             {
                 return true;
             }

@@ -5,12 +5,25 @@ namespace App\Controller;
 use App\Entity\Brand;
 use App\Entity\BrandLike;
 use App\Entity\User;
+use App\Repository\BrandLikeRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FrontBrandController extends BaseController
+class FrontBrandController extends AbstractController
 {
+    protected $manager;
+
+    protected $brandLikeRepository;
+
+    public function __construct(ObjectManager $manager, BrandLikeRepository $brandLikeRepository)
+    {
+        $this->manager = $manager;
+        $this->brandLikeRepository = $brandLikeRepository;
+    }
+
     /**
      * @Route("/brand/{slug}", name="front_brand")
      * @param Brand $brand
@@ -33,6 +46,7 @@ class FrontBrandController extends BaseController
      */
     public function likeBrand(Brand $brand) : Response
     {
+        /** @var User $user */
         $user = $this->getUser();
 
         if (!$user)

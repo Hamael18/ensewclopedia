@@ -4,14 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Style;
 use App\Form\StyleType;
-use App\Repository\StyleRepository;
 use App\Service\Pagination;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminStyleController extends BaseController
+class AdminStyleController extends AbstractController
 {
     /**
      * @Route("/admin/version/style/{page<\d+>?1}", name="admin_style")

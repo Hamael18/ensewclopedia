@@ -3,9 +3,13 @@
 {% block body %}
 
 
-    <div class="container my-5 teal lighten-5 rounded">
+    <div class="container-fluid my-5 teal lighten-5 rounded">
+    <div class="row my-lg-5">
+    <div class="container-fluid">
+        <div class="row app">
+            <h4 class="teal-text text-darken-4">Hello {{ user.email }} !!</h4>
+        </div>
 
-        <p>Mon compte utilisateur : {{ user.email }} </p>
         <p>Changer mon mot de passe <i class="fas fa-edit"></i></p>
 
         <ul>
@@ -18,7 +22,7 @@
             </div>
         </ul>
         <ul>
-            <h3> Derniers patrons</h3>
+            <h3> Dernières nouveautés de mes marques préférées</h3>
             <div class="row my-3">
                 {% for pattern in news %}
                     {% include 'fo_partials/_patternCard.html.twig' %}
@@ -26,5 +30,7 @@
                 {% endfor %}
             </div>
         </ul>
+    </div>
+    </div>
     </div>
 {% endblock %}

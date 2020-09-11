@@ -10,13 +10,26 @@ use App\Form\VersionType;
 use App\Service\FilterObjectsBrand;
 use App\Service\Pagination;
 use App\Service\setFilterCriteres;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MarquePatternController extends BaseAdminController
+class MarquePatternController extends AbstractController
 {
+    protected $manager;
+
+    protected $session;
+
+    public function __construct(ObjectManager $manager, SessionInterface $session)
+    {
+        $this->manager = $manager;
+        $this->session = $session;
+    }
+
     /**
      * @Route("/marque/pattern/{page<\d+>?1}", name="marque_pattern")
      *
