@@ -1,0 +1,14 @@
+{% extends 'fo_partials/base.html.twig' %}
+
+{% block title %}Rénitialisation du mot de passe{% endblock %}
+
+{% block body %}
+<div class="my-5 py-5 container teal lighten-5">
+    <div class="container">
+        <div class="row teal-text darken-4 mb-5"><h3>Reinitialiser votre mot de passe</h3></div>
+
+    {{ form_start(resetForm) }}
+        {{ form_row(resetForm.plainPassword) }}
+        <button class="nav-link text-center btn teal lighten-4 teal-text text-darken-4">Reset password</button>
+    {{ form_end(resetForm) }}
+{% endblock %}

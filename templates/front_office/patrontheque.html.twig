@@ -4,16 +4,23 @@
 
     <div class="row my-lg-5">
     <div class="container-fluid">
+        {% if patterns %}
         <div class="row app">
             <h4 class="teal-text text-darken-4">Les patrons dans ma patronthèque</h4>
         </div>
         <ul>
             <div class="row my-3">
-                {% for pattern in patterns %}
-                    {% include 'fo_partials/_patternCard.html.twig' %}
-                {% endfor %}
+                    {% for pattern in patterns %}
+                        {% include 'fo_partials/_patternCard.html.twig' %}
+                    {% endfor %}
             </div>
         </ul>
+        {% else %}
+        <div class="row app">
+            <h4 class="teal-text text-darken-4">Vous n'avez pas encore de patron(s) dans votre patronthèque</h4>
+        </div>
+
+        {% endif %}
     </div>
     </div>
 

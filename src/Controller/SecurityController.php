@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -55,7 +54,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/registration", name="registration")
+     * @Route("/registration", name="app_registration")
      *
      * @param Request                      $request
      * @param UserPasswordEncoderInterface $encoder
@@ -82,7 +81,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/profil/update-password", name="update_password")
+     * @Route("/profil/update", name="update_password")
      *
      * @return Response
      */
