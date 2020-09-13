@@ -36,7 +36,7 @@ security:
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/marque, roles: ROLE_MARQUE }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/profil, roles: ROLE_USER }
     role_hierarchy:
         ROLE_UTILISATEUR: [ROLE_USER]
         ROLE_MARQUE: [ROLE_USER, ROLE_MARQUE]

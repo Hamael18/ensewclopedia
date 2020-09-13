@@ -6,12 +6,13 @@ use App\Entity\User;
 use App\Repository\BrandLikeRepository;
 use App\Repository\PatternPatronthequeRepository;
 use App\Repository\PatternRepository;
+use App\Service\FavoritesRetriever;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProfileController extends AbstractController
 {
-
     /**
      * @var PatternRepository
      */
@@ -30,7 +31,6 @@ class ProfileController extends AbstractController
         $this->patternRepository = $patternRepository;
         $this->brandLikeRepository = $brandLikeRepository;
         $this->patternPatronthequeRepository = $patternPatronthequeRepository;
-
     }
 
     /**
@@ -40,12 +40,10 @@ class ProfileController extends AbstractController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $favoriteBrands = $this->brandLikeRepository->findBy(['user' => $user]);
+
+        $favoriteBrands = new FavoritesRetriever();
+        $brands = $favoriteBrands->getFavoriteBrand($user, $this->brandLikeRepository);
         $news = $this->patternRepository->newestPatterns($user);
-        foreach ($favoriteBrands as $brand)
-        {
-            $brands[] = $brand->getBrand();
-        }
 
         return $this->render('front_office/profile.html.twig', [
             'user' => $user,
@@ -60,14 +58,11 @@ class ProfileController extends AbstractController
      */
     public function patronthequeByUser()
     {
-
+        /** @var User $user */
         $user = $this->getUser();
-        $patrontheque = $this->patternPatronthequeRepository->findBy(['patternPatrontheques' => $user]);
+        $patrontheque = new FavoritesRetriever();
+        $patterns = $patrontheque->getPatrontheque($user, $this->patternPatronthequeRepository);
 
-        foreach ($patrontheque as $pattern)
-        {
-            $patterns[] = $pattern->getPatrontheque();
-        }
         return $this->render('front_office/patrontheque.html.twig', [
             'patterns' => $patterns,
         ]);
