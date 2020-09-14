@@ -2,30 +2,43 @@
 
 {% block body %}
 
+{% if user %}
+    <div class="container-fluid my-5 teal lighten-5 rounded">
+        <div class="row my-lg-5">
+            <div class="container-fluid">
+                <div class="row app">
+                    <h4 class="teal-text text-darken-4">Hello {{ user.email }} !!</h4>
+                </div>
 
-    <div class="container my-5 teal lighten-5 rounded">
+                <p>Changer mon mot de passe <a href="{{ path('app_forgot_password_request') }}"> <i
+                                class="fas fa-edit"></i> </a></p>
 
-        <p>Bonjour {{ user.email }} </p>
-        <p>Changer mon mot de passe <i class="fas fa-edit"></i></p>
+                <ul>
+                    <h3> Marques préférées</h3>
+                    <div class="row my-3">
+                        {% if brands %}
+                            {% for brand in brands %}
+                                {% include 'fo_partials/_brandCard.html.twig' %}
 
-        <ul>
-            <h4 class="teal-text text-darken-4 font-weight-bold"> Marques préférées</h4>
-            <div class="row my-3">
-                {% for brand in brands %}
-                    {% include 'fo_partials/_brandCard.html.twig' %}
+                            {% endfor %}
+                        {% else %}
+                            <h4> Vous n'avez pas encore choisi de marque(s) préférée(s)</h4>
+                        {% endif %}
+                    </div>
+                </ul>
+                <ul>
+                    <h3> Dernières nouveautés de mes marques préférées</h3>
+                    <div class="row my-3">
+                        {% for pattern in news %}
+                            {% include 'fo_partials/_patternCard.html.twig' %}
 
-                {% endfor %}
+                        {% endfor %}
+                    </div>
+                </ul>
             </div>
-        </ul>
-        <ul>
-            <h4 class="teal-text text-darken-4 font-weight-bold"> Actualités de mes marques préférées </h4>
-
-            <div class="row my-3">
-                {% for pattern in news %}
-                    {% include 'fo_partials/_patternCard.html.twig' %}
-
-                {% endfor %}
-            </div>
-        </ul>
+        </div>
     </div>
+    {% else %}
+    <p> Vous devez être connecté.e !</p>
+    {% endif %}
 {% endblock %}

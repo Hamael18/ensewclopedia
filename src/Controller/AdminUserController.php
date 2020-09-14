@@ -10,13 +10,20 @@ use App\Form\SearchUserType;
 use App\Service\Pagination;
 use App\Service\setFilterCriteres;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminUserController extends BaseAdminController
+class AdminUserController extends AbstractController
 {
+    protected $manager;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
     /**
      * @Route("/admin/user/{page<\d+>?1}", name="admin_user")
      *

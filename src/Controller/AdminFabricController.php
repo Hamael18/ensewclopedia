@@ -5,14 +5,23 @@ namespace App\Controller;
 use App\Entity\Fabric;
 use App\Form\FabricType;
 use App\Service\Pagination;
+use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminFabricController extends BaseController
+class AdminFabricController extends AbstractController
 {
+    protected $manager;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @Route("/admin/version/fabric/{page<\d+>?1}", name="admin_fabric")
      *

@@ -4,9 +4,9 @@
 
 {% block body %}
 
-    {% include 'fo_partials/search.html.twig' %}
+    {% include 'fo_partials/_search.html.twig' %}
     <div class="row my-lg-5">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row app">
                 <h4 class="teal-text text-darken-4">Nouveautés</h4>
             </div>
@@ -19,9 +19,26 @@
     </div>
 
     <div class="row my-lg-5">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <h4 class="teal-text text-darken-4">Populaires</h4>
+                <h4 class="teal-text text-darken-4">Patrons populaires</h4>
+            </div>
+            <div class="row my-3">
+                {% for patternInfo in popularestPatterns %}
+                    {% set pattern = patternInfo.pattern %}
+                    {% include'fo_partials/_patternCard.html.twig' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row my-lg-5">
+        <div class="container-fluid">
+            <div class="row">
+                <h4 class="teal-text text-darken-4">Découvertes de marques</h4>
+            </div>
+            <div class="row my-3">
+
             </div>
         </div>
     </div>

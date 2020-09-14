@@ -18,8 +18,10 @@ class AccueilController extends AbstractController
      */
     public function index(PatternRepository $patternRepo, Request $request)
     {
+        $limit = 9;
         return $this->render('front_office/index.html.twig', [
-            'lastPatterns' => $patternRepo->findBy([], ['createdAt' => 'DESC'], 10),
+            'lastPatterns' => $patternRepo->findBy([], ['createdAt' => 'DESC'], $limit),
+            'popularestPatterns' => $patternRepo->popularestPatterns($limit)
         ]);
     }
 }

@@ -3,7 +3,7 @@
 {% block title %} {{ brand.name }}{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="my-5">
             <div class="teal lighten-5 text-center rounded">
                 <div>
@@ -17,10 +17,15 @@
                         {% endif %}
                     </a>
                 </h4>
-                <div class="my-5">{{ brand.description }}</div>
+                <div class="container my-5">{{ brand.description }}</div>
             </div>
         </div>
         <div class="row">
+            {% if brand.patterns is empty %}
+                <div>
+                    <h5> Cette marque n'a pas encore créé de patrons</h5>
+                </div>
+            {% endif %}
             {% for pattern in brand.patterns %}
                 {% include 'fo_partials/_patternCard.html.twig' %}
             {% endfor %}
