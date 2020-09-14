@@ -537,6 +537,7 @@ class Pattern
 
     public function removeUser(WishlistPattern $user): self
     {
+        dd([$user, $this] );
         if ($this->user->contains($user)) {
             $this->user->removeElement($user);
             // set the owning side to null (unless already changed)
@@ -555,7 +556,7 @@ class Pattern
     public function inwishListByUser(User $user): bool
     {
         foreach ($this->user as $wishlist) {
-            if($wishlist->getPattern() === $user)
+            if($wishlist->getUser() === $user)
             {
                 return true;
             }

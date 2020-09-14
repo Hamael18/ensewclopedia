@@ -6,6 +6,7 @@ namespace App\Service;
 use App\Entity\User;
 use App\Repository\BrandLikeRepository;
 use App\Repository\PatternPatronthequeRepository;
+use App\Repository\WishlistPatternRepository;
 use Doctrine\Persistence\ObjectManager;
 
 /**
@@ -43,6 +44,22 @@ class FavoritesRetriever
         foreach ($patrontheque as $pattern)
         {
             $patterns[] = $pattern->getPatrontheque();
+        }
+
+        return $patterns;
+    }
+
+    public function getWishlist(User $user, WishlistPatternRepository $wishlistPatternRepository)
+    {
+        $wishlist = $wishlistPatternRepository->findBy(['user' => $user]);
+
+        if (!$wishlist) {
+            return null;
+        }
+
+        foreach ($wishlist as $pattern)
+        {
+            $patterns[] = $pattern->getPattern();
         }
 
         return $patterns;
