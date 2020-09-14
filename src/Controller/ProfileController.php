@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Repository\BrandLikeRepository;
 use App\Repository\PatternPatronthequeRepository;
 use App\Repository\PatternRepository;
+use App\Repository\WishlistPatternRepository;
 use App\Service\FavoritesRetriever;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,12 +26,17 @@ class ProfileController extends AbstractController
      * @var PatternPatronthequeRepository
      */
     private $patternPatronthequeRepository;
+    /**
+     * @var WishlistPatternRepository
+     */
+    private $wishlistPatternRepository;
 
-    public function __construct(PatternRepository $patternRepository, BrandLikeRepository $brandLikeRepository, PatternPatronthequeRepository $patternPatronthequeRepository)
+    public function __construct(PatternRepository $patternRepository, BrandLikeRepository $brandLikeRepository, PatternPatronthequeRepository $patternPatronthequeRepository, WishlistPatternRepository $wishlistPatternRepository)
     {
         $this->patternRepository = $patternRepository;
         $this->brandLikeRepository = $brandLikeRepository;
         $this->patternPatronthequeRepository = $patternPatronthequeRepository;
+        $this->wishlistPatternRepository = $wishlistPatternRepository;
     }
 
     /**
@@ -68,4 +74,21 @@ class ProfileController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route("/profil/wishlist", name="user_wishlist")
+     */
+    public function wishListByUser()
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $wishlist = new FavoritesRetriever();
+        $patterns = $wishlist->getWishlist($user, $this->wishlistPatternRepository);
+
+        return $this->render('front_office/wishlist.html.twig', [
+            'patterns' => $patterns,
+        ]);
+
+    }
+
 }

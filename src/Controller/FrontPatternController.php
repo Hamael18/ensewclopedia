@@ -122,8 +122,8 @@ class FrontPatternController extends AbstractController
         if ($pattern->inwishListByUser($user))
         {
             $pattern = $this->wishlistPatternRepository->findOneBy([
-                'patternWish'=> $pattern,
-                'userWish' => $user
+                'pattern'=> $pattern,
+                'user' => $user
             ]);
 
             $this->manager->remove($pattern);
