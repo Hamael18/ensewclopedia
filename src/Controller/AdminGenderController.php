@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Gender;
 use App\Form\NewGenderType;
 use App\Service\Pagination;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,9 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminGenderController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }
@@ -25,8 +26,7 @@ class AdminGenderController extends AbstractController
     /**
      * @Route("/admin/pattern/gender/{page<\d+>?1}", name="admin_gender")
      *
-     * @param Pagination $pagination
-     * @param            $page
+     * @param $page
      *
      * @return Response
      *
@@ -46,8 +46,6 @@ class AdminGenderController extends AbstractController
 
     /**
      * @Route("/admin/pattern/gender/new", name="admin_gender_new")
-     *
-     * @param Request $request
      *
      * @return RedirectResponse|Response
      */
@@ -73,9 +71,6 @@ class AdminGenderController extends AbstractController
     /**
      * @Route("/admin/pattern/gender/edit/{id}", name="admin_gender_edit")
      *
-     * @param Request $request
-     * @param Gender  $gender
-     *
      * @return RedirectResponse|Response
      */
     public function editBrand(Request $request, Gender $gender)
@@ -98,8 +93,6 @@ class AdminGenderController extends AbstractController
 
     /**
      * @Route("/admin/pattern/gender/delete/{id}", name="admin_gender_delete")
-     *
-     * @param Gender $gender
      *
      * @return RedirectResponse
      */

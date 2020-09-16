@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Handle;
 use App\Form\HandleType;
 use App\Service\Pagination;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,9 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminHandleController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }
@@ -25,10 +26,10 @@ class AdminHandleController extends AbstractController
     /**
      * @Route("/admin/version/handle/{page<\d+>?1}", name="admin_handle")
      *
-     * @param Pagination $pagination
-     * @param            $page
+     * @param $page
      *
      * @return Response
+     *
      * @throws Exception
      */
     public function listHandles(Pagination $pagination, $page)
@@ -45,8 +46,6 @@ class AdminHandleController extends AbstractController
 
     /**
      * @Route("/admin/version/handle/new", name="admin_handle_new")
-     *
-     * @param Request $request
      *
      * @return RedirectResponse|Response
      */
@@ -72,9 +71,6 @@ class AdminHandleController extends AbstractController
     /**
      * @Route("/admin/version/handle/edit/{id}", name="admin_handle_edit")
      *
-     * @param Request $request
-     * @param Handle  $handle
-     *
      * @return RedirectResponse|Response
      */
     public function editStyle(Request $request, Handle $handle)
@@ -97,8 +93,6 @@ class AdminHandleController extends AbstractController
 
     /**
      * @Route("/admin/version/handle/delete/{id}", name="admin_handle_delete")
-     *
-     * @param Handle $handle
      *
      * @return RedirectResponse
      */

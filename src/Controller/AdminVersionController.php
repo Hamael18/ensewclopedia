@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Version;
 use App\Form\VersionType;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,9 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminVersionController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }

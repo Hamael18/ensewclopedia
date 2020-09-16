@@ -6,7 +6,7 @@ use App\Entity\Type;
 use App\Form\AddTypeType;
 use App\Form\EditTypeAttributsType;
 use App\Repository\TypeRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,9 +15,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminTypeController extends AbstractController
 {
+    /** @var EntityManagerInterface */
+    protected $manager;
+
+    public function __construct(EntityManagerInterface $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @Route("/admin/type", name="admin_type")
-     * @param TypeRepository $repository
+     *
      * @return Response
      */
     public function indexType(TypeRepository $repository)
@@ -30,21 +38,18 @@ class AdminTypeController extends AbstractController
     /**
      * @Route("/admin/type/add", name="admin_type_add")
      *
-     * @param Request $request
-     * @param ObjectManager $manager
-     *
      * @return RedirectResponse|Response
      */
-    public function addType(Request $request, ObjectManager $manager)
+    public function addType(Request $request)
     {
         $type = new Type();
         $form = $this->createForm(AddTypeType::class, $type);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($type);
-            $manager->flush();
-            $this->addFlash('success', "Type créé avec succès !");
+            $this->manager->persist($type);
+            $this->manager->flush();
+            $this->addFlash('success', 'Type créé avec succès !');
 
             return $this->redirectToRoute('admin_type');
         }
@@ -57,21 +62,17 @@ class AdminTypeController extends AbstractController
     /**
      * @Route("/admin/type/edit/{id}", name="admin_type_edit")
      *
-     * @param Request $request
-     * @param ObjectManager $manager
-     * @param Type $type
-     *
      * @return RedirectResponse|Response
      */
-    public function editType(Request $request, ObjectManager $manager, Type $type)
+    public function editType(Request $request, Type $type)
     {
         $form = $this->createForm(AddTypeType::class, $type);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($type);
-            $manager->flush();
-            $this->addFlash('success', "Type modifié avec succès !");
+            $this->manager->persist($type);
+            $this->manager->flush();
+            $this->addFlash('success', 'Type modifié avec succès !');
 
             return $this->redirectToRoute('admin_type');
         }
@@ -85,16 +86,13 @@ class AdminTypeController extends AbstractController
     /**
      * @Route("/admin/type/delete/{id}", name="admin_type_delete")
      *
-     * @param ObjectManager $manager
-     * @param Type $type
-     *
      * @return RedirectResponse
      */
-    public function deleteType(ObjectManager $manager, Type $type)
+    public function deleteType(Type $type)
     {
-        $manager->remove($type);
-        $manager->flush();
-        $this->addFlash('success', "Type supprimé avec succès !");
+        $this->manager->remove($type);
+        $this->manager->flush();
+        $this->addFlash('success', 'Type supprimé avec succès !');
 
         return $this->redirectToRoute('admin_type');
     }
@@ -102,20 +100,16 @@ class AdminTypeController extends AbstractController
     /**
      * @Route("/admin/type/editAttributs/{id}", name="admin_type_editAttributs")
      *
-     * @param Request $request
-     * @param ObjectManager $manager
-     * @param Type $type
-     *
      * @return Response
      */
-    public function addAttributsToType(Request $request, ObjectManager $manager, Type $type)
+    public function addAttributsToType(Request $request, Type $type)
     {
         $form = $this->createForm(EditTypeAttributsType::class, $type);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->flush();
-            $this->addFlash('success', "Les attributs de ce type ont bien été mis à jour !");
+            $this->manager->flush();
+            $this->addFlash('success', 'Les attributs de ce type ont bien été mis à jour !');
 
             return $this->redirectToRoute('admin_type');
         }

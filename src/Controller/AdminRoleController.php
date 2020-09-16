@@ -16,20 +16,19 @@ class AdminRoleController extends AbstractController
 {
     /**
      * @Route("/admin/role", name="admin_role")
-     * @param RoleRepository $repository
+     *
      * @return Response
      */
     public function index(RoleRepository $repository)
     {
         return $this->render('admin/role/index.html.twig', [
-            'roles' => $repository->findAll()
+            'roles' => $repository->findAll(),
         ]);
     }
 
     /**
      * @Route("/admin/role/add_role", name="admin_role_add")
-     * @param Request $request
-     * @param ObjectManager $manager
+     *
      * @return RedirectResponse|Response
      */
     public function addRole(Request $request, ObjectManager $manager)
@@ -41,20 +40,19 @@ class AdminRoleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($role);
             $manager->flush();
-            $this->addFlash('success', "Rôle créé avec succès !");
+            $this->addFlash('success', 'Rôle créé avec succès !');
+
             return $this->redirectToRoute('admin_role');
         }
 
         return $this->render('admin/role/new.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/admin/role/edit/{id}", name="admin_role_edit")
-     * @param Request $request
-     * @param ObjectManager $manager
-     * @param Role $role
+     *
      * @return RedirectResponse|Response
      */
     public function editRole(Request $request, ObjectManager $manager, Role $role)
@@ -64,27 +62,27 @@ class AdminRoleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush();
-            $this->addFlash('success', "Rôle édité avec succès !");
+            $this->addFlash('success', 'Rôle édité avec succès !');
+
             return $this->redirectToRoute('admin_role');
         }
 
         return $this->render('admin/role/edit.html.twig', [
             'form' => $form->createView(),
-            'role' => $role
+            'role' => $role,
         ]);
     }
 
     /**
      * @Route("/admin/role/delete/{id}", name="admin_role_delete")
-     * @param Role $role
-     * @param ObjectManager $manager
+     *
      * @return RedirectResponse
      */
     public function deleteRole(Role $role, ObjectManager $manager)
     {
         $manager->remove($role);
         $manager->flush();
-        $this->addFlash('success', "Rôle supprimé avec succès !");
+        $this->addFlash('success', 'Rôle supprimé avec succès !');
 
         return $this->redirectToRoute('admin_role');
     }

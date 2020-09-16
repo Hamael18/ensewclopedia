@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Language;
 use App\Form\NewLanguageType;
 use App\Service\Pagination;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,9 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminLanguageController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }
@@ -25,10 +26,10 @@ class AdminLanguageController extends AbstractController
     /**
      * @Route("/admin/pattern/language/{page<\d+>?1}", name="admin_language")
      *
-     * @param Pagination $pagination
-     * @param            $page
+     * @param $page
      *
      * @return Response
+     *
      * @throws Exception
      */
     public function listLanguages(Pagination $pagination, $page)
@@ -45,8 +46,6 @@ class AdminLanguageController extends AbstractController
 
     /**
      * @Route("/admin/pattern/language/new", name="admin_language_new")
-     *
-     * @param Request $request
      *
      * @return RedirectResponse|Response
      */
@@ -72,9 +71,6 @@ class AdminLanguageController extends AbstractController
     /**
      * @Route("/admin/pattern/language/edit/{id}", name="admin_language_edit")
      *
-     * @param Request  $request
-     * @param Language $language
-     *
      * @return RedirectResponse|Response
      */
     public function editLanguage(Request $request, Language $language)
@@ -97,8 +93,6 @@ class AdminLanguageController extends AbstractController
 
     /**
      * @Route("/admin/pattern/language/delete/{id}", name="admin_language_delete")
-     *
-     * @param Language $language
      *
      * @return RedirectResponse
      */

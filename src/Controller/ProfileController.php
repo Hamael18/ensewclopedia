@@ -8,7 +8,6 @@ use App\Repository\PatternPatronthequeRepository;
 use App\Repository\PatternRepository;
 use App\Repository\WishlistPatternRepository;
 use App\Service\FavoritesRetriever;
-use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,14 +17,17 @@ class ProfileController extends AbstractController
      * @var PatternRepository
      */
     private $patternRepository;
+
     /**
      * @var BrandLikeRepository
      */
     private $brandLikeRepository;
+
     /**
      * @var PatternPatronthequeRepository
      */
     private $patternPatronthequeRepository;
+
     /**
      * @var WishlistPatternRepository
      */
@@ -54,10 +56,9 @@ class ProfileController extends AbstractController
         return $this->render('front_office/profile.html.twig', [
             'user' => $user,
             'brands' => $brands,
-            'news' => $news
+            'news' => $news,
         ]);
     }
-
 
     /**
      * @Route("/profil/patrontheque", name="user_patrontheque")
@@ -72,7 +73,6 @@ class ProfileController extends AbstractController
         return $this->render('front_office/patrontheque.html.twig', [
             'patterns' => $patterns,
         ]);
-
     }
 
     /**
@@ -88,7 +88,5 @@ class ProfileController extends AbstractController
         return $this->render('front_office/wishlist.html.twig', [
             'patterns' => $patterns,
         ]);
-
     }
-
 }

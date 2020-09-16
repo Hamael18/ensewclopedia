@@ -8,7 +8,7 @@ use App\Form\PatternType;
 use App\Form\TypeVersionType;
 use App\Form\VersionType;
 use App\Service\Pagination;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,9 +17,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminPatternController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }
@@ -27,8 +28,7 @@ class AdminPatternController extends AbstractController
     /**
      * @Route("/admin/pattern/{page<\d+>?1}", name="admin_pattern")
      *
-     * @param Pagination $pagination
-     * @param            $page
+     * @param $page
      *
      * @return Response
      */
@@ -45,8 +45,6 @@ class AdminPatternController extends AbstractController
 
     /**
      * @Route("/admin/pattern/new", name="admin_pattern_new")
-     *
-     * @param Request $request
      *
      * @return RedirectResponse|Response
      */
@@ -77,9 +75,6 @@ class AdminPatternController extends AbstractController
     /**
      * @Route("/admin/pattern/edit/{id}", name="admin_pattern_edit")
      *
-     * @param Request $request
-     * @param Pattern $pattern
-     *
      * @return RedirectResponse|Response
      */
     public function editPattern(Request $request, Pattern $pattern)
@@ -103,8 +98,6 @@ class AdminPatternController extends AbstractController
     /**
      * @Route("/admin/pattern/delete/{id}", name="admin_pattern_delete")
      *
-     * @param Pattern $pattern
-     *
      * @return RedirectResponse
      */
     public function deletePattern(Pattern $pattern)
@@ -119,9 +112,6 @@ class AdminPatternController extends AbstractController
     /**
      * @Route("/admin/pattern/add_type_version/{id}", name="admin_pattern_addVersion")
      *
-     * @param Request $request
-     * @param Pattern $pattern
-     *
      * @return RedirectResponse|Response
      */
     public function addType(Request $request, Pattern $pattern)
@@ -135,7 +125,8 @@ class AdminPatternController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->manager->persist($version);
             $this->manager->flush();
-            $this->addFlash('success', "Version créée avec succès !");
+            $this->addFlash('success', 'Version créée avec succès !');
+
             return $this->redirectToRoute('admin_pattern_addVersion_attributs', [
                 'id' => $version->getId(),
             ]);
@@ -149,9 +140,6 @@ class AdminPatternController extends AbstractController
 
     /**
      * @Route("/admin/pattern/add_attributs_version/{id}", name="admin_pattern_addVersion_attributs")
-     *
-     * @param Request $request
-     * @param Version $version
      *
      * @return RedirectResponse|Response
      */
@@ -176,8 +164,6 @@ class AdminPatternController extends AbstractController
 
     /**
      * @Route("/admin/pattern/show/{slug}", name="admin_pattern_show")
-     *
-     * @param Pattern $pattern
      *
      * @return Response
      */

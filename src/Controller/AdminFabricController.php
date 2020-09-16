@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Fabric;
 use App\Form\FabricType;
 use App\Service\Pagination;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,9 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminFabricController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }
@@ -25,8 +26,7 @@ class AdminFabricController extends AbstractController
     /**
      * @Route("/admin/version/fabric/{page<\d+>?1}", name="admin_fabric")
      *
-     * @param Pagination $pagination
-     * @param            $page
+     * @param $page
      *
      * @return Response
      *
@@ -46,8 +46,6 @@ class AdminFabricController extends AbstractController
 
     /**
      * @Route("/admin/version/fabric/new", name="admin_fabric_new")
-     *
-     * @param Request $request
      *
      * @return RedirectResponse|Response
      */
@@ -73,9 +71,6 @@ class AdminFabricController extends AbstractController
     /**
      * @Route("/admin/version/fabric/edit/{id}", name="admin_fabric_edit")
      *
-     * @param Request $request
-     * @param Fabric  $fabric
-     *
      * @return RedirectResponse|Response
      */
     public function editFabric(Request $request, Fabric $fabric)
@@ -98,8 +93,6 @@ class AdminFabricController extends AbstractController
 
     /**
      * @Route("/admin/version/fabric/delete/{id}", name="admin_fabric_delete")
-     *
-     * @param Fabric $fabric
      *
      * @return RedirectResponse
      */

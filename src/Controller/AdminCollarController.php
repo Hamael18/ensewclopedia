@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Collar;
 use App\Form\CollarType;
 use App\Service\Pagination;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,9 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminCollarController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }
@@ -24,10 +25,10 @@ class AdminCollarController extends AbstractController
     /**
      * @Route("/admin/version/collar/{page<\d+>?1}", name="admin_collar")
      *
-     * @param Pagination $pagination
-     * @param            $page
+     * @param $page
      *
      * @return Response
+     *
      * @throws \Exception
      */
     public function listCollars(Pagination $pagination, $page)
@@ -44,8 +45,6 @@ class AdminCollarController extends AbstractController
 
     /**
      * @Route("/admin/version/collar/new", name="admin_collar_new")
-     *
-     * @param Request $request
      *
      * @return RedirectResponse|Response
      */
@@ -71,9 +70,6 @@ class AdminCollarController extends AbstractController
     /**
      * @Route("/admin/version/collar/edit/{id}", name="admin_collar_edit")
      *
-     * @param Request $request
-     * @param Collar  $collar
-     *
      * @return RedirectResponse|Response
      */
     public function editStyle(Request $request, Collar $collar)
@@ -96,8 +92,6 @@ class AdminCollarController extends AbstractController
 
     /**
      * @Route("/admin/version/collar/delete/{id}", name="admin_collar_delete")
-     *
-     * @param Collar $collar
      *
      * @return RedirectResponse
      */

@@ -9,7 +9,7 @@ use App\Form\EditUserRoleType;
 use App\Form\SearchUserType;
 use App\Service\Pagination;
 use App\Service\setFilterCriteres;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,19 +18,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminUserController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }
+
     /**
      * @Route("/admin/user/{page<\d+>?1}", name="admin_user")
      *
-     * @param Pagination        $pagination
-     * @param                   $page
-     * @param Request           $request
-     * @param setFilterCriteres $setFilterCriteres
+     * @param $page
      *
      * @return Response
      *
@@ -65,8 +64,6 @@ class AdminUserController extends AbstractController
     /**
      * @Route("/admin/user/delete/{id}", name="admin_user_delete")
      *
-     * @param User $user
-     *
      * @return RedirectResponse
      */
     public function deleteUser(User $user)
@@ -80,18 +77,16 @@ class AdminUserController extends AbstractController
 
     /**
      * @Route("/admin/user/edit_role/{id}", name="admin_user_editRole")
-     * @param Request $request
-     * @param ObjectManager $manager
-     * @param User $user
+     *
      * @return RedirectResponse|Response
      */
-    public function changeRoleUser(Request $request, ObjectManager $manager, User $user)
+    public function changeRoleUser(Request $request, User $user)
     {
         $form = $this->createForm(EditUserRoleType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->flush();
+            $this->manager->flush();
             $this->addFlash('success', "Rôle de l'utilisateur modifié avec succès !");
 
             return $this->redirectToRoute('admin_user');
@@ -99,15 +94,12 @@ class AdminUserController extends AbstractController
 
         return $this->render('admin/user/editRole.html.twig', [
             'user' => $user,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/admin/user/{id}/addBrands", name="admin_user_addBrands")
-     *
-     * @param Request $request
-     * @param User    $user
      *
      * @return RedirectResponse|Response
      */
@@ -138,8 +130,6 @@ class AdminUserController extends AbstractController
 
     /**
      * @Route("/admin/show/user/{id}", name="admin_user_show")
-     *
-     * @param User $user
      *
      * @return Response
      */

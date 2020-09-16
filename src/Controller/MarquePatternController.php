@@ -10,7 +10,7 @@ use App\Form\VersionType;
 use App\Service\FilterObjectsBrand;
 use App\Service\Pagination;
 use App\Service\setFilterCriteres;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,11 +20,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MarquePatternController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
-
+    /** @var SessionInterface */
     protected $session;
 
-    public function __construct(ObjectManager $manager, SessionInterface $session)
+    public function __construct(EntityManagerInterface $manager, SessionInterface $session)
     {
         $this->manager = $manager;
         $this->session = $session;
@@ -33,11 +34,7 @@ class MarquePatternController extends AbstractController
     /**
      * @Route("/marque/pattern/{page<\d+>?1}", name="marque_pattern")
      *
-     * @param Pagination         $pagination
-     * @param                    $page
-     * @param Request            $request
-     * @param setFilterCriteres  $filterCriteres
-     * @param FilterObjectsBrand $filterObjectsBrand
+     * @param $page
      *
      * @return Response
      */
@@ -60,7 +57,7 @@ class MarquePatternController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $pagination = $filterCriteres->setFilterBrand($form->getViewData(), $request);
-          
+
             return $this->render('marque/pattern/index.html.twig', [
                 'pagination' => $pagination,
                 'form' => $form->createView(),
@@ -76,8 +73,6 @@ class MarquePatternController extends AbstractController
 
     /**
      * @Route("/marque/pattern/new", name="marque_pattern_new")
-     *
-     * @param Request $request
      *
      * @return RedirectResponse|Response
      */
@@ -102,9 +97,6 @@ class MarquePatternController extends AbstractController
 
     /**
      * @Route("/marque/pattern/add_version/{id}", name="marque_pattern_addVersion")
-     *
-     * @param Request $request
-     * @param Pattern $pattern
      *
      * @return RedirectResponse|Response
      */
@@ -133,9 +125,6 @@ class MarquePatternController extends AbstractController
     /**
      * @Route("/marque/pattern/edit/{id}", name="marque_pattern_edit")
      *
-     * @param Request $request
-     * @param Pattern $pattern
-     *
      * @return RedirectResponse|Response
      */
     public function editPattern(Request $request, Pattern $pattern)
@@ -158,8 +147,6 @@ class MarquePatternController extends AbstractController
 
     /**
      * @Route("/marque/pattern/delete/{id}", name="marque_pattern_delete")
-     *
-     * @param Pattern $pattern
      *
      * @return RedirectResponse
      */

@@ -20,7 +20,7 @@ use App\Entity\Type;
 use App\Entity\User;
 use App\Entity\Version;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -76,7 +76,7 @@ class AppFixtures extends Fixture
         }
 
         $users = [];
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 20; ++$i) {
             $user = new User();
             $user->setEmail($faker->email)
                 ->setPassword($this->encoder->encodePassword($user, 'password'));
@@ -301,7 +301,7 @@ class AppFixtures extends Fixture
                 $marques[] = $marque;
                 $manager->persist($marque);
 
-                for ($j = 0; $j < mt_rand(0, 10); $j++) {
+                for ($j = 0; $j < mt_rand(0, 10); ++$j) {
                     $like = new BrandLike();
                     $like->setBrand($marque)
                         ->setUser($faker->randomElement($users))
@@ -333,7 +333,7 @@ class AppFixtures extends Fixture
             for ($pa = 1; $pa <= $nbPatrons; ++$pa) {
                 $patron = new Pattern();
                 $image_pattern = $faker->image('/var/www/html/public/uploads/pattern_images', 1000, 400, 'nightlife', false);
-                $patron->setName($faker->company . ' ' . $faker->numberBetween(2000, 8000))
+                $patron->setName($faker->company.' '.$faker->numberBetween(2000, 8000))
                     ->setDescription($faker->text(150))
                     ->setPrice($faker->randomFloat(2, 10, 50))
                     ->setLien($faker->url)
@@ -398,7 +398,7 @@ class AppFixtures extends Fixture
                 }
                 $manager->persist($patron);
 
-                for ($j = 0; $j < mt_rand(0, 10); $j++) {
+                for ($j = 0; $j < mt_rand(0, 10); ++$j) {
                     $patrontheque = new PatternPatrontheque();
                     $patrontheque->setPatrontheque($patron)
                         ->setPatternPatrontheques($faker->randomElement($users))

@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Level;
 use App\Form\NewLevelType;
 use App\Service\Pagination;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,9 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminLevelController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }
@@ -24,8 +25,7 @@ class AdminLevelController extends AbstractController
     /**
      * @Route("/admin/version/level/{page<\d+>?1}", name="admin_level")
      *
-     * @param Pagination $pagination
-     * @param            $page
+     * @param $page
      *
      * @return Response
      */
@@ -34,15 +34,14 @@ class AdminLevelController extends AbstractController
         $pagination->setEntityClass(Level::class)
             ->setRoute('admin_level')
             ->setPage($page);
+
         return $this->render('admin/level/list.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
         ]);
     }
 
     /**
      * @Route("/admin/version/level/new", name="admin_level_new")
-     *
-     * @param Request $request
      *
      * @return RedirectResponse|Response
      */
@@ -55,20 +54,18 @@ class AdminLevelController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->manager->persist($level);
             $this->manager->flush();
-            $this->addFlash('success', "Niveau de patron créé avec succès !");
+            $this->addFlash('success', 'Niveau de patron créé avec succès !');
+
             return $this->redirectToRoute('admin_level');
         }
 
         return $this->render('admin/level/new.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/admin/version/level/edit/{id}", name="admin_level_edit")
-     *
-     * @param Request $request
-     * @param Level   $level
      *
      * @return RedirectResponse|Response
      */
@@ -79,20 +76,19 @@ class AdminLevelController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->manager->flush();
-            $this->addFlash('success', "Niveau de patron modifié avec succès !");
+            $this->addFlash('success', 'Niveau de patron modifié avec succès !');
+
             return $this->redirectToRoute('admin_level');
         }
 
         return $this->render('admin/level/edit.html.twig', [
             'form' => $form->createView(),
-            'level' => $level
+            'level' => $level,
         ]);
     }
 
     /**
      * @Route("/admin/version/level/delete/{id}", name="admin_level_delete")
-     *
-     * @param Level $level
      *
      * @return RedirectResponse
      */
@@ -100,7 +96,8 @@ class AdminLevelController extends AbstractController
     {
         $this->manager->remove($level);
         $this->manager->flush();
-        $this->addFlash('success', "Niveau de patron supprimé avec succès !");
+        $this->addFlash('success', 'Niveau de patron supprimé avec succès !');
+
         return $this->redirectToRoute('admin_level');
     }
 }

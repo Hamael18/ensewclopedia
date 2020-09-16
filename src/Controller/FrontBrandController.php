@@ -6,7 +6,7 @@ use App\Entity\Brand;
 use App\Entity\BrandLike;
 use App\Entity\User;
 use App\Repository\BrandLikeRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,11 +14,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FrontBrandController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
 
+    /**
+     * @var BrandLikeRepository
+     */
     protected $brandLikeRepository;
 
-    public function __construct(ObjectManager $manager, BrandLikeRepository $brandLikeRepository)
+    public function __construct(EntityManagerInterface $manager, BrandLikeRepository $brandLikeRepository)
     {
         $this->manager = $manager;
         $this->brandLikeRepository = $brandLikeRepository;
@@ -26,7 +30,6 @@ class FrontBrandController extends AbstractController
 
     /**
      * @Route("/brand/{slug}", name="front_brand")
-     * @param Brand $brand
      *
      * @return Response
      */
@@ -39,26 +42,22 @@ class FrontBrandController extends AbstractController
 
     /**
      * @Route("/brand/{slug}/like", name="brand_like")
-     * @param Brand $brand
      *
-     * @return Response
      * @throws Exception
      */
-    public function likeBrand(Brand $brand) : Response
+    public function likeBrand(Brand $brand): Response
     {
         /** @var User $user */
         $user = $this->getUser();
 
-        if (!$user)
-        {
+        if (!$user) {
             return $this->json(['code' => 403, 'message' => 'unauthorized'], 403);
         }
 
-        if ($brand->isLikedByUser($user))
-        {
+        if ($brand->isLikedByUser($user)) {
             $like = $this->brandLikeRepository->findOneBy([
                 'brand' => $brand,
-                'user' => $user
+                'user' => $user,
             ]);
 
             $this->manager->remove($like);
@@ -67,7 +66,7 @@ class FrontBrandController extends AbstractController
             return $this->json([
                 'code' => 200,
                 'message' => 'Le like a été supprimé',
-                'likes' => $this->brandLikeRepository->count(['brand' => $brand])
+                'likes' => $this->brandLikeRepository->count(['brand' => $brand]),
             ], 200);
         }
 
@@ -81,8 +80,8 @@ class FrontBrandController extends AbstractController
 
         return $this->json([
             'code' => 200,
-            'message'=> 'Le like a été ajouté',
-            'likes' => $this->brandLikeRepository->count(['brand' => $brand])
+            'message' => 'Le like a été ajouté',
+            'likes' => $this->brandLikeRepository->count(['brand' => $brand]),
             ], 200);
     }
 }

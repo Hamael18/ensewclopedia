@@ -6,7 +6,7 @@ use App\Entity\PasswordUpdate;
 use App\Entity\User;
 use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,23 +18,19 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }
 
     /**
      * @Route("/login", name="app_login")
-     *
-     * @param AuthenticationUtils $authenticationUtils
-     *
-     * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -56,9 +52,6 @@ class SecurityController extends AbstractController
     /**
      * @Route("/registration", name="app_registration")
      *
-     * @param Request                      $request
-     * @param UserPasswordEncoderInterface $encoder
-     *
      * @return RedirectResponse|Response
      */
     public function registration(Request $request, UserPasswordEncoderInterface $encoder)
@@ -72,11 +65,13 @@ class SecurityController extends AbstractController
             $user->setPassword($passwordHash);
             $this->manager->persist($user);
             $this->manager->flush();
-            $this->addFlash('success', "Marque créé avec succès !");
+            $this->addFlash('success', 'Marque créé avec succès !');
+
             return $this->redirectToRoute('app_login');
         }
+
         return $this->render('security/registration.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -96,8 +91,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         return $this->render('security/updatepassword.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
-
     }
 }

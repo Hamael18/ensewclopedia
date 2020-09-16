@@ -6,7 +6,7 @@ use App\Entity\Brand;
 use App\Form\BrandOwnerType;
 use App\Form\BrandType;
 use App\Service\Pagination;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,19 +15,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminBrandController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
 
-    public function __construct(ObjectManager $manager) {
+    public function __construct(EntityManagerInterface $manager)
+    {
         $this->manager = $manager;
     }
 
     /**
      * @Route("/admin/brand/{page<\d+>?1}", name="admin_brand")
      *
-     * @param Pagination $pagination
-     * @param            $page
+     * @param $page
      *
      * @return Response
+     *
      * @throws \Exception
      */
     public function listBrand(Pagination $pagination, $page)
@@ -44,8 +46,6 @@ class AdminBrandController extends AbstractController
 
     /**
      * @Route("/admin/brand/new", name="admin_brand_new")
-     *
-     * @param Request $request
      *
      * @return RedirectResponse|Response
      */
@@ -71,9 +71,6 @@ class AdminBrandController extends AbstractController
     /**
      * @Route("/admin/brand/edit/{id}", name="admin_brand_edit")
      *
-     * @param Request $request
-     * @param Brand   $brand
-     *
      * @return RedirectResponse|Response
      */
     public function editBrand(Request $request, Brand $brand)
@@ -97,8 +94,6 @@ class AdminBrandController extends AbstractController
     /**
      * @Route("/admin/brand/delete/{id}", name="admin_brand_delete")
      *
-     * @param Brand $brand
-     *
      * @return RedirectResponse
      */
     public function deleteBrand(Brand $brand)
@@ -112,9 +107,6 @@ class AdminBrandController extends AbstractController
 
     /**
      * @Route("admin/brand/{id}/add_owner", name="admin_brand_addOwner")
-     *
-     * @param Request $request
-     * @param Brand   $brand
      *
      * @return RedirectResponse|Response
      */

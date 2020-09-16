@@ -8,7 +8,7 @@ use App\Entity\User;
 use App\Entity\WishlistPattern;
 use App\Repository\PatternPatronthequeRepository;
 use App\Repository\WishlistPatternRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,23 +16,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FrontPatternController extends AbstractController
 {
-    /**
-     * @var ObjectManager
-     */
+    /** @var EntityManagerInterface */
     protected $manager;
-
     /**
      * @var PatternPatronthequeRepository
      */
-    private $patternPatronthequeRepository;
-
+    protected $patternPatronthequeRepository;
     /**
      * @var WishlistPatternRepository
      */
-    private $wishlistPatternRepository;
+    protected $wishlistPatternRepository;
 
     public function __construct(
-        ObjectManager $manager,
+        EntityManagerInterface $manager,
         PatternPatronthequeRepository $patternPatronthequeRepository,
         WishlistPatternRepository $wishlistPatternRepository)
     {
@@ -43,7 +39,6 @@ class FrontPatternController extends AbstractController
 
     /**
      * @Route("/front/pattern/{slug}", name="front_pattern")
-     * @param Pattern $pattern
      *
      * @return Response
      */
@@ -56,25 +51,21 @@ class FrontPatternController extends AbstractController
 
     /**
      * @Route("/pattern/{slug}/patrontheque", name="pattern_patrontheque")
-     * @param Pattern $pattern
      *
-     * @return Response
      * @throws Exception
      */
-    public function isInPatrontheque(Pattern $pattern) : Response
+    public function isInPatrontheque(Pattern $pattern): Response
     {
         /** @var User $user */
         $user = $this->getUser();
 
-        if (!$user)
-        {
+        if (!$user) {
             return $this->json(['code' => 403, 'message' => 'unauthorized'], 403);
         }
-        if ($pattern->inPatronthequeByUser($user))
-        {
+        if ($pattern->inPatronthequeByUser($user)) {
             $patrontheque = $this->patternPatronthequeRepository->findOneBy([
                 'patrontheque' => $pattern,
-                'patternPatrontheques' => $user
+                'patternPatrontheques' => $user,
             ]);
 
             $this->manager->remove($patrontheque);
@@ -83,7 +74,7 @@ class FrontPatternController extends AbstractController
             return $this->json([
                 'code' => 200,
                 'message' => 'Le patron a été supprimé de la patrontheque',
-                'patrontheque' => $this->patternPatronthequeRepository->count(['patrontheque' => $pattern])
+                'patrontheque' => $this->patternPatronthequeRepository->count(['patrontheque' => $pattern]),
             ], 200);
         }
 
@@ -97,10 +88,9 @@ class FrontPatternController extends AbstractController
 
         return $this->json([
             'code' => 200,
-            'message'=> 'Le patron a été ajouté à la patrontheque',
-            'patrontheque' => $this->patternPatronthequeRepository->count(['patrontheque' => $pattern])
+            'message' => 'Le patron a été ajouté à la patrontheque',
+            'patrontheque' => $this->patternPatronthequeRepository->count(['patrontheque' => $pattern]),
         ], 200);
-
     }
 
     /**
@@ -108,43 +98,36 @@ class FrontPatternController extends AbstractController
      */
     public function patronthequeByUser()
     {
-
         $user = $this->getUser();
         $patrontheque = $this->patternPatronthequeRepository->findBy(['patternPatrontheques' => $user]);
         $patterns = [];
 
-        foreach ($patrontheque as $pattern)
-        {
+        foreach ($patrontheque as $pattern) {
             $patterns[] = $pattern->getPatrontheque();
         }
+
         return $this->render('front_office/patrontheque.html.twig', [
             'patterns' => $patterns,
         ]);
-
     }
-
 
     /**
      * @Route("/pattern/{slug}/wishlist", name="pattern_wishlist")
-     * @param Pattern $pattern
      *
-     * @return Response
      * @throws Exception
      */
-    public function isInWishList(Pattern $pattern) : Response
+    public function isInWishList(Pattern $pattern): Response
     {
         /** @var User $user */
         $user = $this->getUser();
 
-        if (!$user)
-        {
+        if (!$user) {
             return $this->json(['code' => 403, 'message' => 'unauthorized'], 403);
         }
-        if ($pattern->inwishListByUser($user))
-        {
+        if ($pattern->inwishListByUser($user)) {
             $pattern = $this->wishlistPatternRepository->findOneBy([
-                'pattern'=> $pattern,
-                'user' => $user
+                'pattern' => $pattern,
+                'user' => $user,
             ]);
 
             $this->manager->remove($pattern);
@@ -153,7 +136,7 @@ class FrontPatternController extends AbstractController
             return $this->json([
                 'code' => 200,
                 'message' => 'Le patron a été supprimé de la wishlist',
-                'wishlist' => $this->wishlistPatternRepository->count(['pattern' => $pattern])
+                'wishlist' => $this->wishlistPatternRepository->count(['pattern' => $pattern]),
             ], 200);
         }
 
@@ -167,9 +150,8 @@ class FrontPatternController extends AbstractController
 
         return $this->json([
             'code' => 200,
-            'message'=> 'Le patron a été ajouté à la wishlist',
-            'wishlist' => $this->wishlistPatternRepository->count(['pattern' => $pattern])
+            'message' => 'Le patron a été ajouté à la wishlist',
+            'wishlist' => $this->wishlistPatternRepository->count(['pattern' => $pattern]),
         ], 200);
-
     }
 }

@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Brand;
 use App\Form\BrandType;
 use App\Service\Pagination;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -15,17 +15,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MarqueBrandController extends AbstractController
 {
+    /** @var EntityManagerInterface */
     protected $manager;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }
 
     /**
      * @Route("/marque/brand/{slug}", name="marque_brand_homepage")
-     *
-     * @param Brand $brand
      *
      * @return Response
      */
@@ -38,9 +37,6 @@ class MarqueBrandController extends AbstractController
 
     /**
      * @Route("/ajax/snippet/image/send/{id}", name="ajax_snippet_image_send")
-     *
-     * @param Request $request
-     * @param Brand   $brand
      *
      * @return JsonResponse
      */
@@ -59,8 +55,7 @@ class MarqueBrandController extends AbstractController
     /**
      * @Route("/marque/brand/{page<\d+>?1}", name="marque_brand")
      *
-     * @param Pagination $pagination
-     * @param            $page
+     * @param $page
      *
      * @return Response
      */
@@ -78,9 +73,6 @@ class MarqueBrandController extends AbstractController
 
     /**
      * @Route("/marque/brand/edit/{id}", name="marque_brand_edit")
-     *
-     * @param Request $request
-     * @param Brand   $brand
      *
      * @return RedirectResponse|Response
      */
@@ -104,8 +96,6 @@ class MarqueBrandController extends AbstractController
 
     /**
      * @Route("/marque/brand/delete/{id}", name="marque_brand_delete")
-     *
-     * @param Brand $brand
      *
      * @return RedirectResponse
      */

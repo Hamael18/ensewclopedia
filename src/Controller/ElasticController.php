@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Repository\BrandRepository;
 use App\Repository\PatternRepository;
 use Elastica\Client;
-use Elastica\Client as ElasticaClient;
 use Elastica\Query;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\MultiMatch;
@@ -14,13 +13,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 class ElasticController extends AbstractController
 {
+
     /**
      * @var PatternRepository
      */
     private $patternRepository;
+
     /**
      * @var BrandRepository
      */
@@ -34,20 +34,15 @@ class ElasticController extends AbstractController
 
     /**
      * @Route("/search", name="search")
-     * @param Request        $request
-     * @param ElasticaClient $client
-     *
-     * @return Response
      */
-    public function elasticaSearch(Request $request, Client $client) : Response
+    public function elasticaSearch(Request $request, Client $client): Response
     {
-
         $query = $request->query->get('q', '');
         $limit = $request->query->get('l', 100);
 
         $match = new MultiMatch();
         $match->setQuery($query);
-        $match->setFields(["name", "description", "patterns", "sizes", "collars", "brand", "handles", "styles"]);
+        $match->setFields(['name', 'description', 'patterns', 'sizes', 'collars', 'brand', 'handles', 'styles']);
         $match->setFuzziness('AUTO');
         $match->setType('most_fields');
         $match->setOperator();
@@ -70,7 +65,6 @@ class ElasticController extends AbstractController
         foreach ($foundBrands as $brand) {
             $brandResult = $this->brandRepository->findOneBy(['id' => $brand->getId()]);
             $brands[] = $brandResult;
-
         }
         $countBrands = count($brands);
         $countPatterns = count($patterns);
@@ -79,7 +73,7 @@ class ElasticController extends AbstractController
             'patterns' => $patterns,
             'brands' => $brands,
             'countPatterns' => $countPatterns,
-            'countBrands' => $countBrands
+            'countBrands' => $countBrands,
         ]);
     }
 }

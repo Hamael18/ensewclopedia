@@ -12,14 +12,12 @@ class MarqueVersionController extends AbstractController
     /**
      * @Route("/marque/pattern/show/{id}", name="marque_version_show")
      *
-     * @param Version $version
-     *
      * @return Response
      */
     public function showVersion(Version $version)
     {
         return $this->render('marque/version/show.html.twig', [
-            'version' => $version
+            'version' => $version,
         ]);
     }
 }

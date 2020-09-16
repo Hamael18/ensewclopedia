@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Security;
@@ -29,14 +30,8 @@ class Pagination
 
     /**
      * Pagination constructor.
-     *
-     * @param ObjectManager $manager
-     * @param Environment   $twig
-     * @param RequestStack  $request
-     * @param $templatePath
-     * @param Security $security
      */
-    public function __construct(ObjectManager $manager, Environment $twig, RequestStack $request, $templatePath, Security $security, FilterObjectsBrand $filter)
+    public function __construct(EntityManagerInterface $manager, Environment $twig, RequestStack $request, $templatePath, Security $security, FilterObjectsBrand $filter)
     {
         $this->route = $request->getCurrentRequest()->attributes->get('_route');
         $this->manager = $manager;

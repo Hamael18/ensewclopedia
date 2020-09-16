@@ -10,31 +10,38 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BaseAdminController extends AbstractController
 {
+    /**
+     * @var PatternRepository
+     */
     protected $patternRepository;
 
+    /**
+     * @var BrandRepository
+     */
     protected $brandRepository;
 
     public function __construct(
         PatternRepository $patternRepository,
         BrandRepository $brandRepository
-    )
-    {
+    ) {
         $this->patternRepository = $patternRepository;
         $this->brandRepository = $brandRepository;
     }
+
     /**
      * @Route("/admin", name="admin_dashboard")
      */
     public function adminIndex()
     {
         return $this->render('admin/dashboard/dashboard.html.twig', [
-            'patternCount' =>$this->patternRepository->countPatterns(),
-            'brandCount' =>$this->brandRepository->countBrand()
+            'patternCount' => $this->patternRepository->countPatterns(),
+            'brandCount' => $this->brandRepository->countBrand(),
         ]);
     }
 
     /**
      * @Route("/marque", name="marque_dashboard")
+     *
      * @return Response
      */
     public function marqueIndex()

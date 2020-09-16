@@ -16,8 +16,7 @@ class AdminStyleController extends AbstractController
     /**
      * @Route("/admin/version/style/{page<\d+>?1}", name="admin_style")
      *
-     * @param Pagination $pagination
-     * @param            $page
+     * @param $page
      *
      * @return Response
      */
@@ -26,15 +25,14 @@ class AdminStyleController extends AbstractController
         $pagination->setEntityClass(Style::class)
             ->setRoute('admin_style')
             ->setPage($page);
+
         return $this->render('admin/style/index.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
         ]);
     }
 
     /**
      * @Route("/admin/version/style/new", name="admin_style_new")
-     *
-     * @param Request $request
      *
      * @return RedirectResponse|Response
      */
@@ -47,20 +45,18 @@ class AdminStyleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->manager->persist($style);
             $this->manager->flush();
-            $this->addFlash('success', "Style ajouté avec succès !");
+            $this->addFlash('success', 'Style ajouté avec succès !');
+
             return $this->redirectToRoute('admin_style');
         }
 
         return $this->render('admin/style/new.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/admin/version/style/edit/{id}", name="admin_style_edit")
-     *
-     * @param Request $request
-     * @param Style   $style
      *
      * @return RedirectResponse|Response
      */
@@ -71,20 +67,19 @@ class AdminStyleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->manager->flush();
-            $this->addFlash('success', "Style modifié avec succès !");
+            $this->addFlash('success', 'Style modifié avec succès !');
+
             return $this->redirectToRoute('admin_style');
         }
 
         return $this->render('admin/style/edit.html.twig', [
             'form' => $form->createView(),
-            'style' => $style
+            'style' => $style,
         ]);
     }
 
     /**
      * @Route("/admin/version/style/delete/{id}", name="admin_style_delete")
-     *
-     * @param Style $style
      *
      * @return RedirectResponse
      */
@@ -92,7 +87,8 @@ class AdminStyleController extends AbstractController
     {
         $this->manager->remove($style);
         $this->manager->flush();
-        $this->addFlash('success', "Style supprimé avec succès !");
+        $this->addFlash('success', 'Style supprimé avec succès !');
+
         return $this->redirectToRoute('admin_style');
     }
 }
